@@ -1,0 +1,66 @@
+/* All Classes */
+.allClasses {
+    margin: 5vh auto;
+    display: grid;
+    grid-template-columns: repeat(4,minmax(30vh, 40vw));
+    gap: 2rem;
+}
+.class {
+    padding: 0 20px;
+    border-radius: var(--border-radius-2);
+    cursor: pointer;
+    box-shadow: var(--box-shadow-1);
+}
+.classTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.classIcons {
+    font-size: 18px;
+}
+.classIcons #delete {
+    color: #ff0000;
+    margin-left: 0.8rem;
+}
+.totalStudents {
+    display: flex;
+    height: 20px;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+}
+.stdIcon {
+    position: absolute;
+    right: 5px;
+    font-size: 20px;
+}
+
+.classDetails h1 {
+    height: 10px;
+}
+.addNew {
+    min-height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Add Classes */
+
+#addClasses {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 100px ;
+} 
+
+
+
+
+/* @media (width < 900px) {
+    form {
+         width: 90vw;
+    }
+}  */
