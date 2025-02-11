@@ -1,0 +1,409 @@
+
+/* websiteHeader */
+.websiteHeader {
+  position: relative;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #007BFF, #28a745);
+}
+
+.websiteHeader nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 1;
+  width: 98%;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px 20px 10px;
+  z-index: 1000;
+}
+
+.websiteHeader nav .website-logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.websiteHeader nav ul {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+}
+
+.websiteHeader nav ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.websiteHeader nav ul li a:hover {
+  color: #007BFF;
+}
+
+.websiteHeader nav .auth-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.websiteHeader nav .auth-buttons button {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.websiteHeader nav .auth-buttons .login-btn {
+  background: #007BFF;
+  color: white;
+  border-radius: 30px;
+}
+
+.websiteHeader nav .auth-buttons .register-btn {
+  background: #28a745;
+  color: white;
+  
+  border-radius: 30px;
+  margin-left: -10px;
+}
+
+.websiteHeader .hero {
+  position: relative;
+  z-index: 1;
+  margin-top: 60px;
+}
+
+.websiteHeader .hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.websiteHeader .hero p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.websiteHeader .hero .cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.websiteHeader .hero .cta-buttons button {
+  padding: 10px 20px;
+  font-size: 14px; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.websiteHeader .hero .cta-buttons button:hover {
+  transform: translateY(-5px);
+}
+
+.websiteHeader .hero .cta-buttons .login-btn {
+  background: #007BFF;
+  color: white;
+  width: 12rem;
+}
+
+.websiteHeader .hero .cta-buttons .register-btn {
+  background: #28a745;
+  color: white;
+  width: 12rem;
+}
+button a
+{
+text-decoration: none;
+color: white;
+font-family: "Playfair", serif;
+font-optical-sizing: auto;
+font-weight: 200;
+font-style: normal;
+font-size: 16px;
+font-variation-settings:"wdth" 100;
+}
+
+/* Sections */
+section {
+  padding: 60px 20px;
+}
+/* Features Section */
+.features {
+  padding: 60px 20px;
+  text-align: center;
+  background: white;
+}
+
+.features h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.features .feature-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.features .feature-cards .card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.features .feature-cards .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.features .feature-cards .card i {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.features .feature-cards .card h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.features .feature-cards .card p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* How It Works Section */
+.how-it-works {
+  padding: 60px 20px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.how-it-works h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.how-it-works .steps {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.how-it-works .steps .step {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.how-it-works .steps .step:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.how-it-works .steps .step img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.how-it-works .steps .step h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.how-it-works .steps .step p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 60px 20px;
+  text-align: center;
+  background: white;
+}
+
+.testimonials h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.testimonials .testimonial-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.testimonials .testimonial-cards .card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonials .testimonial-cards .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.testimonials .testimonial-cards .card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.testimonials .testimonial-cards .card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.testimonials .testimonial-cards .card h4 {
+  font-size: 18px;
+  color: #333;
+}
+
+/* Call-to-Action Section */
+.cta {
+  padding: 60px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #007BFF, #28a745);
+  color: white;
+
+}
+
+.cta h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.cta p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.cta .cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+.cta .cta-buttons button {
+  padding: 10px 18px; /* Adjust padding to make buttons smaller */
+  font-size: 14px; /* Adjust font size to make text smaller */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.cta .cta-buttons button:hover {
+  transform: translateY(-5px);
+ 
+}
+
+.cta .cta-buttons .login-btn {
+
+  background: #007BFF;
+}
+.cta .cta-buttons .login-btn:hover{
+  background: #022d64;
+  color: white;
+}
+.cta .cta-buttons .register-btn {
+  background: #28a745;
+  color: white;
+  width: 12rem;
+  height: 50px;
+}
+
+/* Footer */
+footer {
+  background: #333;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+footer .footer-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+footer .footer-content .about,
+footer .footer-content .quick-links,
+footer .footer-content .contact-info {
+  width: 300px;
+  text-align: left;
+}
+
+footer .footer-content h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+footer .footer-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer .footer-content ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer .footer-content ul li a:hover {
+  color: #007BFF;
+}
+
+footer .footer-content p {
+  font-size: 16px;
+  color: #ccc;
+}
+footer .team .images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  overflow: hidden;
+}
+footer .team .images img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px solid white;
+
+}
+.footer .team .images span {
+  display: block;
+  margin-top: 40px;
+  font-size: 18px;
+}
