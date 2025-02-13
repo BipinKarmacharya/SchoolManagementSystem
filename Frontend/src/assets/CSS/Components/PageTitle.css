@@ -1,7 +1,7 @@
 .PageTitle {
     height: 5vh;
     max-width: 95vw;
-    margin: 20px auto;
+    margin: 15px auto;
     padding: 0 1rem;
     border-radius: var(--border-radius-1);
     background-color: var(--clr-primary-4);
@@ -12,8 +12,6 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    /* background-color: rebeccapurple; */
-
 }
 .subTitle {
     display: flex;

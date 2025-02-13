@@ -1,20 +1,15 @@
 import { useState } from "react";
 
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// // import "./App.css";
-
 import Header from "./Header";
 import { Sidebar } from "./Sidebar";
-
 import PageTitle from "./PageTitle";
-
 import { Outlet } from "react-router-dom";
 
 function Admin() {
   const [pageTitle, setPageTitle] = useState("Dashboard");
 
   // Toggling Menu
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

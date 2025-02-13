@@ -1,3 +1,9 @@
+.header {
+  height: 11vh;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 .navHeader {
   height: 11vh;
   width: 100vw;
@@ -9,9 +15,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 .instituteLogo img {
   height: 75px;
@@ -21,7 +24,7 @@
   font-size: 20px;
   position: absolute;
   top: 30px;
-  left: 250px;
+  left: 16vw;
   cursor: pointer;
 }
 .schoolDetails {

@@ -45,6 +45,16 @@
     justify-content: space-evenly;
 }
 
+/* Profile Image */
+.profileImg {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+  }
+
 @media (width < 1200px) {
     .allStudentsData {
         grid-template-columns: repeat(4, 1fr);

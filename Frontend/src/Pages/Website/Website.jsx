@@ -1,13 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { FaCircleArrowUp } from "react-icons/fa6";
 import "/src/assets/CSS/Pages/Website.css";
 
+// particle-config.js
+import ParticlesComponent from "/src/Components/ParticlesComponent.jsx";
+
 const Website = () => {
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="website">
       <div className="websiteHeader">
-        <div id="particles-js"></div>
+        <ParticlesComponent id="particles" />
         <nav>
           <div className="website-logo">EduManage</div>
           <ul>
@@ -154,7 +181,13 @@ const Website = () => {
           </div>
         </div>
       </div>
+
+      {showButton && (
+          <FaCircleArrowUp onClick={scrollToTop} className="back-to-top"/>
+        
+      )}
     </div>
   );
 };
+
 export default Website;

@@ -1,21 +1,24 @@
-.dashboard {
-    height: 89vh;
-}
+/* Dashboard */
 .gridContainer {
     min-width: 500px;
     min-height: 50vh;
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     gap: 1.5rem;
+    margin-top: 20px;
 }
 .gridItem {
-    /* height: 150px; */
+    min-height: 120px;
     grid-column-start: span 2;
     background: #2196f3d6;
     border-radius: 12px ;
     color: white;
     padding: 0 40px 0 20px;
     box-shadow: var(--box-shadow-1);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 .gridItem:hover {
     box-shadow:  3px 3px 10px #bebdbd,
@@ -35,9 +38,10 @@
     grid-column-start: span 3;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     background-color: var(--clr-primary-5);
     color: var(--text-color);
-    padding: 0 20px 20px 20px;
+    padding: 5px 20px;
     position: relative;
 }
 .presentBox {

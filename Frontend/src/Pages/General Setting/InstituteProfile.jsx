@@ -1,6 +1,5 @@
 import React from "react";
 import "/src/assets/CSS/Pages/InstituteProfile.css";
-import PageTitle from "../../Components/PageTitle";
 
 const InstituteProfile = () => {
   return (
