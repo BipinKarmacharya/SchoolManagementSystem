@@ -44,14 +44,14 @@ export const SidebarData = [
         menuTitle : "Students",
         menuIcon : PiStudentFill,
         subMenu : ["All Students", "Add Student", "Student ID Card", "Upgrade Student", "Login Portal"],
-        menuLink : ["/admin-dashboard/all-students", "/admin-dashboard/add-students", "", "", ""],
+        menuLink : ["/admin-dashboard/all-students", "/admin-dashboard/add-students", "", "", "std-login-portal"],
     },
     {
         id : 6,
         menuTitle : "Employee",
         menuIcon : FaUserShield,
         subMenu : ["All Employee", "Add Employee", "Employee ID Card", "Login Portal"],
-        menuLink : ["/admin-dashboard/all-employee", "/admin-dashboard/add-employee", "", ""],
+        menuLink : ["/admin-dashboard/all-employee", "/admin-dashboard/add-employee", "", "emp-login-portal"],
     },
     {
         id : 7,

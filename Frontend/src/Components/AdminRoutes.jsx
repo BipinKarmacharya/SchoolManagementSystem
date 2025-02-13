@@ -8,10 +8,12 @@ import AllClasses from "../Pages/Class Rooms/AllClasses";
 import AddClasses from "../Pages/Class Rooms/AddClasses";
 import AllStudents from "../Pages/Students/AllStudents";
 import AddStudents from "../Pages/Students/AddStudents";
-import StudentsList from "../Pages/Students/StudentsList";
+import StdLoginPortal from "../Pages/Students/StdLoginPortal"
+import StudentsList from "../Pages/Certificates/StudentsList";
 import ViewDetails from "../Pages/Students/ViewDetails";
 import AllEmployee from "../Pages/Employees/AllEmployee";
 import AddEmployee from "../Pages/Employees/AddEmployee";
+import EmpLoginPortal from "../Pages/Employees/EmpLoginPortal";
 import EmployeeAttendance from "../Pages/Attendance/EmployeeAttendance";
 import StudentAttendance from "../Pages/Attendance/StudentAttendance";
 import Search from "../Pages/Attendance/Search";
@@ -29,9 +31,11 @@ function AdminRoutes() {
         <Route path="add-classes" element={<AddClasses />} />
         <Route path="all-students" element={<AllStudents />} />
         <Route path="add-students" element={<AddStudents />} />
+        <Route path="std-login-portal" element={<StdLoginPortal />} />
         <Route path="students-list" element={<StudentsList />} />
         <Route path="all-employee" element={<AllEmployee />} />
         <Route path="add-employee" element={<AddEmployee />} />
+        <Route path="emp-login-portal" element={<EmpLoginPortal />} />
         <Route path="employee-attendance" element={<EmployeeAttendance />} />
         <Route path="search" element={<Search />} />
         <Route path="attendance" element={<StudentAttendance />} />

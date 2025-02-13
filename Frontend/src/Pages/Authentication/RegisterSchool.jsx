@@ -85,7 +85,7 @@ function RegisterSchool() {
               />
             </div>
 
-            <button type="submit" class="register-btn">
+            <button type="submit" class="register-button">
               Register School
             </button>
           </form>
