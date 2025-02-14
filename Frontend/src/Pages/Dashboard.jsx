@@ -56,7 +56,7 @@ const Dashboard = () => {
           <MyCalendar />
         </div>
 
-        <div className="checkDiv">Check Div</div>
+        {/* <div className="checkDiv">Check Div</div> */}
       </div>
     </div>
   );

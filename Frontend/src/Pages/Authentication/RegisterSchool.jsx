@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
 
 import "/src/assets/CSS/Pages/Authentication.css";
 
@@ -26,6 +27,7 @@ function RegisterSchool() {
 
   return (
     <div className="register-school">
+      <Link to = "/"><FaHome className="HomeIcon"/></Link>
       <div class="register-container">
         <div className="registration-form-container">
           <h2>Register Your School</h2>

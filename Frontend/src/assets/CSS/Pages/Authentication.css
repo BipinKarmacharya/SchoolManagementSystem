@@ -1,11 +1,27 @@
 .register-school {
-  /* background-color: #006afe; */
   height: 100vh;
   width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.LoginHomeIcon,
+.HomeIcon {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  font-size: 40px;
+  z-index: 1000;
+}
+.LoginHomeIcon {
+  color: #ff5900;
+}
+.HomeIcon {
+  color: #0033ff;
 }
 .register-container {
   width: 55vw;
-  margin: 0px auto;
+  height: 600px;
   padding: 15px;
   border-radius: 30px;
   display: flex;
@@ -100,14 +116,17 @@
 .login {
   height: 100vh;
   width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ffe5d9;
 }
 
 /* Container Styles */
 .login-Container {
   width: 55vw;
-  margin: 0 auto;
-  padding: 15px;
+  height: 600px;
+  padding: 20px;
   background-color: #ffffff;
   border-radius: 30px;
   display: flex;
@@ -190,15 +209,6 @@
 
 
 /* Form Styles */
-
-
-/* .login-form>input {
-  height: 1rem;
-  width: 100%;
-  font-size: 0.9rem;
-  padding: 1rem;
-  outline: none;
-} */
 
 .form__group {
   position: relative;

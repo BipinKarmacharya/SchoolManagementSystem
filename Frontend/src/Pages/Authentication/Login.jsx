@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+
 
 import "/src/assets/CSS/Pages/Authentication.css";
 
@@ -34,6 +36,7 @@ function Login() {
 
   return (
     <div className="login">
+      <Link to = "/"><FaHome  className="LoginHomeIcon"/></Link>
       <div id="login-container" className="login-Container">
         {/* Image Slider */}
         <div id="img-slider" className="img-slider">
@@ -74,7 +77,7 @@ function Login() {
                 required
               />
               <label for="name" className="form__label" id="name">
-                Name
+                Username / Email
               </label>
             </div>
             <div className="form__group field">
