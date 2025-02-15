@@ -21,6 +21,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100vw;
   color: #333;
   background: #f9f9f9;
+  scroll-behavior: smooth;
 }
 /* website Header */
 .websiteHeader {
@@ -226,7 +227,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .how-it-works .steps .step img {
-  width: 20rem;
+  height: 20rem;
+  box-shadow: 0 8px 16px rgba(199, 199, 199, 0.2);
   margin: 0px 0 20px -10px;
 }
 

@@ -52,8 +52,12 @@ const Website = () => {
             </li>
           </ul>
           <div className="auth-buttons">
+          <Link to="/login">
             <button className="login-btn">Login</button>
-            <button className="register-btn">Register as School Admin</button>
+            </Link>
+            <Link to="/register-school">
+            <button className="register-btn">Register your School</button>
+            </Link>
           </div>
         </nav>
         <div className="hero">
@@ -70,7 +74,7 @@ const Website = () => {
             </Link>
 
             <Link to="/register-school">
-              <button className="register-btn">Register as School Admin</button>
+              <button className="register-btn">Register your School</button>
             </Link>
           </div>
         </div>
@@ -106,12 +110,12 @@ const Website = () => {
             <p>Register your school and set up your account.</p>
           </div>
           <div className="step">
-            <img src="https://via.placeholder.com/150" alt="Customize" />
+            <img src="/Images/customize.jpg" alt="Customize" />
             <h3>2. Customize</h3>
             <p>Add students, teachers, and classes to the system.</p>
           </div>
           <div className="step">
-            <img src="https://via.placeholder.com/150" alt="Manage" />
+            <img src="/Images/manage.jpg" alt="Manage" />
             <h3>3. Manage</h3>
             <p>Start managing attendance, grades, and communication.</p>
           </div>
@@ -146,8 +150,12 @@ const Website = () => {
         <h2>Ready to Transform Your School Management?</h2>
         <p>Join hundreds of schools already using EduManage.</p>
         <div className="cta-buttons">
+        <Link to="/login">
           <button className="login-btn">Login</button>
-          <button className="register-btn">Register as School Admin</button>
+          </Link>
+          <Link to="/register-school">
+          <button className="register-btn">Register your School</button>
+          </Link>
         </div>
       </section>
 

@@ -305,6 +305,6 @@
 
 /* Register Link */
 .register-link {
-  margin-top: 5rem;
-  position: absolute;
+  margin-top: 20px;
+  font-size: 14px;
 }

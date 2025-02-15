@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+
 
 import "/src/assets/CSS/Pages/Authentication.css";
 
@@ -33,41 +35,39 @@ function Login() {
 
   return (
     <div className="login">
+      <Link to="/"><FaHome className="LoginHomeIcon" /></Link>
       <div id="login-container" className="login-Container">
-        <div className="logoption" id="role">
-          <h3>Login:</h3>
-
-          <button className="std" onClick={() => setIdentifier("student")}>
-            <i className="fa-solid fa-user-graduate"></i>
-            <span>Student</span>
-          </button>
-          <button className="teacheropt" onClick={() => setIdentifier("teacher")}>
-            <i className="fa fa-chalkboard-user"></i>
-            <span>Teacher</span>
-          </button>
-          <button className="adminopt" onClick={() => setIdentifier("admin")}>
-            <i className="fa fa-user-gear"></i>
-            <span>Admin</span>
-          </button>
+        {/* Image Slider */}
+        <div id="img-slider" className="img-slider">
+          <img id="student-image" src="/Images/login.png" alt="Student Login" />
+          {/* <img id="teacher-image" src="/Images/teacher.png" alt="Teacher Login" /> */}
+          {/* <img id="admin-image" src="/Images/admin.png" alt="Admin Login" /> */}
         </div>
 
-        <div className="img-container">
-          <div id="img-slider" className="img-slider">
-            <img
-              id="student-image"
-              src="/Images/login.png"
-              alt="Student Login"
-            />
-            <img
-              id="teacher-image"
-              src="/Images/teacher.png"
-              alt="Teacher Login"
-            />
-            <img id="admin-image" src="/Images/admin.png" alt="Admin Login" />
+        {/* Form */}
+        <div className="login-form-container">
+          <div className="logOption" id="role">
+            <h3>Login:</h3>
+            <div className="selectUserButton">
+              <button className="std" onclick="handleRoleClick('student')">
+                <i className="fa-solid fa-user-graduate"></i>
+                <span>Student</span>
+              </button>
+              <button
+                className="teacherOpt"
+                onclick="handleRoleClick('teacher')"
+              >
+                <i className="fa fa-chalkboard-user"></i>
+                <span>Teacher</span>
+              </button>
+              <button className="adminOpt" onclick="handleRoleClick('admin')">
+                <i className="fa fa-user-gear"></i>
+                <span>Admin</span>
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="box">
+          {/* Form */}
           <form id="login-form" onSubmit={handleLogin}>
             <div className="form__group field">
               <input
@@ -108,11 +108,15 @@ function Login() {
                 Password
               </label>
             </div>
-            <button type="submit" className="submit" id="userLogin">
-              Sign In
-              <i className="fa-solid fa-arrow-right-to-bracket"></i>
-            </button>
-            <span className="forgot">Forgot Password?</span>
+            <div className="formButton">
+              <button type="submit" className="submit" id="userLogin">
+                Sign In
+              </button>
+              <button className="forgot">
+                Forgot Password?
+              </button>
+            </div>
+
             <p className="register-link">
               Don't have an account?{" "}
               <Link to="/register-school">Register your school</Link>
