@@ -16,7 +16,7 @@ const DataTable = ({ data, headers, renderActions }) => {
             <tr key={item.student_id || item.employee_id}>
               <td>{index + 1}</td>
               {Object.keys(item).map((key) => {
-                if (key !== 'id' && key !== 'student_id' && key !== 'employee_id') {
+                if (key !== 'id') {
                   return <td key={key}>{item[key]}</td>;
                 }
                 return null;

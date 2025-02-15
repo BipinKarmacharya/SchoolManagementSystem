@@ -20,7 +20,7 @@ const AddStudents = () => {
     date_of_birth: "",
     date_of_enrollment: "",
     gender: "",
-    school: 1, // Assuming school ID is 1 for this example
+    school: 2, // Assuming school ID is 1 for this example
   });
 
   const [parentData, setParentData] = useState({
