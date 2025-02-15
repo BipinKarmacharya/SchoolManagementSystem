@@ -1,10 +1,12 @@
+import { useState } from "react";
 import "/src/assets/CSS/Pages/Students.css";
 
 import SearchForm from "/src/Components/SearchForm";
 import Profile from "/src/Components/Profile";
 
-import { employees } from "/src/assets/JSON/EmployeesData"; // Renamed from students to employees
+import { employees } from "/src/assets/JSON/EmployeesData";
 
+// Function to group employees by department
 const groupByDepartment = (employees) => {
   return employees.reduce((acc, employee) => {
     (acc[employee.department] = acc[employee.department] || []).push(employee);
@@ -13,16 +15,52 @@ const groupByDepartment = (employees) => {
 };
 
 const AllEmployee = () => {
-  const employeesByDepartment = groupByDepartment(employees);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+
+  // Handle input change
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value.toLowerCase());
+  };
+
+  // Handle dropdown selection change
+  const handleDepartmentChange = (event) => {
+    setSelectedDepartment(event.target.value);
+  };
+
+  // Filter employees based on search term and department selection
+  const filteredEmployees = employees.filter((employee) => {
+    const fullName = `${employee.first_name} ${employee.middle_name ? employee.middle_name + " " : ""}${employee.last_name}`.toLowerCase();
+    
+    const matchesSearch = searchTerm === "" || fullName.includes(searchTerm);
+    const matchesDepartment = selectedDepartment === "" || employee.department === selectedDepartment;
+    
+    return matchesSearch && matchesDepartment;
+  });
+  
+
+  // Group filtered employees by department
+  const employeesByDepartment = groupByDepartment(filteredEmployees);
+
+  // Get unique department names
+  const departmentOptions = [
+    ...new Set(employees.map((emp) => emp.department)),
+  ].map((dept) => ({ value: dept, label: dept }));
 
   return (
     <div className="all-employees">
-      <SearchForm />
+      <SearchForm
+        searchPlaceholder="Search Employee"
+        options={departmentOptions}
+        optionLabel="View Employees By Department"
+        onSearchChange={handleSearchChange}
+        onSelectChange={handleDepartmentChange}
+      />
       <div className="all-employees-container">
         {Object.keys(employeesByDepartment).map((department) => (
           <div key={department} className="department-section">
             <div className="departmentInfo">
-              <h2>Department: {department}</h2> {/* Display Department Name */}
+              <h2>Department: {department}</h2>
             </div>
             <div className="allEmployeesData">
               {employeesByDepartment[department].map((employee) => (
@@ -37,4 +75,3 @@ const AllEmployee = () => {
 };
 
 export default AllEmployee;
-

@@ -6,59 +6,65 @@ import axios from "axios";
 
 // Function to group students by class
 const groupByClass = (students) => {
-  const grouped = {};
-  students.forEach((student) => {
-    if (!grouped[student.enroll_class]) {
-      grouped[student.enroll_class] = [];
-    }
-    grouped[student.enroll_class].push(student);
-  });
-  return grouped;
+  return students.reduce((acc, student) => {
+    (acc[student.enroll_class] = acc[student.enroll_class] || []).push(student);
+    return acc;
+  }, {});
 };
 
 const AllStudents = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // For search input
+  const [selectedClass, setSelectedClass] = useState(""); // For class filter
 
+  // Fetch students from API
   useEffect(() => {
     const fetchStudents = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/students/");
-        setStudents(response.data); // Update the students state with the fetched data
-        setLoading(false);
+        setStudents(response.data);
       } catch (error) {
         setError(error);
+      } finally {
         setLoading(false);
       }
     };
-
     fetchStudents();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  const studentsByClass = groupByClass(students);
-
-  // Sort class IDs numerically (directly compare numeric class IDs)
-  const sortedEnroll_classes = Object.keys(studentsByClass).sort((a, b) => {
-    return parseInt(a) - parseInt(b); // Sort by numerical value
+  // Filter students based on search and class selection
+  const filteredStudents = students.filter((student) => {
+    const fullName = `${student.first_name} ${student.middle_name ? student.middle_name + " " : ""}${student.last_name}`.toLowerCase();
+    const matchesSearch = searchTerm === "" || fullName.includes(searchTerm.toLowerCase());
+    const matchesClass = selectedClass === "" || student.enroll_class.toString() === selectedClass;
+    return matchesSearch && matchesClass;
   });
+
+  // Group filtered students by class
+  const studentsByClass = groupByClass(filteredStudents);
+
+  // Get unique class options for the dropdown
+  const classOptions = [...new Set(students.map((s) => s.enroll_class))].sort((a, b) => a - b);
 
   return (
     <div className="all-students">
-      <SearchForm />
+      <SearchForm
+        searchPlaceholder="Search Student"
+        options={classOptions.map((c) => ({ value: c.toString(), label: `Class ${c}` }))}
+        optionLabel="View Students By Class"
+        onSearchChange={(e) => setSearchTerm(e.target.value)}
+        onSelectChange={(e) => setSelectedClass(e.target.value)}
+      />
       <div className="all-students-container">
-        {sortedEnroll_classes.map((enroll_class) => (
+        {Object.keys(studentsByClass).sort((a, b) => a - b).map((enroll_class) => (
           <div key={enroll_class} className="class-section">
             <div className="classInfo">
-              <h2>Class {enroll_class}</h2> {/* Display Class ID */}
+              <h2>Class {enroll_class}</h2>
             </div>
             <div className="allStudentsData">
               {studentsByClass[enroll_class].map((student) => (

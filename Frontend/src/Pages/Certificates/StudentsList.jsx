@@ -1,9 +1,8 @@
-// import { Link } from "react-router-dom";
-// import { students } from "/src/assets/JSON/StudentsData.js";
+
 import React, { useState, useEffect } from 'react';
 import DataTable from '/src/Components/LoginDataTable';
 
-import SearchForm from "../../Components/SearchForm";
+// import SearchForm from "/src/Components/SearchForm";
 
 const StudentsList = () => {
    const [students, setStudents] = useState([]);
@@ -12,7 +11,7 @@ const StudentsList = () => {
       // Simulating fetching data from an API or database
       const fetchData = async () => {
         // Replace this with an actual API call
-        const response = await fetch('/JSON/StudentData.json');
+        const response = await fetch('http://127.0.0.1:8000/api/students/');
         const data = await response.json();
         setStudents(data);
       };
@@ -24,9 +23,9 @@ const StudentsList = () => {
   
     const extractStudentData = students.map(student => ({
       student_id: student.student_id,
-      first_name: student.first_name,
-      last_name: student.last_name,
-      class: student.class,
+      student_id: student.student_id,
+      first_name: student.first_name + student.middle_name + student.last_name,
+      class: student.enroll_class,
       phone: student.phone,
       parent: student.parent,
       feeRemain: student.feeRemain,
@@ -38,7 +37,7 @@ const StudentsList = () => {
   return (
     <>
       <div className="students-list">
-        <SearchForm />
+        {/* <SearchForm /> */}
 
         <section className="data-table">
           <h2>Student List</h2>

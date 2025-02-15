@@ -8,7 +8,7 @@ const EmployeePortal = () => {
     // Simulating fetching data from an API or database
     const fetchData = async () => {
       // Replace this with an actual API call
-      const response = await fetch('/api/employees');
+      const response = await fetch('http://127.0.0.1:8000/api/employees');
       const data = await response.json();
       setEmployees(data);
     };
@@ -20,10 +20,9 @@ const EmployeePortal = () => {
 
   const extractEmployeeData = employees.map(employee => ({
     employee_id: employee.employee_id,
-    first_name: employee.first_name,
-    last_name: employee.last_name,
+    emp_name: employee.first_name + ' ' + employee.middle_name + ' ' + employee.last_name,
     phone: employee.phone,
-    username: employee.username,
+    username: employee.email,
     password: employee.password,
   }));
 
