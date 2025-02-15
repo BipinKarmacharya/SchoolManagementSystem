@@ -26,6 +26,7 @@ urlpatterns = [
    path('',include("student.urls")),
    path('',include("schooldata.urls")),
    path('',include("parent.urls")),
+   path('api/auth/', include('auth_sys.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,15 +37,35 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+   
     'auth_sys',
     'corsheaders',
     'rest_framework',
     'schooldata',
     'student',
     'parent',
+    'employee',
+    # 'attendance',
+    'rest_framework_simplejwt',
+
     
     
 ]
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # ),
+# }
+
+
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',  # Default
+#     'path.to.your.custom_backend.EmailAuthBackend',  # Custom email-based authentication
+# ]
+
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -61,9 +81,8 @@ MIDDLEWARE = [
 ]
 #REST_FRAMEWORK={'DEFAULT_PERMISSION_CLASSES':['rest_framework.permission.AllowAny']}
 #CORS_ORIGIN_ALLOW_ALL=True
-CORS_ALLOWED_ORIGINS = [
-"http://localhost:5173",
-]
+CORS_ALLOW_ALL_ORIGINS = True  # Allows all origins
+
 
 ROOT_URLCONF = 'eschool.urls'
 
@@ -89,22 +108,22 @@ WSGI_APPLICATION = 'eschool.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': BASE_DIR / 'db.sqlite3',
-   }
-}
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'schoolmanagementdb',
-#         'USER': 'root',
-#         'PASSWORD': 'admin',
-#         'HOST': 'localhost',
-#         'PORT': '3306',  # Default MySQL port
-#     }
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'eschooldatabase',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',  # Default MySQL port
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -159,3 +178,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #         'rest_framework.parsers.JSONParser',
 #     ]
 # }
+AUTH_USER_MODEL = 'auth_sys.CustomUser'

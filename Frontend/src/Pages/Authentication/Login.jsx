@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import "/src/assets/CSS/Pages/Authentication.css";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [identifier, setIdentifier] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ function Login() {
     const response = await fetch("http://127.0.0.1:8000/api/login/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ identifier, email, password }),
     });
 
     if (response.ok) {
@@ -23,10 +24,8 @@ function Login() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.role);
 
-      // Redirect based on role
-      if (data.role === "admin") navigate("/admin-dashboard");
-      else if (data.role === "student") navigate("/student-dashboard");
-      else if (data.role === "teacher") navigate("/teacher-dashboard");
+      // Directly redirect to admin dashboard
+      navigate("/admin-dashboard");
     } else {
       alert("Invalid credentials");
     }
@@ -38,15 +37,15 @@ function Login() {
         <div className="logoption" id="role">
           <h3>Login:</h3>
 
-          <button className="std" onclick="handleRoleClick('student')">
+          <button className="std" onClick={() => setIdentifier("student")}>
             <i className="fa-solid fa-user-graduate"></i>
             <span>Student</span>
           </button>
-          <button className="teacheropt" onclick="handleRoleClick('teacher')">
+          <button className="teacheropt" onClick={() => setIdentifier("teacher")}>
             <i className="fa fa-chalkboard-user"></i>
             <span>Teacher</span>
           </button>
-          <button className="adminopt" onclick="handleRoleClick('admin')">
+          <button className="adminopt" onClick={() => setIdentifier("admin")}>
             <i className="fa fa-user-gear"></i>
             <span>Admin</span>
           </button>
@@ -69,16 +68,31 @@ function Login() {
         </div>
 
         <div className="box">
-          <form id="login-form">
+          <form id="login-form" onSubmit={handleLogin}>
             <div className="form__group field">
               <input
                 type="text"
                 className="form__field"
-                placeholder="Name"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <label for="name" className="form__label" id="name">
-                Name
+              <label htmlFor="email" className="form__label">
+                Email
+              </label>
+            </div>
+            <div className="form__group field">
+              <input
+                type="text"
+                className="form__field"
+                placeholder="School Code"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                required
+              />
+              <label htmlFor="identifier" className="form__label">
+                School Code
               </label>
             </div>
             <div className="form__group field">
@@ -86,9 +100,11 @@ function Login() {
                 type="password"
                 className="form__field"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <label for="password" className="form__label" id="password">
+              <label htmlFor="password" className="form__label">
                 Password
               </label>
             </div>
@@ -99,7 +115,7 @@ function Login() {
             <span className="forgot">Forgot Password?</span>
             <p className="register-link">
               Don't have an account?{" "}
-              <Link to = "/register-school">Register your school</Link>
+              <Link to="/register-school">Register your school</Link>
             </p>
           </form>
         </div>

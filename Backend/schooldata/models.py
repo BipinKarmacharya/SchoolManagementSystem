@@ -2,10 +2,12 @@
 from django.utils.timezone import now
 # Create your models here.
 from django.db import models
+from auth_sys.models import CustomUser
 ##########  TABLE FOR SCHOOLS
 class School(models.Model):
+    admin_user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='school_admin', null=True, blank=True)
     school_code = models.CharField(max_length=4, unique=True)  
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     address = models.TextField()
     telephone = models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField(unique=True)

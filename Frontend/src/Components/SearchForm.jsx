@@ -3,7 +3,7 @@ import "/src/assets/CSS/Pages/Students.css";
 const SearchForm = () => {
   return (
     <>
-      <form action="" id="searchForm">
+      <form method="post" action="" id="searchForm">
         <fieldset>
           <legend>Search Student</legend>
           <input
