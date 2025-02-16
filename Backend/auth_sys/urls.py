@@ -6,8 +6,10 @@ from .views import (
     EmployeeRegisterAPIView,
     LoginAPIView,
     ForgotPasswordAPIView,
-    ChangePasswordAPIView
+    ChangePasswordAPIView,
+    
 )
+from auth_sys.views import send_student_email
 
 urlpatterns = [
     path('school/register/', SchoolRegisterAPIView.as_view(), name='school-register'),
@@ -16,4 +18,5 @@ urlpatterns = [
     path('login/', LoginAPIView.as_view(), name='login'),
     path('forgot-password/', ForgotPasswordAPIView.as_view(), name='forgot-password'),
     path('change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
+    path('send-student-email/', send_student_email, name='send_student_email'),
 ]

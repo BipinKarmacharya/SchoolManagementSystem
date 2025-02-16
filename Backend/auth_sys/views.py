@@ -131,3 +131,45 @@ class ChangePasswordAPIView(generics.UpdateAPIView):
             {"message": "Password changed successfully."},
             status=status.HTTP_200_OK
         )
+
+
+#views to send email to student
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.core.mail import send_mail
+from django.conf import settings
+
+@api_view(['POST'])
+def send_student_email(request):
+    """
+    Expects JSON payload:
+    {
+        "student_id": "12345",
+        "email": "student@example.com",
+        "password": "studentpassword"
+    }
+    """
+    student_id = request.data.get('student_id')
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    if not all([student_id, email, password]):
+        return Response({"error": "Missing required fields."}, status=400)
+
+    subject = "Your School Management System Login Details"
+    message = (
+        f"Dear Student,\n\n"
+        f"Here are your login details for the School Management System:\n"
+        f"Student ID: {student_id}\n"
+        f"Email: {email}\n"
+        f"Password: {password}\n\n"
+        f"Regards,\nSchool Management Team"
+    )
+    from_email = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+
+    try:
+        send_mail(subject, message, from_email, recipient_list)
+        return Response({"message": "Email sent successfully."}, status=200)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)

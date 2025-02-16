@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "/src/assets/CSS/Pages/Students.css";
 
 import SearchForm from "/src/Components/SearchForm";
 import Profile from "/src/Components/Profile";
-
-import { employees } from "/src/assets/JSON/EmployeesData";
 
 // Function to group employees by department
 const groupByDepartment = (employees) => {
@@ -17,6 +16,21 @@ const groupByDepartment = (employees) => {
 const AllEmployee = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [employees, setEmployees] = useState([]);
+
+  useEffect(() => {
+    // Fetch employee data from the backend
+    const fetchEmployees = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/employees/");
+        setEmployees(response.data);
+      } catch (error) {
+        console.error("Error fetching employee data:", error);
+      }
+    };
+
+    fetchEmployees();
+  }, []);
 
   // Handle input change
   const handleSearchChange = (event) => {
@@ -37,7 +51,6 @@ const AllEmployee = () => {
     
     return matchesSearch && matchesDepartment;
   });
-  
 
   // Group filtered employees by department
   const employeesByDepartment = groupByDepartment(filteredEmployees);

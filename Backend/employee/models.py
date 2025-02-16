@@ -7,7 +7,7 @@ from auth_sys.models import CustomUser
 
 class Employee(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE,null=True, related_name='employee_profile')
     employee_id = models.CharField(max_length=20, unique=True, blank=True)
     first_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50, blank=True, null=True)

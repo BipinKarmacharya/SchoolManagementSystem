@@ -26,6 +26,7 @@ urlpatterns = [
    path('',include("student.urls")),
    path('',include("schooldata.urls")),
    path('',include("parent.urls")),
+    path('',include("employee.urls")),
    path('api/auth/', include('auth_sys.urls'))
 ]
 if settings.DEBUG:
