@@ -11,11 +11,15 @@
   transition: left 0.3s ease-in-out;
   padding: 0 20px;
   overflow-y: auto; /* Ensure scrolling if content overflows */
+  z-index: 1000; /* Ensure it's above content */
 }
 
 /* When sidebar is open */
 .sidebar.open {
   left: 0; /* Moves in from the left */
+}
+.sidebar:not(.open) {
+  transform: translateX(-100%);
 }
 
 /* Main content shift when sidebar opens */
@@ -73,4 +77,41 @@
 
 
 
+/* Responsive adjustments */
+@media (max-width: 950px) {
+  .sidebar {
+    background-color: rgb(242, 242, 250);
+    left: -300px; /* Keep it hidden initially */
+    width: 250px;
+    position: fixed;
+    height: 100vh; /* Full height */
+    top: 11vh; /* Covers entire screen */
+    z-index: 1100; /* Ensure it is above other elements */
+  }
 
+  .sidebar.open {
+    left: 0; /* Overlay the content */
+  }
+
+  /* Content should NOT shift on small screens */
+  .content.shifted {
+    margin-left: 0;
+  }
+}
+
+/* Background overlay when sidebar is open */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 950; /* Just below the sidebar */
+}
+
+/* Show overlay when sidebar is open */
+.sidebar.open ~ .sidebar-overlay {
+  display: block;
+}

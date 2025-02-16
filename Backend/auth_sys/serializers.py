@@ -42,17 +42,20 @@ class SchoolRegisterSerializer(serializers.ModelSerializer):
 class StudentRegisterSerializer(serializers.ModelSerializer):
     """
     Serializer for student registration.
-    Expects: student_id, email, name, age, and password.
+    Expects: student_id, email, password, and school_id.
     """
     password = serializers.CharField(write_only=True)
+    school_id = serializers.PrimaryKeyRelatedField(queryset=School.objects.all(), required=True)
 
     class Meta:
         model = Student
-        fields = ['student_id', 'first_name', 'last_name', 'email', 'password']
+        fields = ['student_id', 'email', 'password', 'school_id']
 
     def create(self, validated_data):
+        # Extract and remove school_id before creating a user
+        school = validated_data.pop('school_id')
+
         # Create a CustomUser for the student.
-        # Using student_id as username.
         user = CustomUser.objects.create_user(
             username=validated_data['student_id'],
             email=validated_data['email'],
@@ -63,11 +66,10 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
         student = Student.objects.create(
             user=user,
             student_id=validated_data['student_id'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            
+            school=school  # Assign school_id correctly
         )
         return student
+
 
 # --- Employee Registration ---
 class EmployeeRegisterSerializer(serializers.ModelSerializer):
@@ -94,8 +96,7 @@ class EmployeeRegisterSerializer(serializers.ModelSerializer):
         employee = Employee.objects.create(
             user=user,
             employee_id=validated_data['employee_id'],
-            first_name=validated_data['name'],
-            age=validated_data['age'],
+        
         )
         return employee
 

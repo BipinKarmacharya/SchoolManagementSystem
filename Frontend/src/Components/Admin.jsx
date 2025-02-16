@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "./Header";
 import { Sidebar } from "./Sidebar";
@@ -8,12 +8,29 @@ import { Outlet } from "react-router-dom";
 function Admin() {
   const [pageTitle, setPageTitle] = useState("Dashboard");
 
-  // Toggling Menu
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
+  // Sidebar state
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 950);
+  
+  // Function to toggle sidebar
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsSidebarOpen((prev) => !prev);
   };
+
+  // Effect to auto-close sidebar on small screens
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSidebarOpen(window.innerWidth > 950);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  // Toggling Menu
+  // const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  // const toggleSidebar = () => {
+  //   setIsSidebarOpen(!isSidebarOpen);
+  // };
   return (
     <div className="app">
       <div className="header">
@@ -21,7 +38,14 @@ function Admin() {
       </div>
       <div className="main">
         <Sidebar setPageTitle={setPageTitle} isSidebarOpen={isSidebarOpen} />
-        <div className={`content ${isSidebarOpen ? "shifted" : ""}`}>
+
+        {/* Overlay to block clicks when sidebar is open */}
+        {isSidebarOpen && window.innerWidth <= 768 && (
+          <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+        )}
+
+        {/* Content Area */}
+        <div className={`content ${isSidebarOpen && window.innerWidth > 768 ? "shifted" : ""}`}>
           <PageTitle title={pageTitle} />
           <div className="content">
             <Outlet /> {/* Loads child routes inside Admin Dashboard */}

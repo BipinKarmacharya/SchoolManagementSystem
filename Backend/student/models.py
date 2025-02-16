@@ -25,8 +25,8 @@ class Student(models.Model):
     document1 = models.FileField(upload_to='documents/', blank=True, null=True)
     document2 = models.FileField(upload_to='documents/', blank=True, null=True)
     document3 = models.FileField(upload_to='documents/', blank=True, null=True)
-    date_of_birth = models.DateField()
-    date_of_enrollment = models.DateTimeField()     
+    date_of_birth = models.DateField(null=True, blank=True)  # Set null=True and blank=True
+    date_of_enrollment = models.DateTimeField(null=True, blank=True)  # Set null=True and blank=True
     gender = models.CharField(max_length=10)
     
     def __str__(self):
