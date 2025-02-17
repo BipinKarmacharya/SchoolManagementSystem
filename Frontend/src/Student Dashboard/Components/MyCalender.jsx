@@ -56,8 +56,8 @@ const MyCalendar = () => {
         selectable
         onSelectSlot={handleSelect}
         style={{
-          height: 350,
-          // width: 700,
+          height: 400,
+          width: 700,
           backgroundColor: "#f0f0f0",
           padding: 20,
           borderRadius: "10px",

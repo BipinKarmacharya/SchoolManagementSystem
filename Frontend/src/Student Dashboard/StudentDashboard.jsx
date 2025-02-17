@@ -1,175 +1,64 @@
-import React, { useEffect, useState } from "react";
-import "/src/assets/CSS/Pages/Dashboard.css";
-import { SlArrowDown } from "react-icons/sl";
-import MyCalendar from "../Components/MyCalender";
-import { FaPen } from "react-icons/fa";
-import '/src/assets/CSS/Pages/Dashboard.css';
-import '/src/assets/CSS/StudentDashboard/MyCalendar.css';
-import '/src/assets/CSS/StudentDashboard/Profile.css';
+import React, { useState, useEffect } from "react";
+// import "./App.css";
 
-import { students } from '/src/assets/JSON/StudentsData.js';
+import Header from "./Components/Header";
+import { Sidebar } from "./Components/Sidebar";
+import Dashboard from "./Pages/Home";
 
-const Dashboard = () => {
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [studentData, setStudentData] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedData, setEditedData] = useState({}); // State to hold edited data
-  const [imageSrc, setImageSrc] = useState(null);
-  const toggleDropdown = () => {
-    setDropdownVisible(!isDropdownVisible);
-  };
-  useEffect(() => {
-    const data = students.find(student => student.id === 1);
-    setStudentData(data);
-    setEditedData(data); // Initialize editedData with the student data
-  }, []);
 
-  if (!studentData) {
-    return <div>Loading...</div>;
-  }
+import PageTitle from "../Components/PageTitle";
 
-  // Function to handle input changes
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setEditedData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
+const Student = () => {
+  const [pageTitle, setPageTitle] = useState("Dashboard");
+  const [currentPage, setCurrentPage] = useState("dashboard"); // State to track the current page
 
-  // Function to enable editing
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
-  // Function to save changes
-  const handleSave = () => {
-    setStudentData(editedData); 
-    setIsEditing(false);
-  };
-
-  function handleImage(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImageSrc(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-  return (
-    <div className="dashboard">
-      <h3>Welcome Back😊</h3>
+  // Sidebar state
+    const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 950);
     
-      <div className="panelText">
-        <span>Welcome to the student panel</span>
-        <p>This is where you can manage all.</p>
+    // Function to toggle sidebar
+    const toggleSidebar = () => {
+      setIsSidebarOpen((prev) => !prev);
+    };
+  
+    // Effect to auto-close sidebar on small screens
+    useEffect(() => {
+      const handleResize = () => {
+        setIsSidebarOpen(window.innerWidth > 950);
+      };
+  
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
-        <div className="panelImage">
-          <img src="./assets/images/background.png" alt="background" />
-        </div>
+  // Render the current page based on state
+  const renderPage = () => {
+    switch (currentPage) {
+      case "dashboard":
+        return <Dashboard />;
+ 
+      default:
+        return <Dashboard />;
+    }
+  };
+
+  return (
+    <div className="app">
+      <div className="header">
+        <Header toggleSidebar={toggleSidebar} />
       </div>
-
-      <div className="con">
-        <div className="details">
-          <span>Details</span>
-          <div className="icon" onClick={toggleDropdown}>
-            <SlArrowDown className={`arrow ${isDropdownVisible ? "rotate" : ""}`} />
-          </div>
-          <div className={`dropdownContent ${isDropdownVisible ? "visible" : ""}`}>
-            <div className="edit">
-              {isEditing ? (
-                <button onClick={handleSave}>Save</button>
-              ) : (
-                <FaPen onClick={handleEdit} />
-              )}
-            </div>
-            <span>
-              Name: 
-              <input 
-                type="text" 
-                name="first_name" 
-                value={editedData.first_name} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              /> 
-              <input 
-                type="text" 
-                name="last_name" 
-                value={editedData.last_name} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              />
-            </span>
-            <p>Id: {studentData.student_id}</p>
-            <p>
-              Email: 
-              <input 
-                type="email" 
-                name="email" 
-                value={editedData.email} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              />
-            </p>
-            <p>
-              Phone: 
-              <input 
-                type="number" 
-                name="phone" 
-                value={editedData.phone} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              />
-            </p>
-            <p>
-              Address: 
-              <input 
-                type="text" 
-                name="address" 
-                value={editedData.address} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              />
-            </p>
-          </div>
-        </div>
-        <input
-          type="file"
-          accept="image"
-          id="fileInput"
-          onChange={handleImage}
-          style={{ display: "none" }}
+      <div className="main">
+        <Sidebar
+          setPageTitle={setPageTitle}
+          isSidebarOpen={isSidebarOpen}
+          // navigateTo={navigateTo} // Pass the navigation function to Sidebar
         />
-        <label htmlFor="fileInput" className="custom-file-button">
-          <FaPen />
-        </label>
-        <div className="profileimg">
-        {imageSrc && <img src={imageSrc} alt="Profile Preview" className="image-preview" />}
-        </div>
-
-        <span className="name">{studentData.first_name} {studentData.last_name}</span>
-        <div className="gpa">
-          <span>GPA: 4.00</span>
-        </div>
-        <div className="gridItem todayCount" id="todayCount">
-          <h5>
-            Attendance: <span className="showPercent">0%</span>
-          </h5>
-          <div className="presentBox"></div>
-          <h5>
-            Course Completion: <span className="showPercent">100%</span>
-          </h5>
-          <div className="presentBox"></div>
-        </div>
-
-        <div className="calendar">
-          <MyCalendar />
+        <div className={`content ${isSidebarOpen ? "shifted" : ""}`}>
+          <PageTitle title={pageTitle} />
+          {renderPage()} {/* Render the current page */}
         </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default Student;

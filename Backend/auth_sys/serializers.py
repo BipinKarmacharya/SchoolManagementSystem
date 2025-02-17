@@ -60,7 +60,7 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
             username=validated_data['student_id'],
             email=validated_data['email'],
             password=validated_data['password'],
-            role='student'
+            role='Student'
         )
         # Create the Student instance and link the user.
         student = Student.objects.create(

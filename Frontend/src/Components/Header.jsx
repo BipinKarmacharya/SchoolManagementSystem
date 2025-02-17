@@ -1,3 +1,4 @@
+import  { Link } from "react-router-dom"
 import React, { useState } from "react";
 import "/src/assets/CSS/Components/Header.css";
 
@@ -38,7 +39,7 @@ const Header = ({ toggleSidebar }) => {
       {/* Dropdown Card */}
       <div className={`dropdown ${isCardVisible ? "active" : ""}`}>
         <ul>
-          <li>Profile <LuUserRoundCog className="dropdownIcon"/></li>
+          <Link to = "/profile-setting"><li>Profile <LuUserRoundCog className="dropdownIcon"/></li></Link>
           <li>Logout  <MdOutlineLogout className="dropdownIcon"/></li>
         </ul>
       </div>

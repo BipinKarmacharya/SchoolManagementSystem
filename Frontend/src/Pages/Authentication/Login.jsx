@@ -4,8 +4,13 @@ import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import "/src/assets/CSS/Pages/Authentication.css";
 
+// Icons
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { PiStudentBold } from "react-icons/pi";
+import { RiAdminFill } from "react-icons/ri";
+
 function Login() {
-  const [role, setRole] = useState("admin"); // Default role
+  const [role, setRole] = useState("School Admin"); // Default role
   const [identifier, setIdentifier] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,10 +19,15 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    const loginData = { email, password };
-    if (role === "admin") loginData.identifier = identifier;
-    if (role === "student") loginData.studentId = identifier;
-    if (role === "teacher") loginData.teacherId = identifier;
+    // Create the login payload
+    const loginData = {
+      identifier,
+      email,
+      password,
+      role,
+    };
+
+    console.log("Login payload:", loginData); // For testing
 
     try {
       const response = await fetch("http://127.0.0.1:8000/api/auth/login/", {
@@ -30,8 +40,15 @@ function Login() {
       const data = await response.json();
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.role);
-      
-      navigate(`/${role}-dashboard`);
+
+      // Redirect to different dashboards based on role
+      if (role === "School Admin") {
+        navigate("/admin-dashboard");
+      } else if (role === "Student") {
+        navigate("/student-dashboard");
+      } else if (role === "Teacher") {
+        navigate("/teacher-dashboard");
+      }
     } catch (error) {
       alert(error.message);
     }
@@ -43,35 +60,73 @@ function Login() {
         <FaHome className="LoginHomeIcon" />
       </Link>
       <div id="login-container" className="login-Container">
+        {/* Image */}
+
+        <div id="img-slider" className="img-slider">
+          <img id="student-image" src="/Images/login.png" alt="Student Login" />
+          {/* <img id="teacher-image" src="/Images/teacher.png" alt="Teacher Login" /> */}
+          {/* <img id="admin-image" src="/Images/admin.png" alt="Admin Login" /> */}
+        </div>
+
+        {/* Form */}
+
         <div className="login-form-container">
           <div className="logOption" id="role">
             <h3>Login as:</h3>
             <div className="selectUserButton">
-              <button className="std" onClick={() => setRole("student")}>
-                <i className="fa-solid fa-user-graduate"></i>
+              <div className="login-user">
+                <button
+                  className={`std ${role === "Student" ? "active-role" : ""}`}
+                  onClick={() => {
+                    setRole("Student");
+                    console.log("Selected Role:", "Student");
+                  }}
+                >
+                  <PiStudentBold className="login-user-icon" />
+                </button>
                 <span>Student</span>
-              </button>
-              <button className="std" onClick={() => setRole("teacher")}>
-                <i className="fa fa-chalkboard-user"></i>
+              </div>
+              <div className="login-user">
+                <button
+                  className={`std ${role === "Teacher" ? "active-role" : ""}`}
+                  onClick={() => {
+                    setRole("Teacher");
+                    console.log("Selected Role:", "Teacher");
+                  }}
+                >
+                  <LiaChalkboardTeacherSolid className="login-user-icon" />
+                </button>
                 <span>Teacher</span>
-              </button>
-              <button className="std" onClick={() => setRole("admin")}>
-                <i className="fa fa-user-gear"></i>
+              </div>
+              <div className="login-user">
+                <button
+                  className={`std ${
+                    role === "School Admin" ? "active-role" : ""
+                  }`}
+                  onClick={() => {
+                    setRole("School Admin");
+                    console.log("Selected Role:", "School Admin");
+                  }}
+                >
+                  <RiAdminFill className="login-user-icon" />
+                </button>
                 <span>Admin</span>
-              </button>
+              </div>
             </div>
           </div>
 
           <form id="login-form" onSubmit={handleLogin}>
-            {(role === "admin" || role === "student" || role === "teacher") && (
+            {(role === "School Admin" ||
+              role === "Student" ||
+              role === "Teacher") && (
               <div className="form__group field">
                 <input
                   type="text"
                   className="form__field"
                   placeholder={
-                    role === "admin"
+                    role === "School Admin"
                       ? "School Code"
-                      : role === "student"
+                      : role === "Student"
                       ? "Student ID"
                       : "Teacher ID"
                   }
@@ -80,7 +135,11 @@ function Login() {
                   required
                 />
                 <label htmlFor="identifier" className="form__label">
-                  {role === "admin" ? "School Code" : role === "student" ? "Student ID" : "Teacher ID"}
+                  {role === "School Admin"
+                    ? "School Code"
+                    : role === "Student"
+                    ? "Student ID"
+                    : "Teacher ID"}
                 </label>
               </div>
             )}
@@ -121,7 +180,8 @@ function Login() {
             </div>
 
             <p className="register-link">
-              Don't have an account? <Link to="/register-school">Register your school</Link>
+              Don't have an account?{" "}
+              <Link to="/register-school">Register your school</Link>
             </p>
           </form>
         </div>

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-// import "/src/assets/CSS/Pages/Dashboard.css";
+import "/src/assets/CSS/Pages/Dashboard.css";
 import { SlArrowDown } from "react-icons/sl";
+import MyCalendar from "../Components/MyCalender";
 import { FaPen } from "react-icons/fa";
-// import '/src/assets/CSS/Pages/Dashboard.css';
-// import '/src/assets/CSS/Components/MyCalendar.css';
-// import '/src/assets/CSS/Components/Profile.css';
+// import '../assets/CSS/Pages/Dashboard.css';
+// import '../assets/CSS/Components/MyCalendar.css';
+import '../assets/CSS/Components/Profile.css';
 
 import { students } from '/src/assets/JSON/StudentsData.js';
 
-
-
-const UserProfile = () => {
+const Dashboard = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [studentData, setStudentData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -60,7 +59,18 @@ const UserProfile = () => {
     }
   }
   return (
-    <div className="user-profile">
+    <div className="dashboard">
+      <h3>Welcome Back😊</h3>
+    
+      <div className="panelText">
+        <span>Welcome to the student panel</span>
+        <p>This is where you can manage all.</p>
+
+        <div className="panelImage">
+          <img src="./assets/images/background.png" alt="background" />
+        </div>
+      </div>
+
       <div className="con">
         <div className="details">
           <span>Details</span>
@@ -136,14 +146,14 @@ const UserProfile = () => {
           <FaPen />
         </label>
         <div className="profileimg">
-          {imageSrc && <img src={imageSrc} alt="Profile Preview" className="image-preview" />}
+        {imageSrc && <img src={imageSrc} alt="Profile Preview" className="image-preview" />}
         </div>
 
         <span className="name">{studentData.first_name} {studentData.last_name}</span>
         <div className="gpa">
           <span>GPA: 4.00</span>
         </div>
-        {/* <div className="gridItem todayCount" id="todayCount">
+        <div className="gridItem todayCount" id="todayCount">
           <h5>
             Attendance: <span className="showPercent">0%</span>
           </h5>
@@ -152,11 +162,14 @@ const UserProfile = () => {
             Course Completion: <span className="showPercent">100%</span>
           </h5>
           <div className="presentBox"></div>
-        </div> */}
+        </div>
 
+        <div className="calendar">
+          <MyCalendar />
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default UserProfile;
+export default Dashboard;

@@ -25,12 +25,7 @@ function Admin() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  // Toggling Menu
-  // const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  // const toggleSidebar = () => {
-  //   setIsSidebarOpen(!isSidebarOpen);
-  // };
+ 
   return (
     <div className="app">
       <div className="header">

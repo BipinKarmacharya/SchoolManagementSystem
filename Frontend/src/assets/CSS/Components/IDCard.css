@@ -1,0 +1,93 @@
+/* ID Card Container */
+.id-card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    width: 200px;
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: var(--box-shadow-1);
+    /* margin: 1rem; */
+}
+
+/* Student ID Specific */
+.student-id {
+    border-top: 6px solid #2196F3;
+}
+
+/* Employee ID Specific */
+.employee-id {
+    border-top: 6px solid #4CAF50;
+}
+
+/* Header Section */
+.id-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.organization-name {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.id-type {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* Photo Section */
+.photo-container {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 3px solid #e0e0e0;
+}
+
+.id-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Details Section */
+.id-details {
+    margin: 0.6rem 0;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-label {
+    color: #7f8c8d;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.detail-value {
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 0.8rem;
+    text-align: right;
+}
+
+/* Footer Section */
+.id-footer {
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 0rem;
+    border-top: 1px solid #eee;
+}
+
+.validity {
+    color: #7f8c8d;
+    font-size: 0.75rem;
+}
