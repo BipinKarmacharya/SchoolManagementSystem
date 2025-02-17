@@ -44,3 +44,17 @@ def generate_student_id(sender, instance, created, **kwargs):
         school_code = instance.school.school_code if instance.school and hasattr(instance.school, 'school_code') else 'SCH'
         instance.student_id = f"{school_code}{enrollment_year}{instance.pk:02d}"
         instance.save(update_fields=['student_id'])
+
+
+
+
+
+
+
+# Signal to update the username in CustomUser after creating/updating a Student
+@receiver(post_save, sender=Student)
+def update_user_username(sender, instance, created, **kwargs):
+    if instance.user:  # Ensure the student has a linked user
+        # Overwrite the username with the student_id
+        instance.user.username = instance.student_id
+        instance.user.save()
