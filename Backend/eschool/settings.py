@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'student',
     'parent',
     'employee',
+    'classes',
+    'subject',
     # 'attendance',
     'rest_framework_simplejwt',
 
@@ -77,12 +79,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
    
 ]
 #REST_FRAMEWORK={'DEFAULT_PERMISSION_CLASSES':['rest_framework.permission.AllowAny']}
 #CORS_ORIGIN_ALLOW_ALL=True
 CORS_ALLOW_ALL_ORIGINS = True  # Allows all origins
-
 
 ROOT_URLCONF = 'eschool.urls'
 

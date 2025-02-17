@@ -49,18 +49,18 @@ function Login() {
           <div className="logOption" id="role">
             <h3>Login:</h3>
             <div className="selectUserButton">
-              <button className="std" onclick="handleRoleClick('student')">
+              <button className="std" onClick="handleRoleClick('student')">
                 <i className="fa-solid fa-user-graduate"></i>
                 <span>Student</span>
               </button>
               <button
                 className="teacherOpt"
-                onclick="handleRoleClick('teacher')"
+                onClick="handleRoleClick('teacher')"
               >
                 <i className="fa fa-chalkboard-user"></i>
                 <span>Teacher</span>
               </button>
-              <button className="adminOpt" onclick="handleRoleClick('admin')">
+              <button className="adminOpt" onClick="handleRoleClick('admin')">
                 <i className="fa fa-user-gear"></i>
                 <span>Admin</span>
               </button>
