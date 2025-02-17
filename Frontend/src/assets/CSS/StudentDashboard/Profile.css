@@ -1,0 +1,105 @@
+.con
+{
+    height: 85%;
+    width: 30%;
+    position: absolute;
+    margin-left: 60%;
+    margin-top: 1rem;
+    border-radius: 20px;
+    background: rgb(232,240,243);
+    background: linear-gradient(0deg, rgba(232,240,243,1) 0%, rgba(41,124,230,1) 47%);
+}
+.profileimg
+{
+    border-radius: 80px;
+    background: #4e82cf85;
+    box-shadow:  1px 1px 3px #bebebe,
+                 -1px -1px 3px #ffffff;
+    width: 10rem;
+    height: 10rem;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 32%;
+    position: absolute;
+ 
+}
+.profileimg input{
+    margin-top: -11rem;
+    opacity: 100%;
+    width: 30px;
+    margin-left: 8rem;
+    position: absolute;
+}
+.custom-file-button {
+    color: rgb(250, 247, 247);
+    position: absolute;
+    margin-top: 8.5rem;
+    margin-left: 64%;
+    z-index: 1;
+    border-radius: 10px;
+  
+}
+  
+.image-preview {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 90px; 
+  
+  }
+.name
+{
+    margin-top: 12rem;
+    position: absolute;
+   margin-left: 35%;
+
+}
+.gpa 
+{
+    width: 30%;
+    height: 8%;
+    background-color: #19355f;
+    color:black;
+    margin-left: 35%;
+    margin-top: 15rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+}
+span
+{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+}
+.dashboard .notice 
+{
+    width: 40%;
+    height: 20%;
+    background: #99a2af;
+ 
+    margin-left: 5%;
+    margin-top: 20%;
+    position: absolute;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+}
+.dashboard .notice span
+{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: rgb(239, 238, 238);
+}
+.dashboard .notice p
+{
+    padding-top: 10px;
+}

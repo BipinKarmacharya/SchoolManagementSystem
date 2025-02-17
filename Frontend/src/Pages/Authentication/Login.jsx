@@ -40,8 +40,8 @@ function Login() {
         {/* Image Slider */}
         <div id="img-slider" className="img-slider">
           <img id="student-image" src="/Images/login.png" alt="Student Login" />
-          {/* <img id="teacher-image" src="/Images/teacher.png" alt="Teacher Login" /> */}
-          {/* <img id="admin-image" src="/Images/admin.png" alt="Admin Login" /> */}
+          <img id="teacher-image" src="/Images/teacher.png" alt="Teacher Login" />
+          <img id="admin-image" src="/Images/admin.png" alt="Admin Login" />
         </div>
 
         {/* Form */}
