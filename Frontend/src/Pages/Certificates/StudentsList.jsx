@@ -23,7 +23,6 @@ const StudentsList = () => {
   
     const extractStudentData = students.map(student => ({
       student_id: student.student_id,
-      student_id: student.student_id,
       first_name: student.first_name + student.middle_name + student.last_name,
       class: student.enroll_class,
       phone: student.phone,
@@ -41,36 +40,6 @@ const StudentsList = () => {
 
         <section className="data-table">
           <h2>Student List</h2>
-          {/* <table>
-            <thead>
-              <tr>
-                <th>S.N</th>
-                <th>Student ID</th>
-                <th>Student's Name</th>
-                <th>Parent</th>
-                <th>Class</th>
-                <th>Fee Remaining</th>
-                <th>Phone</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.map((student, index) => (
-                <tr key={student.student_id}>
-                  <td>{index + 1}</td>
-                  <td>{student.student_id}</td>
-                  <td>{student.first_name} {student.middle_name} {student.last_name}</td>
-                  <td>{student.parent}</td>
-                  <td>{student.class}</td>
-                  <td>{student.fee_remaining}</td>
-                  <td>{student.phone}</td>
-                  <td><Link to="/character-certificate">Print TC</Link></td>
-                </tr>
-              ))}
-            </tbody>
-          </table> */}
-
-          
           <DataTable data={extractStudentData} headers={headers} renderActions={renderActions} />
         </section>
       </div>

@@ -37,7 +37,7 @@ export const SidebarData = [
         menuTitle : "Subjects",
         menuIcon : GiBookPile,
         subMenu : ["All Subjects", "Add Subjects"],
-        menuLink : ["link1", "link2"],
+        menuLink : ["/admin-dashboard/all-subjects", "/admin-dashboard/add-subjects"],
     },
     {
         id : 5,
