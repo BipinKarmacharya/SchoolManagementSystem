@@ -9,5 +9,6 @@ route.register('parents',ParentViewSet,basename='parents')
 
 
 urlpatterns = [
-path('api/',include(route.urls))
+path('api/',include(route.urls)),
+ 
 ]

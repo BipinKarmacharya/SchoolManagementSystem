@@ -119,9 +119,9 @@ WSGI_APPLICATION = 'eschool.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'schoolmanagementdb',
+        'NAME': 'eschooldatabase',
         'USER': 'root',
-        'PASSWORD': 'MySQL@2000',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306',  # Default MySQL port
     }

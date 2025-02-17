@@ -1,7 +1,3 @@
-from django.db import models
-
-# Create your models here.
-# accounts/models.py
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -21,7 +17,27 @@ class CustomUser(AbstractUser):
         help_text="Designates the type of user: school admin, student, or employee."
     )
     
-    # You can add more fields here if necessary.
+    # Make username nullable
+    username = models.CharField(max_length=150, unique=True, null=True, blank=True)
+    
+    # Use email as the unique identifier for authentication instead of username
+    email = models.EmailField(unique=True)  # Ensure email is unique
+    EMAIL_FIELD = 'email'
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    def save(self, *args, **kwargs):
+        # Automatically generate a username if not provided
+        if not self.username and self.role == 'student':
+            # Fetch the related student instance
+            student = getattr(self, 'student_profile', None)
+            if student:
+                self.username = student.student_id
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.username
+        return self.email if self.email else 'No Email'
+
+# Ensure to run the following commands to apply the changes to the database:
+# python manage.py makemigrations
+# python manage.py migrate

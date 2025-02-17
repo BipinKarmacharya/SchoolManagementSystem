@@ -101,10 +101,16 @@ class EmployeeRegisterSerializer(serializers.ModelSerializer):
         return employee
 
 # --- Existing Login, Forgot Password, Change Password serializers remain unchanged ---
+from django.contrib.auth import authenticate
+from rest_framework import serializers
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 class LoginSerializer(serializers.Serializer):
     """
     Serializer for login.
-    The 'identifier' field is:
+    The 'identifier' field can be:
       - school_code for school admins,
       - student_id for students, or
       - employee_id for employees.
@@ -117,15 +123,20 @@ class LoginSerializer(serializers.Serializer):
         identifier = data.get('identifier')
         email = data.get('email')
         password = data.get('password')
-        
-        # Here we assume that the identifier is stored as the username.
-        user = authenticate(username=identifier, password=password)
-        if not user:
+
+        # Try to find the user by identifier
+        try:
+            user = User.objects.get(username=identifier, email=email)
+        except User.DoesNotExist:
             raise serializers.ValidationError("Invalid credentials.")
-        if user.email != email:
-            raise serializers.ValidationError("Email does not match the user.")
+
+        # Authenticate user
+        if not user.check_password(password):
+            raise serializers.ValidationError("Invalid credentials.")
+
         data['user'] = user
         return data
+
 
 class ForgotPasswordSerializer(serializers.Serializer):
     """
@@ -151,3 +162,56 @@ class ChangePasswordSerializer(serializers.Serializer):
         if not user.check_password(value):
             raise serializers.ValidationError("Current password is incorrect.")
         return value
+
+
+
+# # authsys/serializers.py
+# from rest_framework import serializers
+# from .models import CustomUser
+
+# class CustomUserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = CustomUser
+#         fields = ['first_name', 'last_name', 'email', 'password']
+#         extra_kwargs = {
+#             'password': {'write_only': True}
+#         }
+    
+#     def create(self, validated_data):
+#         # Use create_user to hash the password correctly
+#         user = CustomUser.objects.create_user(**validated_data)
+#         return user
+
+#     def update(self, instance, validated_data):
+#         password = validated_data.pop('password', None)
+#         for attr, value in validated_data.items():
+#             setattr(instance, attr, value)
+#         if password:
+#             instance.set_password(password)
+#         instance.save()
+#         return instance
+# authsys/serializers.py
+from rest_framework import serializers
+from .models import CustomUser
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['role','username','first_name', 'last_name', 'email', 'password']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+    
+    def create(self, validated_data):
+        # Use create_user to hash the password properly.
+        user = CustomUser.objects.create_user(**validated_data)
+        return user
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        if password:
+            instance.set_password(password)
+        instance.save()
+        return instance

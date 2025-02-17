@@ -68,6 +68,7 @@ class EmployeeRegisterAPIView(generics.CreateAPIView):
 
 # --- Login ---
 class LoginAPIView(generics.GenericAPIView):
+    
     """
     API endpoint for login.
     Expects: identifier, email, and password.
