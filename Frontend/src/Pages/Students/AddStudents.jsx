@@ -80,7 +80,7 @@ const AddStudents = () => {
       email: studentData.email,
       gender: studentData.gender,
     };
-
+    console.log("User object:", payload.user);
     try {
       // Send student registration request
       const studentResponse = await axios.post(
