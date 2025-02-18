@@ -10,6 +10,8 @@ import Website from "./Pages/Website/Website";
 import UserProfile from "./Pages/UserAccount/UserProfile";
 import StudentDashboard from "./Student Dashboard/StudentDashboard"
 import EmployeeDashboard from "./Employee Dashboard/EmployeeDashboard"
+import ChangePass from "./Pages/UserAccount/ChangePass";
+import ResetPass from "./Pages/UserAccount/ResetPass";
 // Import the new AdminRoutes
 import AdminRoutes from "./Components/AdminRoutes"; 
 
@@ -24,6 +26,8 @@ const App = () => {
 
         {/* User Profile */}
         <Route path="/profile-setting" element={<UserProfile />} />
+        <Route path="/Change-Pass" element={<ChangePass/>}/>
+        <Route path="/Reset-Pass" element={<ResetPass/>}/>
         <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
       </Routes>

@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -7,7 +7,7 @@ body {
     background-color: #f4f4f4;
     margin: 0;
   }
-  
+   */
   .profile-card {
     background-color: #fff;
     border-radius: 10px;
@@ -16,6 +16,7 @@ body {
     text-align: center;
     overflow: hidden;
     height: 35rem;
+    margin-left: 30rem;
   }
   
   .cover-photo {
@@ -33,24 +34,18 @@ body {
     border-radius: 50%;
     margin-top: -40px;
     border: 3px solid #fff;
-    background-color: #ccc; /* Placeholder for profile photo */
+    background-color: #ccc; 
     overflow: hidden;
     display: inline-block;
-    position: relative; /* Add this to position the edit button correctly */
-  }
-  .coverimage-preview
-  {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
+    
   }
     
   
   .proimage-preview {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures the image covers the entire area */
-    border-radius: 50%; /* Maintains the circular shape */
+    object-fit: cover0;
+    border-radius: 50%; 
   }
   
   .custom-file-buttonpro {
@@ -60,8 +55,9 @@ body {
     border-radius: 50%;
     background-color: white;
     position: absolute;
-    bottom: 10px;
-   z-index: 1;
+   margin-top: 8.4rem;
+   margin-left: 58px;
+  z-index: 20000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -117,4 +113,24 @@ body {
   }
   .profile-card span:hover{
     color: #ff0400;
+  }
+
+  .popup {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+
+}
+.error {
+    position: absolute;
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    margin-left: 70px;
   }

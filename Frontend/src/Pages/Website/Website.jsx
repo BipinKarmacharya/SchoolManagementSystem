@@ -78,6 +78,7 @@ const Website = () => {
             <Link to="/register-school">
               <button className="register-btn">Register your School</button>
             </Link>
+            <Link to={"/reset-pass"}><button>Reset password</button></Link>
           </div>
         </div>
       </div>
