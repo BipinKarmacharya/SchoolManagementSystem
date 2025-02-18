@@ -89,7 +89,6 @@ class LoginAPIView(generics.GenericAPIView):
             status=status.HTTP_200_OK
         )
 
-# --- Forgot Password ---
 class ForgotPasswordAPIView(generics.GenericAPIView):
     """
     API endpoint for forgot password.
@@ -174,3 +173,7 @@ def send_student_email(request):
         return Response({"message": "Email sent successfully."}, status=200)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+    
+
+
+

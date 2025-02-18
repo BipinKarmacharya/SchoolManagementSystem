@@ -2,7 +2,7 @@
 from django.utils.timezone import now
 # Create your models here.
 from django.db import models
-from auth_sys.models import CustomUser
+
 ##########  TABLE FOR SCHOOLS
 class School(models.Model):
     school_code = models.CharField(max_length=4, unique=True)  

@@ -20,12 +20,7 @@ const InstituteProfile = () => {
     // Fetch school data from the backend
     const fetchSchoolData = async () => {
       try {
-        const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
-        const response = await axios.get("http://127.0.0.1:8000/api/school/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get("http://127.0.0.1:8000/api/allschool/1/"); // Fetch school with id=1
         setSchoolData(response.data);
       } catch (error) {
         console.error("Error fetching school data:", error);
@@ -52,11 +47,9 @@ const InstituteProfile = () => {
     }
 
     try {
-      const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
-      await axios.put("http://127.0.0.1:8000/api/school/", formData, {
+      await axios.put("http://127.0.0.1:8000/api/allschool/1/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
         },
       });
       alert("Profile updated successfully!");

@@ -2,20 +2,20 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Student
 from .serializer import StudentSerializer
-from django_filters.rest_framework import DjangoFilterBackend
+# from django_filters.rest_framework import DjangoFilterBackend
 
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    filter_backends = [DjangoFilterBackend]
+    # filter_backends = [DjangoFilterBackend]
     filterset_fields = ['first_name', 'last_name', 'email','student_id','phone']
 
 
 from rest_framework import generics, permissions
 from .models import Student
 # from .serializer import StudentupdateSerializer
-from .permissions import IsAdminUser
+# from .permissions import IsAdminUser
 
 class StudentUpdateView(generics.RetrieveUpdateAPIView):
     """
@@ -48,12 +48,12 @@ class StudentDetailUpdateView(generics.RetrieveUpdateAPIView):
 
 
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+# from rest_framework.permissions import IsAuthenticated
 from .models import Student
 from .serializer import StudentSerializer
 
 class StudentListView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     serializer_class = StudentSerializer
 
     def get_queryset(self):

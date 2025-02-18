@@ -1,5 +1,28 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, role=None, **extra_fields):
+        """
+        Creates and saves a User with the given email, password, and role.
+        """
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, role=role, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        """
+        Creates and saves a superuser with the given email and password.
+        """
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(email, password, **extra_fields)
 
 class CustomUser(AbstractUser):
     """
@@ -12,32 +35,30 @@ class CustomUser(AbstractUser):
         ('student', 'Student'),
         ('employee', 'Employee'),
     )
+   
     role = models.CharField(
         max_length=20, choices=ROLE_CHOICES, null=True, blank=True,
         help_text="Designates the type of user: school admin, student, or employee."
     )
-    
-    # Make username nullable
-    username = models.CharField(max_length=150, unique=True, null=True, blank=True)
-    
+
     # Use email as the unique identifier for authentication instead of username
     email = models.EmailField(unique=True)  # Ensure email is unique
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    objects = CustomUserManager()
+
     def save(self, *args, **kwargs):
-        # Automatically generate a username if not provided
-        if not self.username and self.role == 'student':
-            # Fetch the related student instance
-            student = getattr(self, 'student_profile', None)
-            if student:
-                self.username = student.student_id
+        if not self.username:
+            if self.role == 'student':
+                # Fetch the related student instance
+                student = getattr(self, 'student_profile', None)
+                if student:
+                    self.username = student.student_id
+            else:
+                self.username = self.email.split('@')[0]
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.email if self.email else 'No Email'
-
-# Ensure to run the following commands to apply the changes to the database:
-# python manage.py makemigrations
-# python manage.py migrate

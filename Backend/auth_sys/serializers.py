@@ -1,6 +1,4 @@
-# accounts/serializers.py
 from rest_framework import serializers
-from django.contrib.auth import authenticate
 from auth_sys.models import CustomUser
 from schooldata.models import School
 from student.models import Student
@@ -16,7 +14,7 @@ class SchoolRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = School
-        fields = ['name','school_code', 'email', 'address', 'password']
+        fields = ['name', 'school_code', 'email', 'address', 'password']
 
     def create(self, validated_data):
         # Create the School instance.
@@ -28,7 +26,6 @@ class SchoolRegisterSerializer(serializers.ModelSerializer):
         )
         # Create a CustomUser for the school admin.
         user = CustomUser.objects.create_user(
-            username=validated_data['school_code'],  # using school_code as username
             email=validated_data['email'],
             password=validated_data['password'],
             role='School Admin'
@@ -57,19 +54,16 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
 
         # Create a CustomUser for the student.
         user = CustomUser.objects.create_user(
-            username=validated_data['student_id'],
             email=validated_data['email'],
             password=validated_data['password'],
             role='Student'
         )
         # Create the Student instance and link the user.
         student = Student.objects.create(
-            user=user,
-            student_id=validated_data['student_id'],
+            user=user, student_id=validated_data['student_id'],
             school=school  # Assign school_id correctly
         )
         return student
-
 
 # --- Employee Registration ---
 class EmployeeRegisterSerializer(serializers.ModelSerializer):
@@ -81,13 +75,11 @@ class EmployeeRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employee
-        fields = ['employee_id', 'name',  'email', 'password']
+        fields = ['employee_id', 'name', 'email', 'password']
 
     def create(self, validated_data):
         # Create a CustomUser for the employee.
-        # Using employee_id as username.
         user = CustomUser.objects.create_user(
-            username=validated_data['employee_id'],
             email=validated_data['email'],
             password=validated_data['password'],
             role='Employee'
@@ -96,7 +88,7 @@ class EmployeeRegisterSerializer(serializers.ModelSerializer):
         employee = Employee.objects.create(
             user=user,
             employee_id=validated_data['employee_id'],
-        
+            name=validated_data['name']
         )
         return employee
 
@@ -115,27 +107,24 @@ class LoginSerializer(serializers.Serializer):
       - student_id for students, or
       - employee_id for employees.
     """
-    identifier = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
     password = serializers.CharField(write_only=True)
-    role=serializers.CharField(required=True)
-
+    role = serializers.CharField(required=True)
 
     def validate(self, data):
-        identifier = data.get('identifier')
         email = data.get('email')
         password = data.get('password')
-        role=data.get('role')
+        role = data.get('role')
 
-        # Try to find the user by identifier
+        # Try to find the user by email and role
         try:
-            user = User.objects.get(username=identifier,role=role,email=email)
+            user = User.objects.get(email=email, role=role)
         except User.DoesNotExist:
             raise serializers.ValidationError("Invalid credentials.")
 
         # Authenticate user
         if not user.check_password(password):
-            raise serializers.ValidationError("Invalidpass credentials.")
+            raise serializers.ValidationError("Invalid credentials.")
 
         data['user'] = user
         return data
@@ -166,33 +155,6 @@ class ChangePasswordSerializer(serializers.Serializer):
             raise serializers.ValidationError("Current password is incorrect.")
         return value
 
-
-
-# # authsys/serializers.py
-# from rest_framework import serializers
-# from .models import CustomUser
-
-# class CustomUserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = CustomUser
-#         fields = ['first_name', 'last_name', 'email', 'password']
-#         extra_kwargs = {
-#             'password': {'write_only': True}
-#         }
-    
-#     def create(self, validated_data):
-#         # Use create_user to hash the password correctly
-#         user = CustomUser.objects.create_user(**validated_data)
-#         return user
-
-#     def update(self, instance, validated_data):
-#         password = validated_data.pop('password', None)
-#         for attr, value in validated_data.items():
-#             setattr(instance, attr, value)
-#         if password:
-#             instance.set_password(password)
-#         instance.save()
-#         return instance
 # authsys/serializers.py
 from rest_framework import serializers
 from .models import CustomUser
@@ -218,3 +180,20 @@ class CustomUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+    
+from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from .models import CustomUser
+
+# class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+#    class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     @classmethod
+#     def get_token(cls, user):
+#         token = super().get_token(user)
+#         token['role'] = user.role
+#         token['school_id'] = user.school.id if user.school else None
+#         return token
+# class CustomUserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = CustomUser
+#         fields = ['id', 'username', 'email', 'role', 'school']

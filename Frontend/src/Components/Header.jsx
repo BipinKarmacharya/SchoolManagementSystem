@@ -1,5 +1,6 @@
-import  { Link } from "react-router-dom"
-import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "/src/assets/CSS/Components/Header.css";
 
 // Import Icons
@@ -14,6 +15,7 @@ const Header = ({ toggleSidebar }) => {
     address: "Address of Institute",
     targetLine: "Target Line of Institute",
   });
+  const navigate = useNavigate();
 
   const toggleCard = () => {
     setIsCardVisible(!isCardVisible);
@@ -23,25 +25,38 @@ const Header = ({ toggleSidebar }) => {
     // Fetch user details from the backend
     const fetchUserDetails = async () => {
       try {
-        const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
-        const response = await axios.get("http://127.0.0.1:8000/api/user-details/", {
+        const token = localStorage.getItem("token"); // Get token from localStorage
+        const schoolId = localStorage.getItem("school_id"); // Get school_id from localStorage
+
+        const response = await axios.get(`http://127.0.0.1:8000/api/schools/${schoolId}/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        const userDetails = response.data;
+        const schoolDetails = response.data;
         setSchoolDetails({
-          schoolName: userDetails.school.name,
-          address: userDetails.school.address,
-          targetLine: userDetails.school.target_line,
+          schoolName: schoolDetails.name,
+          address: schoolDetails.address,
+          targetLine: schoolDetails.target_line,
         });
       } catch (error) {
-        console.error("Error fetching user details:", error);
+        console.error("Error fetching school details:", error);
       }
     };
 
     fetchUserDetails();
   }, []);
+
+  const handleLogout = () => {
+    // Clear authentication tokens from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("role");
+    localStorage.removeItem("school_id");
+
+    // Redirect to the landing page
+    navigate("/");
+  };
 
   return (
     <div className="header-container">
@@ -68,8 +83,14 @@ const Header = ({ toggleSidebar }) => {
       {/* Dropdown Card */}
       <div className={`dropdown ${isCardVisible ? "active" : ""}`}>
         <ul>
-          <Link to = "/profile-setting"><li>Profile <LuUserRoundCog className="dropdownIcon"/></li></Link>
-          <li>Logout  <MdOutlineLogout className="dropdownIcon"/></li>
+          <Link to="/profile-setting">
+            <li>
+              Profile <LuUserRoundCog className="dropdownIcon" />
+            </li>
+          </Link>
+          <li onClick={handleLogout}>
+            Logout <MdOutlineLogout className="dropdownIcon" />
+          </li>
         </ul>
       </div>
     </div>

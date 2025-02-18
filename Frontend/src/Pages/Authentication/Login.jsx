@@ -11,7 +11,6 @@ import { RiAdminFill } from "react-icons/ri";
 
 function Login() {
   const [role, setRole] = useState("School Admin"); // Default role
-  const [identifier, setIdentifier] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -21,7 +20,6 @@ function Login() {
 
     // Create the login payload
     const loginData = {
-      identifier,
       email,
       password,
       role,
@@ -39,8 +37,8 @@ function Login() {
       if (!response.ok) throw new Error("Invalid credentials");
       const data = await response.json();
       localStorage.setItem("token", data.access);
-      localStorage.setItem("refreshToken", data.refresh);
       localStorage.setItem("role", data.role);
+      localStorage.setItem("school_id", data.school_id);
 
       // Redirect to different dashboards based on role
       if (role === "School Admin") {
@@ -117,34 +115,6 @@ function Login() {
           </div>
 
           <form id="login-form" onSubmit={handleLogin}>
-            {(role === "School Admin" ||
-              role === "Student" ||
-              role === "Teacher") && (
-              <div className="form__group field">
-                <input
-                  type="text"
-                  className="form__field"
-                  placeholder={
-                    role === "School Admin"
-                      ? "School Code"
-                      : role === "Student"
-                      ? "Student ID"
-                      : "Teacher ID"
-                  }
-                  value={identifier}
-                  onChange={(e) => setIdentifier(e.target.value)}
-                  required
-                />
-                <label htmlFor="identifier" className="form__label">
-                  {role === "School Admin"
-                    ? "School Code"
-                    : role === "Student"
-                    ? "Student ID"
-                    : "Teacher ID"}
-                </label>
-              </div>
-            )}
-
             <div className="form__group field">
               <input
                 type="email"

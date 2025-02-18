@@ -4,10 +4,16 @@ from .views import (
     SchoolRegisterAPIView,
     StudentRegisterAPIView,
     EmployeeRegisterAPIView,
-    LoginAPIView,
+     LoginAPIView,
     ForgotPasswordAPIView,
-    ChangePasswordAPIView,
-    
+    ChangePasswordAPIView
+    # CustomTokenObtainPairSerializer,
+    # CustomTokenObtainPairView,TokenObtainPairSerializer
+  
+
+
+
+
 )
 from auth_sys.views import send_student_email
 
@@ -16,7 +22,11 @@ urlpatterns = [
     path('student/register/', StudentRegisterAPIView.as_view(), name='student-register'),
     path('employee/register/', EmployeeRegisterAPIView.as_view(), name='employee-register'),
     path('login/', LoginAPIView.as_view(), name='login'),
+    #  path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('user-details/', UserDetailView.as_view(), name='user-details'),
     path('forgot-password/', ForgotPasswordAPIView.as_view(), name='forgot-password'),
     path('change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
     path('send-student-email/', send_student_email, name='send_student_email'),
+
 ]

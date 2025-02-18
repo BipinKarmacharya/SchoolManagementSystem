@@ -50,16 +50,11 @@ INSTALLED_APPS = [
     # 'attendance',
     'rest_framework_simplejwt',
     'django_filters',
+    'django_extensions',
 
     
     
 ]
-REST_FRAMEWORK = {
-    
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
 
 
 AUTHENTICATION_BACKENDS = [
@@ -117,9 +112,9 @@ WSGI_APPLICATION = 'eschool.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'schoolmanagementdb',
+        'NAME': 'eschooldatabase',
         'USER': 'root',
-        'PASSWORD': 'MySQL@2000',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306',  # Default MySQL port
     }
@@ -191,7 +186,14 @@ AUTH_USER_MODEL = 'auth_sys.CustomUser'
 
 
 
-
+REST_FRAMEWORK = {
+     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 
 
