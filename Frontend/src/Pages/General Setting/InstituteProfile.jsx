@@ -15,12 +15,17 @@ const InstituteProfile = () => {
     total_students: 0,
     total_teachers: 0,
   });
+  
+  const [errors, setErrors] = useState({
+    email: "",
+    telephone: "",
+  });
 
   useEffect(() => {
     // Fetch school data from the backend
     const fetchSchoolData = async () => {
       try {
-        const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+        const token = localStorage.getItem("token");
         const response = await axios.get("http://127.0.0.1:8000/api/school/", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,6 +43,12 @@ const InstituteProfile = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSchoolData({ ...schoolData, [name]: value });
+
+    if (name === "email") {
+      validateEmail(value);
+    } else if (name === "telephone") {
+      validateTelephone(value);
+    }
   };
 
   const handleFileChange = (e) => {
@@ -52,7 +63,7 @@ const InstituteProfile = () => {
     }
 
     try {
-      const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+      const token = localStorage.getItem("token");
       await axios.put("http://127.0.0.1:8000/api/school/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -63,6 +74,36 @@ const InstituteProfile = () => {
     } catch (error) {
       console.error("Error updating profile:", error);
       alert("Failed to update profile. Please try again.");
+    }
+  };
+
+  const validateEmail = (email) => {
+    const emailPattern = /[a-zA-Z0-9._-]+@gmail+.com$/;
+    if (!emailPattern.test(email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Please enter a valid email address.",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "",
+      }));
+    }
+  };
+
+  const validateTelephone = (telephone) => {
+    const phonePattern = /^[0-9]{10}$/; // Assuming 10-digit phone number
+    if (!phonePattern.test(telephone)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        telephone: "Please enter a valid 10-digit phone number.",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        telephone: "",
+      }));
     }
   };
 
@@ -149,6 +190,7 @@ const InstituteProfile = () => {
                 onChange={handleChange}
                 required
               />
+              {errors.telephone && <span className="error">{errors.telephone}</span>}
             </fieldset>
             <fieldset>
               <legend>Email*</legend>
@@ -161,6 +203,7 @@ const InstituteProfile = () => {
                 onChange={handleChange}
                 required
               />
+              {errors.email && <span className="error">{errors.email}</span>}
             </fieldset>
             <fieldset>
               <legend>Website</legend>
@@ -215,7 +258,7 @@ const InstituteProfile = () => {
           <button type="reset" className="reset">
             <i className="fa-solid fa-rotate"></i> Reset
           </button>
-          <button type="submit" className="submit">
+          <button type="submit" className="submit" disabled={errors.email || errors.telephone}>
             Update
           </button>
         </div>

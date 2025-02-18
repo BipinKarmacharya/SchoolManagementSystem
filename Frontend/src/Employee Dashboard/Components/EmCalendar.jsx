@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "../assets/CSS/Components/StdCalendar.css";
+import "../assets/CSS/Components/EmCalendar.css";
 const localizer = momentLocalizer(moment);
 
 const MyCalendar = () => {
@@ -49,24 +49,24 @@ const MyCalendar = () => {
   };
 
   return (
-    <div className="std-calendar-container">
-         <Calendar
+    <div className="Em-calendar-container">
+      <Calendar
         localizer={localizer}
         events={events}
         selectable
         onSelectSlot={handleSelect}
         style={{
           height: 400,
-          width: 700,
+          width: 550,
           backgroundColor: "#f0f0f0",
           padding: 20,
-          marginTop: -750,
+          left: "50%",
           borderRadius: "10px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           position: "absolute",
         }}
       />
-      <div className="std-events-box">
+      <div className="Em-events-box">
         <h3>Upcoming Events</h3>
         <ul>
           {events.map((event, index) => (
@@ -74,7 +74,7 @@ const MyCalendar = () => {
               <strong>{event.title}</strong> -{" "}
               {moment(event.start).format('MMMM Do YYYY, h:mm a')} to{" "}
               {moment(event.end).format('h:mm a')}
-           
+              <button onClick={() => handleDelete(index)}>Delete</button>
             </li>
           ))}
         </ul>

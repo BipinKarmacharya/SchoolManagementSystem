@@ -55,6 +55,8 @@ const Website = () => {
             <Link to="/login">
               <button className="login-btn">Login</button>
             </Link>
+            <Link to="/employee-dashboard"><button >employee</button></Link>
+            
             <Link to="/register-school">
               <button className="register-btn">Register your School</button>
             </Link>
@@ -150,7 +152,7 @@ const Website = () => {
         <h2>Ready to Transform Your School Management?</h2>
         <p>Join hundreds of schools already using EduManage.</p>
         <div className="cta-buttons">
-          <Link to="/std-dash">
+          <Link to="/student-dashboard">
             <button className="login-btn">Login</button>
           </Link>
           <Link to="/register-school">

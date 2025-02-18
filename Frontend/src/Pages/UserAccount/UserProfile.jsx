@@ -1,160 +1,154 @@
 import React, { useEffect, useState } from "react";
-// import "/src/assets/CSS/Pages/Dashboard.css";
-import { SlArrowDown } from "react-icons/sl";
-import { FaPen } from "react-icons/fa";
-// import '/src/assets/CSS/Pages/Dashboard.css';
-// import '/src/assets/CSS/Components/MyCalendar.css';
-// import '/src/assets/CSS/Components/Profile.css';
-
+import '/src/assets/CSS/Components/ProfileCard.css';
 import { students } from '/src/assets/JSON/StudentsData.js';
 
-
-
 const UserProfile = () => {
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [studentData, setStudentData] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedData, setEditedData] = useState({}); // State to hold edited data
   const [imageSrc, setImageSrc] = useState(null);
-  const toggleDropdown = () => {
-    setDropdownVisible(!isDropdownVisible);
-  };
+  const [coverImageSrc, setCoverImageSrc] = useState(null);
+  const [isEditingInfo, setIsEditingInfo] = useState(false); 
+  const [isEditingImages, setIsEditingImages] = useState(false);
+  const [editedData, setEditedData] = useState({});
+
   useEffect(() => {
     const data = students.find(student => student.id === 1);
     setStudentData(data);
-    setEditedData(data); // Initialize editedData with the student data
+    setEditedData(data); 
   }, []);
 
   if (!studentData) {
     return <div>Loading...</div>;
   }
 
-  // Function to handle input changes
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setEditedData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  // Function to enable editing
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
-  // Function to save changes
-  const handleSave = () => {
-    setStudentData(editedData); 
-    setIsEditing(false);
-  };
-
-  function handleImage(e) {
+ 
+  function handleImage(e, type) {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setImageSrc(reader.result);
+        if (type === 'profile') {
+          setImageSrc(reader.result);
+        } 
       };
       reader.readAsDataURL(file);
     }
   }
+
+  // Handle input changes for profile info
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setEditedData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  }
+
+
+  function handleSave() {
+    if (isEditingInfo) {
+      setStudentData(editedData); 
+      setIsEditingInfo(false); 
+    }
+    if (isEditingImages) {
+   
+      setIsEditingImages(false); 
+    }
+  }
+
   return (
-    <div className="user-profile">
-      <div className="con">
-        <div className="details">
-          <span>Details</span>
-          <div className="icon" onClick={toggleDropdown}>
-            <SlArrowDown className={`arrow ${isDropdownVisible ? "rotate" : ""}`} />
-          </div>
-          <div className={`dropdownContent ${isDropdownVisible ? "visible" : ""}`}>
-            <div className="edit">
-              {isEditing ? (
-                <button onClick={handleSave}>Save</button>
-              ) : (
-                <FaPen onClick={handleEdit} />
-              )}
-            </div>
-            <span>
-              Name: 
-              <input 
-                type="text" 
-                name="first_name" 
-                value={editedData.first_name} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              /> 
-              <input 
-                type="text" 
-                name="last_name" 
-                value={editedData.last_name} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              />
-            </span>
-            <p>Id: {studentData.student_id}</p>
-            <p>
-              Email: 
-              <input 
-                type="email" 
-                name="email" 
-                value={editedData.email} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              />
-            </p>
-            <p>
-              Phone: 
-              <input 
-                type="number" 
-                name="phone" 
-                value={editedData.phone} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              />
-            </p>
-            <p>
-              Address: 
-              <input 
-                type="text" 
-                name="address" 
-                value={editedData.address} 
-                onChange={handleInputChange} 
-                disabled={!isEditing}
-              />
-            </p>
-          </div>
-        </div>
-        <input
-          type="file"
-          accept="image"
-          id="fileInput"
-          onChange={handleImage}
-          style={{ display: "none" }}
-        />
-        <label htmlFor="fileInput" className="custom-file-button">
-          <FaPen />
-        </label>
-        <div className="profileimg">
-          {imageSrc && <img src={imageSrc} alt="Profile Preview" className="image-preview" />}
-        </div>
-
-        <span className="name">{studentData.first_name} {studentData.last_name}</span>
-        <div className="gpa">
-          <span>GPA: 4.00</span>
-        </div>
-        {/* <div className="gridItem todayCount" id="todayCount">
-          <h5>
-            Attendance: <span className="showPercent">0%</span>
-          </h5>
-          <div className="presentBox"></div>
-          <h5>
-            Course Completion: <span className="showPercent">100%</span>
-          </h5>
-          <div className="presentBox"></div>
-        </div> */}
-
+    <div className="profile-card">
+      {/* Cover Photo Section */}
+      <div className="cover-photo">
+       
       </div>
+
+      {/* Profile Photo Section */}
+      <div className="profile-photo">
+        {isEditingImages && (
+          <input
+            type="file"
+            accept="image/*"
+            id="fileInputProfile"
+            onChange={(e) => handleImage(e, 'profile')
+            }
+            
+          />
+        )}
+        {imageSrc ? (
+          <img src={imageSrc} alt="Profile Preview" className="proimage-preview" />
+        ) : (
+          <div className="profile-placeholder">Profile Image</div>
+        )}
+      </div>
+
+      {/* Profile Info Section */}
+      <div className="profile-info">
+        {isEditingInfo ? (
+         
+          <>
+            <input
+              type="text"
+              name="first_name"
+              value={editedData.first_name || ''}
+              onChange={handleInputChange}
+              placeholder="First Name"
+            />
+            <input
+              type="text"
+              name="last_name"
+              value={editedData.last_name || ''}
+              onChange={handleInputChange}
+              placeholder="Last Name"
+            />
+            <input
+              type="email"
+              name="email"
+              value={editedData.email || ''}
+              onChange={handleInputChange}
+              placeholder="Email"
+            />
+            <input
+              type="text"
+              name="address"
+              value={editedData.address || ''}
+              onChange={handleInputChange}
+              placeholder="Address"
+            />
+            <input
+              type="text"
+              name="phone"
+              value={editedData.phone || ''}
+              onChange={handleInputChange}
+              placeholder="Phone"
+            />
+          </>
+        ) : (
+         
+          <>
+            <h1>{studentData.first_name} {studentData.last_name}</h1>
+            <p>{studentData.email}</p>
+            <p>{studentData.address}</p>
+            <p>{studentData.phone}</p>
+          </>
+        )}
+
+        {/* Buttons for Edit and Save */}
+        <div className="button-container">
+          {!isEditingInfo && !isEditingImages && (
+            <>
+              <button onClick={() => setIsEditingInfo(true)}>Edit Info</button>
+              <button onClick={() => setIsEditingImages(true)}>Edit Images</button>
+            </>
+          )}
+          {(isEditingInfo || isEditingImages) && (
+            <button onClick={handleSave}>Save Changes</button>
+          )}
+         
+        </div>
+  
+      </div>
+      
+      <span>Change Password</span>
     </div>
   );
 }

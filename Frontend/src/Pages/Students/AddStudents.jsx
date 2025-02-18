@@ -30,9 +30,11 @@ const AddStudents = () => {
     email: "",
     pdocument: null,
   });
-
+  const [errors, setErrors] = useState({
+    email: "",
+    phone: "",
+  });
   useEffect(() => {
-    // Retrieve school_id from localStorage
     const schoolId = localStorage.getItem("school_id");
     if (schoolId) {
       setStudentData((prevData) => ({
@@ -44,17 +46,33 @@ const AddStudents = () => {
     }
   }, []);
 
+
+
   const handleStudentChange = (e) => {
     const { name, value } = e.target;
     setStudentData({ ...studentData, [name]: value });
+  
+    // Validate email and phone in real-time as the user types
+    if (name === "email") {
+      validateEmail(value);  // Validate email
+    } else if (name === "phone") {
+      validatePhone(value);  // Validate phone number
+    }
   };
-
+  
   const handleParentChange = (e) => {
     const { name, value } = e.target;
     setParentData({ ...parentData, [name]: value });
+  
+    // Validate parent email and phone in real-time as the user types
+    if (name === "email") {
+      validateEmail(value);  // Validate email
+    } else if (name === "phone") {
+      validatePhone(value);  // Validate phone number
+    }
   };
+  
 
-  // Update file state based on which input triggered the event.
   const handleFileChange = (e) => {
     const { name, files } = e.target;
     if (name === "pdocument") {
@@ -73,7 +91,6 @@ const AddStudents = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Ensure the school field is not null
     if (!studentData.school) {
       alert("School information is not available. Please try again later.");
       return;
@@ -96,6 +113,37 @@ const AddStudents = () => {
       console.error("Error adding student:", error);
       alert("Failed to add student.");
     }
+      
+    const validateEmail = (email) => {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Improved regex for general email validation
+      if (!emailPattern.test(email)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Please enter a valid email address.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "",  // Clear error message if the email is valid
+        }));
+      }
+    };
+    
+    const validatePhone = (phone) => {
+      const phonePattern = /^[0-9]{10}$/; // Assuming 10-digit phone number
+      if (!phonePattern.test(phone)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          phone: "Please enter a valid 10-digit phone number.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          phone: "",  // Clear error message if the phone is valid
+        }));
+      }
+    };
+    
   };
 
   return (
@@ -151,7 +199,6 @@ const AddStudents = () => {
               <select
                 name="gender"
                 id="gender"
-                placeholder="Gender"
                 value={studentData.gender}
                 onChange={handleStudentChange}
                 required
@@ -177,30 +224,33 @@ const AddStudents = () => {
                 required
               />
             </fieldset>
-            
-            <fieldset>
-              <legend>Phone*</legend>
-              <input
-                type="text"
-                name="phone"
-                id="studentPhone"
-                placeholder="Phone"
-                value={studentData.phone}
-                onChange={handleStudentChange}
-              />
-            </fieldset>
 
             <fieldset>
-              <legend>Email - (Optional)</legend>
-              <input
-                type="email"
-                name="email"
-                id="studentEmail"
-                placeholder="Email"
-                value={studentData.email}
-                onChange={handleStudentChange}
-              />
-            </fieldset>
+  <legend>Phone*</legend>
+  <input
+    type="text"
+    name="phone"
+    id="studentPhone"
+    placeholder="Phone"
+    value={studentData.phone}
+    onChange={handleStudentChange}
+    required
+  />
+  {errors.phone && <span className="error">{errors.phone}</span>}
+</fieldset>
+
+<fieldset>
+  <legend>Email - (Optional)</legend>
+  <input
+    type="email"
+    name="email"
+    id="studentEmail"
+    placeholder="Email"
+    value={studentData.email}
+    onChange={handleStudentChange}
+  />
+  {errors.email && <span className="error">{errors.email}</span>}
+</fieldset>
             <fieldset>
               <legend>Enroll Class*</legend>
               <input
@@ -213,6 +263,7 @@ const AddStudents = () => {
                 required
               />
             </fieldset>
+
             <fieldset>
               <legend>Photo - (Optional)</legend>
               <input
@@ -222,7 +273,7 @@ const AddStudents = () => {
                 onChange={handleFileChange}
               />
             </fieldset>
-            
+
             <fieldset>
               <legend>Date of Birth*</legend>
               <input
@@ -233,7 +284,7 @@ const AddStudents = () => {
                 onChange={handleStudentChange}
               />
             </fieldset>
-            
+
             <fieldset>
               <legend>Date of Enrollment*</legend>
               <input
@@ -248,13 +299,12 @@ const AddStudents = () => {
         </div>
 
         {/* Other Information */}
-
         <div className="personalInfo">
           <div className="infoHeader">
             <h5>2. Other Information</h5>
           </div>
           <div className="fieldsetDiv">
-          <fieldset>
+            <fieldset>
               <legend>Birth Certificate - (Optional)</legend>
               <input
                 type="file"
@@ -273,6 +323,7 @@ const AddStudents = () => {
                 onChange={handleFileChange}
               />
             </fieldset>
+
             <fieldset>
               <legend>Other Document - (Optional)</legend>
               <input
@@ -288,7 +339,6 @@ const AddStudents = () => {
               <select
                 name="blood_group"
                 id="studentBloodGroup"
-                placeholder="Blood Group"
                 value={studentData.blood_group}
                 onChange={handleStudentChange}
               >
@@ -311,7 +361,6 @@ const AddStudents = () => {
               <select
                 name="religion"
                 id="studentReligion"
-                placeholder="Religion"
                 value={studentData.religion}
                 onChange={handleStudentChange}
               >
@@ -325,12 +374,10 @@ const AddStudents = () => {
                 <option value="Others">Others</option>
               </select>
             </fieldset>
-
           </div>
         </div>
 
         {/* Parents Information */}
-
         <div className="parentsInfo">
           <div className="infoHeader">
             <h5>3. Parent Information</h5>
@@ -345,6 +392,7 @@ const AddStudents = () => {
                 placeholder="First Name"
                 value={parentData.first_name}
                 onChange={handleParentChange}
+                required
               />
             </fieldset>
             <fieldset>
@@ -356,6 +404,7 @@ const AddStudents = () => {
                 placeholder="Last Name"
                 value={parentData.last_name}
                 onChange={handleParentChange}
+                required
               />
             </fieldset>
             <fieldset>
@@ -367,6 +416,7 @@ const AddStudents = () => {
                 placeholder="Phone"
                 value={parentData.phone}
                 onChange={handleParentChange}
+                required
               />
             </fieldset>
             <fieldset>
@@ -378,6 +428,7 @@ const AddStudents = () => {
                 placeholder="Email"
                 value={parentData.email}
                 onChange={handleParentChange}
+                required
               />
             </fieldset>
             <fieldset>
@@ -391,6 +442,7 @@ const AddStudents = () => {
             </fieldset>
           </div>
         </div>
+
         <div className="formButtons">
           <button type="reset" className="reset">
             <i className="fa-solid fa-rotate"></i> Reset

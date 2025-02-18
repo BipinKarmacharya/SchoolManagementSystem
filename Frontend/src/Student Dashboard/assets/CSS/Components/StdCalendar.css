@@ -1,0 +1,34 @@
+/* MyCalendar.css */
+.std-calendar-container {
+
+ margin-left: -25rem;
+ margin-top: -10rem;
+  position: absolute;
+height: 50%;
+ 
+}
+
+.std-events-box {
+  position: absolute;
+  margin-top: -45rem;
+  
+}
+
+.std-events-box h3 {
+  margin-bottom: 10px;
+}
+
+.std-events-box ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.std-events-box li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+
+

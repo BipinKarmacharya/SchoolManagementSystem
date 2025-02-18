@@ -7,6 +7,7 @@ export const employees = [
       last_name: "Doe",
       address: "New York",
       phone: "123-456-7890",
+      Post:"teacher",
       email: "john.doe@example.com",
       profile_image: "http://127.0.0.1:8000/media/profile_picture/john_doe.jpg",
       blood_group: "O+",

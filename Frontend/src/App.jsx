@@ -9,7 +9,7 @@ import Website from "./Pages/Website/Website";
 // User Profile
 import UserProfile from "./Pages/UserAccount/UserProfile";
 import StudentDashboard from "./Student Dashboard/StudentDashboard"
-
+import EmployeeDashboard from "./Employee Dashboard/EmployeeDashboard"
 // Import the new AdminRoutes
 import AdminRoutes from "./Components/AdminRoutes"; 
 
@@ -24,7 +24,7 @@ const App = () => {
 
         {/* User Profile */}
         <Route path="/profile-setting" element={<UserProfile />} />
-
+        <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
       </Routes>
     </Router>

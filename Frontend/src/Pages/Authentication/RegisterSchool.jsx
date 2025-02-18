@@ -32,7 +32,7 @@ function RegisterSchool() {
       alert("Registration failed. Try again.");
     }
   };
-
+  
   return (
     <div className="register-school">
       <Link to="/"><FaHome className="HomeIcon"/></Link>
@@ -51,6 +51,7 @@ function RegisterSchool() {
                 onChange={(e) => setSchoolName(e.target.value)}
                 required
               />
+              
             </div>
 
             <div className="form-group">
@@ -77,6 +78,7 @@ function RegisterSchool() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+               
             </div>
 
             <div className="form-group">

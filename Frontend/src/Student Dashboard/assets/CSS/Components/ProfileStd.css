@@ -1,6 +1,7 @@
-.con
+
+.stdContainer  
 {
-    height: 85%;
+    height: 80%;
     width: 30%;
     position: absolute;
     margin-left: 60%;
@@ -9,7 +10,7 @@
     background: rgb(232,240,243);
     background: linear-gradient(0deg, rgba(232,240,243,1) 0%, rgba(41,124,230,1) 47%);
 }
-.profileimg
+.stdProfileImg
 {
     border-radius: 80px;
     background: #4e82cf85;
@@ -23,43 +24,50 @@
     position: absolute;
  
 }
-.profileimg input{
+.stdprofileimg input{
     margin-top: -11rem;
     opacity: 100%;
     width: 30px;
     margin-left: 8rem;
     position: absolute;
 }
-.custom-file-button {
-    color: rgb(250, 247, 247);
+.custom-file-buttonstd {
+    color: rgb(92, 90, 90);
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    background-color: white;
+    margin-top: 9rem;
+   margin-left: 30%;
     position: absolute;
-    margin-top: 8.5rem;
-    margin-left: 64%;
-    z-index: 1;
-    border-radius: 10px;
-  
+   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
   
-.image-preview {
+.stdimage-preview {
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
     border-radius: 90px; 
   
   }
-.name
+.stdname
 {
     margin-top: 12rem;
     position: absolute;
    margin-left: 35%;
+   color: white;
 
 }
-.gpa 
+.stdgpa 
 {
     width: 30%;
     height: 8%;
     background-color: #19355f;
-    color:black;
+    color:white;
     margin-left: 35%;
     margin-top: 15rem;
     display: flex;
@@ -71,35 +79,11 @@
     font-size: 20px;
     position: absolute;
 }
-span
+.stdDetails 
 {
     display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
+    margin-left: 80%;
     color: white;
-}
-.dashboard .notice 
-{
-    width: 40%;
-    height: 20%;
-    background: #99a2af;
- 
-    margin-left: 5%;
-    margin-top: 20%;
-    position: absolute;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 20px;
-    color: white;
-}
-.dashboard .notice span
-{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    color: rgb(239, 238, 238);
-}
-.dashboard .notice p
-{
-    padding-top: 10px;
 }

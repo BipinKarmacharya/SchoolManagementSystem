@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import Header from "./Components/Header";
 import { Sidebar } from "./Components/Sidebar";
-import Dashboard from "./Pages/Home";
+import Dashboard from "./Pages/employeeHome";
 
 
 import PageTitle from "../Components/PageTitle";

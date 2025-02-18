@@ -1,15 +1,14 @@
-.con
+.Emcon
 {
-    height: 85%;
-    width: 30%;
+    height: 45%;
+    width: 48%;
     position: absolute;
-    margin-left: 60%;
     margin-top: 1rem;
     border-radius: 20px;
     background: rgb(232,240,243);
     background: linear-gradient(0deg, rgba(232,240,243,1) 0%, rgba(41,124,230,1) 47%);
 }
-.profileimg
+.Emprofileimg
 {
     border-radius: 80px;
     background: #4e82cf85;
@@ -18,88 +17,89 @@
     width: 10rem;
     height: 10rem;
     overflow: hidden;
-    margin-top: 20px;
-    margin-left: 32%;
+    top: 10%;
+     margin-left: 8%;
     position: absolute;
  
 }
-.profileimg input{
+.Emprofileimg input{
     margin-top: -11rem;
     opacity: 100%;
     width: 30px;
-    margin-left: 8rem;
+    margin-left: 4%;
     position: absolute;
 }
-.custom-file-button {
-    color: rgb(250, 247, 247);
+.custom-file-buttonEm {
+    color: rgb(92, 90, 90);
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    background-color: white;
+    margin-top: 9rem;
+   margin-left: 28%;
     position: absolute;
-    margin-top: 8.5rem;
-    margin-left: 64%;
     z-index: 1;
-    border-radius: 10px;
-  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
   
-.image-preview {
+.Emimage-preview {
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
     border-radius: 90px; 
   
-  }
-.name
+ }
+ .Em details span
+ {
+    margin-top: 10%;
+ }
+
+
+.Emname
 {
-    margin-top: 12rem;
+   top: 20%;
     position: absolute;
-   margin-left: 35%;
+   margin-left: 40%;
 
 }
-.gpa 
+.employee_id
 {
-    width: 30%;
-    height: 8%;
-    background-color: #19355f;
-    color:black;
-    margin-left: 35%;
-    margin-top: 15rem;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding-top: 10px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 20px;
+    top: 30%;
     position: absolute;
+    left: 40%;
 }
-/* span
+.address
 {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    color: white;
-} */
-.dashboard .notice 
+    top: 40%;
+    position: absolute;
+    margin-left: 40%;
+}
+.Post
 {
     width: 40%;
     height: 20%;
-    background: #99a2af;
- 
-    margin-left: 5%;
-    margin-top: 20%;
-    position: absolute;
+    background-color: #0f56c0b3;
+    color:black;
+   left: 30%;
+    top: 70%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 10px;
     border-radius: 10px;
     font-weight: bold;
     font-size: 20px;
-    color: white;
+    position: absolute;
 }
-.dashboard .notice span
+
+span
 {
     display: flex;
     flex-direction: column;
     text-align: center;
-    color: rgb(239, 238, 238);
+    color: white;
 }
-.dashboard .notice p
-{
-    padding-top: 10px;
-}
+
