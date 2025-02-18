@@ -1,8 +1,6 @@
-// import "/src/assets/CSS/Pages/SearchForm.css";
-
-const SearchForm = ({ searchPlaceholder, options, optionLabel }) => {
+const SearchForm = ({ searchPlaceholder, options, optionLabel, onSearchChange, onSelectChange }) => {
   return (
-    <form method="post" action="" id="searchForm">
+    <form id="searchForm">
       <fieldset>
         <legend>Search</legend>
         <input
@@ -10,12 +8,13 @@ const SearchForm = ({ searchPlaceholder, options, optionLabel }) => {
           name="searchInput"
           id="searchInput"
           placeholder={searchPlaceholder}
+          onChange={onSearchChange} // ✅ Pass event correctly
         />
       </fieldset>
       <fieldset>
         <legend>{optionLabel}</legend>
-        <select name="selectOption" id="selectOption" defaultValue="">
-          <option value="">All</option> {/* Allows optional selection */}
+        <select name="selectOption" id="selectOption" defaultValue="" onChange={onSelectChange}> 
+          <option value="">All</option> 
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

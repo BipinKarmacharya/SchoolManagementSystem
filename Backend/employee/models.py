@@ -35,3 +35,13 @@ def generate_employee_id(sender, instance, created, **kwargs):
         school_code = instance.school.school_code if instance.school and hasattr(instance.school, 'school_code') else 'SCH'
         instance.employee_id = f"EMP{school_code}{instance.pk:02d}"
         instance.save(update_fields=['employee_id'])
+
+
+
+# Signal to update the username in CustomUser after creating/updating an Employee
+@receiver(post_save, sender=Employee)
+def update_user_username(sender, instance, created, **kwargs):
+    if instance.user:  # Ensure the employee has a linked user
+        # Overwrite the username with the employee_id
+        instance.user.username = instance.employee_id
+        instance.user.save()

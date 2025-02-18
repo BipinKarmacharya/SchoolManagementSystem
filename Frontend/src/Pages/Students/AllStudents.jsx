@@ -3,6 +3,7 @@ import "/src/assets/CSS/Pages/Students.css";
 import SearchForm from "/src/Components/SearchForm";
 import Profile from "/src/Components/Profile";
 import axios from "axios";
+import useDebounce from "/src/assets/hooks/useDebounce"; // Import debounce hook
 
 // Function to group students by class
 const groupByClass = (students) => {
@@ -16,8 +17,9 @@ const AllStudents = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // For search input
-  const [selectedClass, setSelectedClass] = useState(""); // For class filter
+  const [searchTerm, setSearchTerm] = useState(""); // Search state
+  const [selectedClass, setSelectedClass] = useState(""); // Class filter
+  const debouncedSearchTerm = useDebounce(searchTerm, 500); // Debounced search
 
   // Fetch students from API
   useEffect(() => {
@@ -37,11 +39,18 @@ const AllStudents = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  // Filter students based on search and class selection
+  // Filter students based on search (name & student ID) and class selection
   const filteredStudents = students.filter((student) => {
     const fullName = `${student.first_name} ${student.middle_name ? student.middle_name + " " : ""}${student.last_name}`.toLowerCase();
-    const matchesSearch = searchTerm === "" || fullName.includes(searchTerm.toLowerCase());
+    const studentId = student.student_id.toLowerCase();
+
+    const matchesSearch =
+      debouncedSearchTerm === "" ||
+      fullName.includes(debouncedSearchTerm.toLowerCase()) ||
+      studentId.includes(debouncedSearchTerm.toLowerCase()); // ✅ Search by student ID
+
     const matchesClass = selectedClass === "" || student.enroll_class.toString() === selectedClass;
+
     return matchesSearch && matchesClass;
   });
 
@@ -54,7 +63,7 @@ const AllStudents = () => {
   return (
     <div className="all-students">
       <SearchForm
-        searchPlaceholder="Search Student"
+        searchPlaceholder="Search Student (Name or ID)"
         options={classOptions.map((c) => ({ value: c.toString(), label: `Class ${c}` }))}
         optionLabel="View Students By Class"
         onSearchChange={(e) => setSearchTerm(e.target.value)}

@@ -6,6 +6,7 @@ import Register from "./Pages/Authentication/RegisterSchool";
 import Login from "./Pages/Authentication/Login";
 import Website from "./Pages/Website/Website";
 
+import StudentDashboard from "./StudentDashboard/StudentDashboard";
 // Import the new AdminRoutes
 import AdminRoutes from "./Components/AdminRoutes"; 
 
@@ -17,6 +18,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register-school" element={<Register />} />
         <Route path="/*" element={<AdminRoutes />} /> {/* ✅ Admin Routes Handled Separately */}
+        
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
       </Routes>
     </Router>
   );

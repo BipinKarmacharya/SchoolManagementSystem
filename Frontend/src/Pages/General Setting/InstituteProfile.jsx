@@ -11,7 +11,7 @@ const InstituteProfile = () => {
     website: "",
     logo: null,
     established_date: "",
-    principal_name: "",
+    target_line: "",
     total_students: 0,
     total_teachers: 0,
   });
@@ -20,7 +20,12 @@ const InstituteProfile = () => {
     // Fetch school data from the backend
     const fetchSchoolData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/school/");
+        const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+        const response = await axios.get("http://127.0.0.1:8000/api/school/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setSchoolData(response.data);
       } catch (error) {
         console.error("Error fetching school data:", error);
@@ -47,9 +52,11 @@ const InstituteProfile = () => {
     }
 
     try {
+      const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
       await axios.put("http://127.0.0.1:8000/api/school/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       });
       alert("Profile updated successfully!");
@@ -79,7 +86,7 @@ const InstituteProfile = () => {
                   />
                 ) : (
                   <img
-                    src="/Images/VIDYA.png" // Path to your default logo
+                    src={schoolData.logo_url || "/Images/VIDYA.png"} // Path to your default logo
                     alt="Default Logo"
                     id="logoImg"
                   />
@@ -105,13 +112,13 @@ const InstituteProfile = () => {
               />
             </fieldset>
             <fieldset>
-              <legend>Principal Name*</legend>
+              <legend>Target Line*</legend>
               <input
                 type="text"
-                name="principal_name"
-                id="principal_name"
+                name="target_line"
+                id="target_line"
                 placeholder="Principal Name"
-                value={schoolData.principal_name}
+                value={schoolData.target_line}
                 onChange={handleChange}
                 required
               />

@@ -31,7 +31,7 @@ class SchoolRegisterSerializer(serializers.ModelSerializer):
             username=validated_data['school_code'],  # using school_code as username
             email=validated_data['email'],
             password=validated_data['password'],
-            role='school_admin'
+            role='School Admin'
         )
         # Link the user to the school record.
         school.admin_user = user
@@ -60,7 +60,7 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
             username=validated_data['student_id'],
             email=validated_data['email'],
             password=validated_data['password'],
-            role='student'
+            role='Student'
         )
         # Create the Student instance and link the user.
         student = Student.objects.create(
@@ -90,7 +90,7 @@ class EmployeeRegisterSerializer(serializers.ModelSerializer):
             username=validated_data['employee_id'],
             email=validated_data['email'],
             password=validated_data['password'],
-            role='employee'
+            role='Employee'
         )
         # Create the Employee instance and link the user.
         employee = Employee.objects.create(
@@ -118,21 +118,24 @@ class LoginSerializer(serializers.Serializer):
     identifier = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
     password = serializers.CharField(write_only=True)
+    role=serializers.CharField(required=True)
+
 
     def validate(self, data):
         identifier = data.get('identifier')
         email = data.get('email')
         password = data.get('password')
+        role=data.get('role')
 
         # Try to find the user by identifier
         try:
-            user = User.objects.get(username=identifier, email=email)
+            user = User.objects.get(username=identifier,role=role,email=email)
         except User.DoesNotExist:
             raise serializers.ValidationError("Invalid credentials.")
 
         # Authenticate user
         if not user.check_password(password):
-            raise serializers.ValidationError("Invalid credentials.")
+            raise serializers.ValidationError("Invalidpass credentials.")
 
         data['user'] = user
         return data

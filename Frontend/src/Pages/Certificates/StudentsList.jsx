@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import DataTable from '/src/Components/LoginDataTable';
 
@@ -31,7 +31,7 @@ const StudentsList = () => {
     }));
   
     const renderActions = (item) => {
-      return <button>Print T/C</button>;
+      return <Link to={`/character/${item.student_id}`}><button>Print T/C</button></Link>;
     };
   return (
     <>

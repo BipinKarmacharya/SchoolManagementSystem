@@ -47,10 +47,6 @@ def generate_student_id(sender, instance, created, **kwargs):
 
 
 
-
-
-
-
 # Signal to update the username in CustomUser after creating/updating a Student
 @receiver(post_save, sender=Student)
 def update_user_username(sender, instance, created, **kwargs):

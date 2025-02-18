@@ -13,7 +13,7 @@ class School(models.Model):
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='school_logos/', blank=True, null=True)
     established_date = models.DateField(blank=True, null=True)
-    principal_name = models.CharField(max_length=255, blank=True, null=True)
+    target_line = models.CharField(max_length=255, blank=True, null=True)
     total_students = models.PositiveIntegerField(default=0)
     total_teachers = models.PositiveIntegerField(default=0)
   

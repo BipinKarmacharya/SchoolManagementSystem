@@ -21,8 +21,7 @@ const AddEmployee = () => {
     department: "",
     designation: "",
     salary: "",
-    school: 2, // Assuming school ID is 1 for this example
-    user: 1, // Assuming user ID is 1 for this example
+    school: 1, // Assuming school ID is 1 for this example
   });
 
   const handleChange = (e) => {
@@ -37,51 +36,54 @@ const AddEmployee = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
 
-    // Append text fields from employeeData
-    const textFields = [
-      "employee_id",
-      "first_name",
-      "middle_name",
-      "last_name",
-      "address",
-      "phone",
-      "n_id",
-      "email",
-      "blood_group",
-      "date_of_enrollment",
-      "department",
-      "designation",
-      "salary",
-      "school",
-      "user",
-    ];
-    textFields.forEach((field) => {
-      formData.append(field, employeeData[field]);
-    });
+    // Create the payload structure
+    const payload = {
+      school: employeeData.school,
+      user: {
+        first_name: employeeData.first_name,
+        last_name: employeeData.last_name,
+        email: employeeData.email,
+        password: "pass" + employeeData.first_name, // Replace with actual password input field
+        username: Math.random().toString().slice(-6),
+        role: "Teacher",
+      },
+      employee_id: employeeData.employee_id,
+      first_name: employeeData.first_name,
+      middle_name: employeeData.middle_name,
+      last_name: employeeData.last_name,
+      address: employeeData.address,
+      phone: employeeData.phone,
+      n_id: employeeData.n_id,
+      email: employeeData.email,
+      blood_group: employeeData.blood_group,
+      date_of_enrollment: employeeData.date_of_enrollment,
+      department: employeeData.department,
+      designation: employeeData.designation,
+      salary: employeeData.salary,
+      gender: employeeData.gender,
+      date_of_birth: employeeData.date_of_birth,
+      religion: employeeData.religion,
+    };
 
-    // Append file fields from employeeData explicitly
-    if (employeeData.profile_image)
-      formData.append("profile_image", employeeData.profile_image);
-    if (employeeData.document1)
-      formData.append("document1", employeeData.document1);
-    if (employeeData.document2)
-      formData.append("document2", employeeData.document2);
-    if (employeeData.document3)
-      formData.append("document3", employeeData.document3);
+    console.log("User object:", payload.user);
 
     try {
-      const token = localStorage.getItem("token");
-      await axios.post("http://127.0.0.1:8000/api/employees/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          
-        },
-      });
+      // Send employee registration request
+      const employeeResponse = await axios.post(
+        "http://127.0.0.1:8000/api/employeeregister/",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Employee data submitted successfully:", employeeResponse.data);
       alert("Employee added successfully!");
     } catch (error) {
-      console.error("Error adding employee:", error);
+      console.error("There was an error submitting the form:", error.response?.data || error.message);
       alert("Failed to add employee. Please try again.");
     }
   };
@@ -90,7 +92,7 @@ const AddEmployee = () => {
     <div className="add-students">
       <div className="formHeader">
         <h2>Employee Onboarding Form</h2>
-        <p>Fields Marked * are .</p>
+        <p>Fields Marked * are required.</p>
       </div>
       <form id="addEmployeeForm" onSubmit={handleSubmit}>
         <div className="studentInfo">
@@ -107,7 +109,7 @@ const AddEmployee = () => {
                 placeholder="First Name"
                 value={employeeData.first_name}
                 onChange={handleChange}
-                
+                required
               />
             </fieldset>
 
@@ -132,27 +134,11 @@ const AddEmployee = () => {
                 placeholder="Last Name"
                 value={employeeData.last_name}
                 onChange={handleChange}
-                
+                required
               />
             </fieldset>
 
-            <fieldset>
-              <legend>Gender*</legend>
-              <select
-                name="gender"
-                id="selectGender"
-                value={employeeData.gender}
-                onChange={handleChange}
-             
-              >
-                <option value="" disabled>
-                  Select Gender
-                </option>
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-                <option value="O">Others</option>
-              </select>
-            </fieldset>
+           
 
             <fieldset>
               <legend>Address*</legend>
@@ -163,7 +149,7 @@ const AddEmployee = () => {
                 placeholder="Address"
                 value={employeeData.address}
                 onChange={handleChange}
-               
+                required
               />
             </fieldset>
 
@@ -176,7 +162,7 @@ const AddEmployee = () => {
                 placeholder="Phone"
                 value={employeeData.phone}
                 onChange={handleChange}
-            
+                required
               />
             </fieldset>
 
@@ -189,7 +175,7 @@ const AddEmployee = () => {
                 placeholder="Email Address"
                 value={employeeData.email}
                 onChange={handleChange}
-                
+                required
               />
             </fieldset>
 
@@ -210,7 +196,7 @@ const AddEmployee = () => {
                 id="selectDepartment"
                 value={employeeData.department}
                 onChange={handleChange}
-                
+                required
               >
                 <option value="" disabled>
                   Select Department
@@ -228,7 +214,7 @@ const AddEmployee = () => {
                 id="selectDesignation"
                 value={employeeData.designation}
                 onChange={handleChange}
-              
+                required
               >
                 <option value="" disabled>
                   Select Designation
@@ -247,7 +233,7 @@ const AddEmployee = () => {
                 id="addDate"
                 value={employeeData.date_of_enrollment}
                 onChange={handleChange}
-              
+                required
               />
             </fieldset>
 
@@ -260,7 +246,7 @@ const AddEmployee = () => {
                 placeholder="Salary"
                 value={employeeData.salary}
                 onChange={handleChange}
-                
+                required
               />
             </fieldset>
           </div>
@@ -271,17 +257,7 @@ const AddEmployee = () => {
             <h5>2. Other Information</h5>
           </div>
           <div className="fieldsetDiv">
-            <fieldset>
-              <legend>Date Of Birth*</legend>
-              <input
-                type="date"
-                name="date_of_birth"
-                id="birthDate"
-                value={employeeData.date_of_birth}
-                onChange={handleChange}
-                
-              />
-            </fieldset>
+            
 
             <fieldset>
               <legend>Citizenship*</legend>
@@ -290,7 +266,7 @@ const AddEmployee = () => {
                 name="document1"
                 id="citizenship"
                 onChange={handleFileChange}
-               
+                required
               />
             </fieldset>
 
@@ -303,7 +279,7 @@ const AddEmployee = () => {
                 placeholder="National ID number"
                 value={employeeData.n_id}
                 onChange={handleChange}
-                
+                required
               />
             </fieldset>
 
@@ -314,7 +290,6 @@ const AddEmployee = () => {
                 name="document2"
                 id="pan"
                 onChange={handleFileChange}
-               
               />
             </fieldset>
 
@@ -325,7 +300,6 @@ const AddEmployee = () => {
                 name="document3"
                 id="otherDoc"
                 onChange={handleFileChange}
-                
               />
             </fieldset>
 
@@ -352,25 +326,6 @@ const AddEmployee = () => {
               </select>
             </fieldset>
 
-            <fieldset>
-              <legend>Religion - (Optional)</legend>
-              <select
-                name="religion"
-                id="employeeReligion"
-                placeholder="Religion"
-                value={employeeData.religion}
-                onChange={handleChange}
-              >
-                <option value="" disabled>
-                  Select Religion
-                </option>
-                <option value="Hinduism">Hinduism</option>
-                <option value="Buddhism">Buddhism</option>
-                <option value="Islam">Islam</option>
-                <option value="Christianity">Christianity</option>
-                <option value="Others">Others</option>
-              </select>
-            </fieldset>
           </div>
         </div>
 

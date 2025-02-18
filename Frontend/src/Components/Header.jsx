@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "/src/assets/CSS/Components/Header.css";
 
 // Import Icons
@@ -8,10 +9,39 @@ import { HiMenuAlt1 } from "react-icons/hi";
 
 const Header = ({ toggleSidebar }) => {
   const [isCardVisible, setIsCardVisible] = useState(false);
+  const [schoolDetails, setSchoolDetails] = useState({
+    schoolName: "Institute Name",
+    address: "Address of Institute",
+    targetLine: "Target Line of Institute",
+  });
 
   const toggleCard = () => {
     setIsCardVisible(!isCardVisible);
   };
+
+  useEffect(() => {
+    // Fetch user details from the backend
+    const fetchUserDetails = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+        const response = await axios.get("http://127.0.0.1:8000/api/user-details/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const userDetails = response.data;
+        setSchoolDetails({
+          schoolName: userDetails.school.name,
+          address: userDetails.school.address,
+          targetLine: userDetails.school.target_line,
+        });
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    fetchUserDetails();
+  }, []);
 
   return (
     <div className="header-container">
@@ -21,9 +51,9 @@ const Header = ({ toggleSidebar }) => {
         </div>
         <HiMenuAlt1 id="menuIcon" onClick={toggleSidebar} />
         <div className="schoolDetails">
-          <span className="schoolName">Institute Name</span>
-          <span className="address">Address of Institute</span>
-          <span className="targetLine">"Target Line of Institute"</span>
+          <span className="schoolName">{schoolDetails.schoolName}</span>
+          <span className="address">{schoolDetails.address}</span>
+          <span className="targetLine">{schoolDetails.targetLine}</span>
         </div>
         <div className="navImg">
           <img
@@ -38,8 +68,12 @@ const Header = ({ toggleSidebar }) => {
       {/* Dropdown Card */}
       <div className={`dropdown ${isCardVisible ? "active" : ""}`}>
         <ul>
-          <li>Profile <LuUserRoundCog className="dropdownIcon"/></li>
-          <li>Logout  <MdOutlineLogout className="dropdownIcon"/></li>
+          <li>
+            Profile <LuUserRoundCog className="dropdownIcon" />
+          </li>
+          <li>
+            Logout <MdOutlineLogout className="dropdownIcon" />
+          </li>
         </ul>
       </div>
     </div>
@@ -47,5 +81,3 @@ const Header = ({ toggleSidebar }) => {
 };
 
 export default Header;
-
-

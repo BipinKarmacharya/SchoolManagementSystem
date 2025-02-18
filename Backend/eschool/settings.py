@@ -49,24 +49,22 @@ INSTALLED_APPS = [
     'subject',
     # 'attendance',
     'rest_framework_simplejwt',
+    'django_filters',
 
     
     
 ]
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ),
-# }
+REST_FRAMEWORK = {
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 
-# AUTHENTICATION_BACKENDS = [
-#     'django.contrib.auth.backends.ModelBackend',  # Default
-#     'path.to.your.custom_backend.EmailAuthBackend',  # Custom email-based authentication
-# ]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  ]
+   
 
 
 MIDDLEWARE = [
@@ -189,3 +187,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #     ]
 # }
 AUTH_USER_MODEL = 'auth_sys.CustomUser'
+
+
+
+
+
+
+
+
