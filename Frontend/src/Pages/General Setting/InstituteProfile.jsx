@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "/src/assets/CSS/Pages/InstituteProfile.css";
 
 const InstituteProfile = () => {
@@ -10,6 +12,8 @@ const InstituteProfile = () => {
     email: "",
     website: "",
     logo: null,
+    logo_url: "",
+    school_code: "bms",
     established_date: "",
     target_line: "",
     total_students: 0,
@@ -20,7 +24,7 @@ const InstituteProfile = () => {
     // Fetch school data from the backend
     const fetchSchoolData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/allschool/1/"); // Fetch school with id=1
+        const response = await axios.get("http://127.0.0.1:8000/api/school/1/"); // Fetch school with id=1
         setSchoolData(response.data);
       } catch (error) {
         console.error("Error fetching school data:", error);
@@ -41,31 +45,40 @@ const InstituteProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate phone number
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(schoolData.telephone)) {
+      alert("Please enter a valid 10-digit phone number.");
+      return;
+    }
+
     const formData = new FormData();
     for (const key in schoolData) {
       formData.append(key, schoolData[key]);
     }
 
     try {
-      await axios.put("http://127.0.0.1:8000/api/allschool/1/", formData, {
+      await axios.put("http://127.0.0.1:8000/api/school/update/1/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);
-      alert("Failed to update profile. Please try again.");
+      toast.error("Failed to update profile. Please try again.");
     }
   };
 
   return (
     <div className="institute-profile">
+      <ToastContainer />
       <div className="formHeader">
         <h2>Update Institute Profile</h2>
         <p>Fields Marked * are required.</p>
       </div>
-      <form id="instituteProfileForm" onSubmit={handleSubmit}>
+      <form id="instituteProfileForm" onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="formBox">
           <div className="sideA">
             <fieldset className="logoFieldset">
@@ -91,6 +104,16 @@ const InstituteProfile = () => {
                   onChange={handleFileChange}
                 />
               </div>
+            </fieldset>
+            <fieldset>
+              <legend>School Code</legend>
+              <input
+                type="text"
+                name="code"
+                id="code"
+                value={schoolData.school_code}
+                // readOnly
+              />
             </fieldset>
             <fieldset>
               <legend>Name of Institute*</legend>
@@ -134,12 +157,15 @@ const InstituteProfile = () => {
             <fieldset>
               <legend>Phone Number*</legend>
               <input
-                type="text"
+                type="tel"
                 name="telephone"
                 id="telephone"
                 placeholder="Phone Number"
                 value={schoolData.telephone}
                 onChange={handleChange}
+                pattern="[0-9]{10}"
+                onInvalid={(e) => e.target.setCustomValidity("Please enter a valid 10-digit phone number.")}
+                onInput={(e) => e.target.setCustomValidity("")}
                 required
               />
             </fieldset>
@@ -158,7 +184,7 @@ const InstituteProfile = () => {
             <fieldset>
               <legend>Website</legend>
               <input
-                type="text"
+                type="url"
                 name="website"
                 id="website"
                 placeholder="Website"
