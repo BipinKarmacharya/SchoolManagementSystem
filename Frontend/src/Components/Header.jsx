@@ -1,5 +1,6 @@
-import  { Link } from "react-router-dom"
-import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "/src/assets/CSS/Components/Header.css";
 
 // Import Icons
@@ -14,6 +15,7 @@ const Header = ({ toggleSidebar }) => {
     address: "Address of Institute",
     targetLine: "Target Line of Institute",
   });
+  const navigate = useNavigate();
 
   const toggleCard = () => {
     setIsCardVisible(!isCardVisible);
@@ -23,12 +25,7 @@ const Header = ({ toggleSidebar }) => {
     // Fetch user details from the backend
     const fetchUserDetails = async () => {
       try {
-        const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
-        const response = await axios.get("http://127.0.0.1:8000/api/user-details/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get("http://127.0.0.1:8000/api/user-details/");
         const userDetails = response.data;
         setSchoolDetails({
           schoolName: userDetails.school.name,
@@ -42,6 +39,17 @@ const Header = ({ toggleSidebar }) => {
 
     fetchUserDetails();
   }, []);
+
+  const handleLogout = () => {
+    // Clear authentication tokens from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("role");
+    localStorage.removeItem("school_id");
+
+    // Redirect to the landing page
+    navigate("/");
+  };
 
   return (
     <div className="header-container">
@@ -68,8 +76,14 @@ const Header = ({ toggleSidebar }) => {
       {/* Dropdown Card */}
       <div className={`dropdown ${isCardVisible ? "active" : ""}`}>
         <ul>
-          <Link to = "/profile-setting"><li>Profile <LuUserRoundCog className="dropdownIcon"/></li></Link>
-          <li>Logout  <MdOutlineLogout className="dropdownIcon"/></li>
+          <Link to="/profile-setting">
+            <li>
+              Profile <LuUserRoundCog className="dropdownIcon" />
+            </li>
+          </Link>
+          <li onClick={handleLogout}>
+            Logout <MdOutlineLogout className="dropdownIcon" />
+          </li>
         </ul>
       </div>
     </div>

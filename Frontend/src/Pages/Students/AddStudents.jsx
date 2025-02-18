@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const AddStudents = () => {
@@ -20,7 +20,7 @@ const AddStudents = () => {
     date_of_birth: "",
     date_of_enrollment: "",
     gender: "",
-    school: "", // Initially empty, will be set after fetching school info
+    school: 1, // Assuming school ID is 1 for this example
   });
 
   const [parentData, setParentData] = useState({
@@ -30,19 +30,6 @@ const AddStudents = () => {
     email: "",
     pdocument: null,
   });
-
-  useEffect(() => {
-    // Retrieve school_id from localStorage
-    const schoolId = localStorage.getItem("school_id");
-    if (schoolId) {
-      setStudentData((prevData) => ({
-        ...prevData,
-        school: schoolId,
-      }));
-    } else {
-      console.error("School ID not found in localStorage.");
-    }
-  }, []);
 
   const handleStudentChange = (e) => {
     const { name, value } = e.target;
@@ -72,29 +59,64 @@ const AddStudents = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Ensure the school field is not null
-    if (!studentData.school) {
-      alert("School information is not available. Please try again later.");
-      return;
-    }
-
+  
+    // Create the payload structure
+    const payload = {
+      school: studentData.school,
+      user: {
+        first_name: studentData.first_name,
+        last_name: studentData.last_name,
+        email: studentData.email,
+        password: "pass" + studentData.first_name, // Replace with actual password input field
+        username: Math.random().toString().slice(-6),
+        role: "student", // Ensure the role value matches the expected value on the backend
+      },
+      first_name: studentData.first_name,
+      middle_name: studentData.middle_name,
+      last_name: studentData.last_name,
+      address: studentData.address,
+      enroll_class: studentData.enroll_class,
+      phone: studentData.phone,
+      email: studentData.email,
+      gender: studentData.gender,
+    };
+  
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/student/",
-        studentData,
+      // Send student registration request
+      const studentResponse = await axios.post(
+        "http://127.0.0.1:8000/api/studentregister/",
+        payload,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
       );
-      alert("Student added successfully!");
+  
+      const studentId = studentResponse.data.id;
+  
+      // Prepare parent data
+      const parentPayload = {
+        ...parentData,
+        student: studentId, // Link parent with student
+      };
+  
+      // Send parent registration request
+      const parentResponse = await axios.post(
+        "http://127.0.0.1:8000/api/parents/",
+        parentPayload
+      );
+  
+      console.log(
+        "Student and Parent data submitted successfully:",
+        studentResponse.data,
+        parentResponse.data
+      );
     } catch (error) {
-      console.error("Error adding student:", error);
-      alert("Failed to add student.");
+      console.error(
+        "There was an error submitting the form:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -404,4 +426,4 @@ const AddStudents = () => {
   );
 };
 
-export default AddStudents;
+export default AddStudents;

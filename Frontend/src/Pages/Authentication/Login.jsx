@@ -11,7 +11,6 @@ import { RiAdminFill } from "react-icons/ri";
 
 function Login() {
   const [role, setRole] = useState("School Admin"); // Default role
-  const [identifier, setIdentifier] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -21,7 +20,6 @@ function Login() {
 
     // Create the login payload
     const loginData = {
-      identifier,
       email,
       password,
       role,
@@ -39,13 +37,13 @@ function Login() {
       if (!response.ok) throw new Error("Invalid credentials");
       const data = await response.json();
       localStorage.setItem("token", data.access);
-      localStorage.setItem("refreshToken", data.refresh);
       localStorage.setItem("role", data.role);
+      localStorage.setItem("school_id", data.school_id);
 
       // Redirect to different dashboards based on role
       if (role === "School Admin") {
         navigate("/admin-dashboard");
-      } else if (role === "Student") {
+      } else if (role === "student") {
         navigate("/student-dashboard");
       } else if (role === "Teacher") {
         navigate("/teacher-dashboard");
@@ -77,10 +75,10 @@ function Login() {
             <div className="selectUserButton">
               <div className="login-user">
                 <button
-                  className={`std ${role === "Student" ? "active-role" : ""}`}
+                  className={`std ${role === "student" ? "active-role" : ""}`}
                   onClick={() => {
-                    setRole("Student");
-                    console.log("Selected Role:", "Student");
+                    setRole("student");
+                    console.log("Selected Role:", "student");
                   }}
                 >
                   <PiStudentBold className="login-user-icon" />
@@ -117,34 +115,6 @@ function Login() {
           </div>
 
           <form id="login-form" onSubmit={handleLogin}>
-            {(role === "School Admin" ||
-              role === "Student" ||
-              role === "Teacher") && (
-              <div className="form__group field">
-                <input
-                  type="text"
-                  className="form__field"
-                  placeholder={
-                    role === "School Admin"
-                      ? "School Code"
-                      : role === "Student"
-                      ? "Student ID"
-                      : "Teacher ID"
-                  }
-                  value={identifier}
-                  onChange={(e) => setIdentifier(e.target.value)}
-                  required
-                />
-                <label htmlFor="identifier" className="form__label">
-                  {role === "School Admin"
-                    ? "School Code"
-                    : role === "Student"
-                    ? "Student ID"
-                    : "Teacher ID"}
-                </label>
-              </div>
-            )}
-
             <div className="form__group field">
               <input
                 type="email"

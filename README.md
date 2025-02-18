@@ -12,6 +12,7 @@
 <li>npm install framer-motion - For Smooth behavior</li>
 <li>npm install react-big-calendar moment - For Calender</li>
 <li>npm install axios - React Axios</li>
+<li>npm install recharts -Charts</li>
 
 <b>Dependencies must install - For Backend (Django)</b>
 <li>pip install django</li>

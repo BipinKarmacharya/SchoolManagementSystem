@@ -115,27 +115,24 @@ class LoginSerializer(serializers.Serializer):
       - student_id for students, or
       - employee_id for employees.
     """
-    identifier = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
     password = serializers.CharField(write_only=True)
-    role=serializers.CharField(required=True)
-
+    role = serializers.CharField(required=True)
 
     def validate(self, data):
-        identifier = data.get('identifier')
         email = data.get('email')
         password = data.get('password')
-        role=data.get('role')
+        role = data.get('role')
 
-        # Try to find the user by identifier
+        # Try to find the user by email and role
         try:
-            user = User.objects.get(username=identifier,role=role,email=email)
+            user = User.objects.get(email=email, role=role)
         except User.DoesNotExist:
             raise serializers.ValidationError("Invalid credentials.")
 
         # Authenticate user
         if not user.check_password(password):
-            raise serializers.ValidationError("Invalidpass credentials.")
+            raise serializers.ValidationError("Invalid credentials.")
 
         data['user'] = user
         return data
