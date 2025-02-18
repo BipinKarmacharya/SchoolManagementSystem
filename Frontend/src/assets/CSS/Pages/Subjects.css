@@ -1,0 +1,18 @@
+.subject-container {
+    margin-bottom :15px;
+    padding: 8px;
+    box-shadow: var(--box-shadow-1);
+    border-radius: 8px;
+}
+.subjectFilter {
+    height: 10vh;
+    margin-bottom: 16px;
+}
+.subjectFilter select {
+    margin-top: 10px;
+}
+.all-subjects {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+}

@@ -79,7 +79,7 @@ const Dashboard = () => {
           <h4>Total Students</h4>
           <div className="totalCount">
             <PiStudentFill className="gridIcon" />
-            <h2>{schoolData.totalStudents}</h2>
+            <h2>{schoolData.totalStudents || 0}</h2>
           </div>
         </div>
         <div className="gridItem totalEmployees" id="totalEmployees">
@@ -93,7 +93,7 @@ const Dashboard = () => {
           <h4>Total Classes</h4>
           <div className="totalCount">
             <TfiRulerPencil className="gridIcon" />
-            <h2>{schoolData.totalClasses}</h2>
+            <h2>{schoolData.totalClasses || 0}</h2>
           </div>
         </div>
         <div className="gridItem todayCount" id="todayCount">

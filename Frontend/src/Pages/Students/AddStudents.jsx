@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const AddStudents = () => {
@@ -31,6 +31,22 @@ const AddStudents = () => {
     pdocument: null,
   });
 
+  const [classes, setClasses] = useState([]); // State to store classes
+
+  useEffect(() => {
+    // Fetch available classes when the component loads
+    const fetchClasses = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/classes/");
+        setClasses(response.data);
+      } catch (error) {
+        console.error("Error fetching classes:", error);
+      }
+    };
+
+    fetchClasses();
+  }, []);
+
   const handleStudentChange = (e) => {
     const { name, value } = e.target;
     setStudentData({ ...studentData, [name]: value });
@@ -59,7 +75,7 @@ const AddStudents = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Create the payload structure
     const payload = {
       school: studentData.school,
@@ -80,7 +96,7 @@ const AddStudents = () => {
       email: studentData.email,
       gender: studentData.gender,
     };
-  
+
     try {
       // Send student registration request
       const studentResponse = await axios.post(
@@ -92,21 +108,21 @@ const AddStudents = () => {
           },
         }
       );
-  
+
       const studentId = studentResponse.data.id;
-  
+
       // Prepare parent data
       const parentPayload = {
         ...parentData,
         student: studentId, // Link parent with student
       };
-  
+
       // Send parent registration request
       const parentResponse = await axios.post(
         "http://127.0.0.1:8000/api/parents/",
         parentPayload
       );
-  
+
       console.log(
         "Student and Parent data submitted successfully:",
         studentResponse.data,
@@ -199,7 +215,7 @@ const AddStudents = () => {
                 required
               />
             </fieldset>
-            
+
             <fieldset>
               <legend>Phone*</legend>
               <input
@@ -225,15 +241,26 @@ const AddStudents = () => {
             </fieldset>
             <fieldset>
               <legend>Enroll Class*</legend>
-              <input
-                type="text"
+              <select
                 name="enroll_class"
                 id="studentEnrollClass"
-                placeholder="Enroll Class"
                 value={studentData.enroll_class}
                 onChange={handleStudentChange}
                 required
-              />
+              >
+                <option value="" disabled>
+                  Select Class
+                </option>
+                {classes && classes.length > 0 ? (
+                  classes.map((classItem) => (
+                    <option key={classItem.id} value={classItem.id}>
+                      {classItem.name}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled>Loading classes...</option>
+                )}
+              </select>
             </fieldset>
             <fieldset>
               <legend>Photo - (Optional)</legend>
@@ -244,7 +271,7 @@ const AddStudents = () => {
                 onChange={handleFileChange}
               />
             </fieldset>
-            
+
             <fieldset>
               <legend>Date of Birth*</legend>
               <input
@@ -255,7 +282,7 @@ const AddStudents = () => {
                 onChange={handleStudentChange}
               />
             </fieldset>
-            
+
             <fieldset>
               <legend>Date of Enrollment*</legend>
               <input
@@ -276,7 +303,7 @@ const AddStudents = () => {
             <h5>2. Other Information</h5>
           </div>
           <div className="fieldsetDiv">
-          <fieldset>
+            <fieldset>
               <legend>Birth Certificate - (Optional)</legend>
               <input
                 type="file"
@@ -347,7 +374,6 @@ const AddStudents = () => {
                 <option value="Others">Others</option>
               </select>
             </fieldset>
-
           </div>
         </div>
 
@@ -426,4 +452,4 @@ const AddStudents = () => {
   );
 };
 
-export default AddStudents;
+export default AddStudents;

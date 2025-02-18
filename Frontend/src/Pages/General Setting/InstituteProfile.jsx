@@ -117,7 +117,7 @@ const InstituteProfile = () => {
                 type="text"
                 name="target_line"
                 id="target_line"
-                placeholder="Principal Name"
+                placeholder="Target Line"
                 value={schoolData.target_line}
                 onChange={handleChange}
                 required

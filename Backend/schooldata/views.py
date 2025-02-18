@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from .models import School
 from .serializer import SchoolSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 
 
 class SchoolViewSet(viewsets.ModelViewSet):
@@ -13,7 +13,7 @@ class SchoolViewSet(viewsets.ModelViewSet):
 
 
 class SchoolDetailView(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = SchoolSerializer
 
     def get_object(self):

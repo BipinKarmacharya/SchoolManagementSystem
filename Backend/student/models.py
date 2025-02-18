@@ -7,6 +7,7 @@ from schooldata.models import School
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from classes.models import SchoolClass  # Import the SchoolClass model
 
 class Student(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
@@ -16,7 +17,7 @@ class Student(models.Model):
     middle_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50)
     address = models.TextField()
-    enroll_class = models.IntegerField(null=True, blank=True)
+    enroll_class = models.ForeignKey(SchoolClass, on_delete=models.SET_NULL, null=True, blank=True, related_name="students")  # Changed to ForeignKey
     phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True, blank=True, null=True)
     profile_image = models.ImageField(upload_to='profile_picture/', blank=True, null=True)
