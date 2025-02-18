@@ -117,7 +117,7 @@ WSGI_APPLICATION = 'eschool.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'schoolmanagementdb',
+        'NAME': 'SMS',
         'USER': 'root',
         'PASSWORD': 'MySQL@2000',
         'HOST': 'localhost',

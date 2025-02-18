@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import PageTitle from "../../Components/PageTitle";
 
 const AddSubjects = () => {
   const [classes, setClasses] = useState([]); // Store class list
@@ -10,7 +9,7 @@ const AddSubjects = () => {
   const [subjectTeacher, setSubjectTeacher] = useState("");
   const [message, setMessage] = useState("");
 
-  // ✅ Fetch available classes when the component loads
+  // Fetch available classes when the component loads
   useEffect(() => {
     const fetchClasses = async () => {
       try {
@@ -29,7 +28,7 @@ const AddSubjects = () => {
     fetchClasses();
   }, []);
 
-  // ✅ Handle form submission
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,7 +58,6 @@ const AddSubjects = () => {
 
   return (
     <div className="add-subjects">
-      <PageTitle title="Add New Subject" />
       <div className="formHeader">
         <h2>Add New Subject</h2>
         <p>Fields Marked * are required.</p>
@@ -67,7 +65,6 @@ const AddSubjects = () => {
       {message && <p className="message">{message}</p>}
 
       <form onSubmit={handleSubmit} id="addSubjects">
-        {/* Class Selection */}
         <fieldset>
           <legend>Select Class*</legend>
           <select
@@ -84,7 +81,6 @@ const AddSubjects = () => {
           </select>
         </fieldset>
 
-        {/* Subject Name */}
         <fieldset>
           <legend>Subject Name*</legend>
           <input
@@ -96,7 +92,6 @@ const AddSubjects = () => {
           />
         </fieldset>
 
-        {/* Full Marks */}
         <fieldset>
           <legend>Full Marks*</legend>
           <input
@@ -108,7 +103,6 @@ const AddSubjects = () => {
           />
         </fieldset>
 
-        {/* Pass Marks */}
         <fieldset>
           <legend>Pass Marks*</legend>
           <input
@@ -120,26 +114,18 @@ const AddSubjects = () => {
           />
         </fieldset>
 
-        {/* Subject Teacher */}
         <fieldset>
           <legend>Subject Teacher*</legend>
           <input
             type="text"
             value={subjectTeacher}
             onChange={(e) => setSubjectTeacher(e.target.value)}
-            placeholder="Enter Subject Teacher Name"
+            placeholder="Class Teacher Name"
             required
           />
         </fieldset>
 
-        <div className="formButtons">
-          <button type="reset" className="reset" onClick={() => { 
-            setSubjectName(""); setFullMarks(""); setPassMarks(""); setSubjectTeacher(""); setSelectedClass(""); 
-          }}>
-            <i className="fa-solid fa-rotate"></i> Reset
-          </button>
-          <button type="submit" className="submit">Create</button>
-        </div>
+        <button type="submit">Create</button>
       </form>
     </div>
   );
