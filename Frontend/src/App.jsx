@@ -7,7 +7,7 @@ import Login from "./Pages/Authentication/Login";
 import Website from "./Pages/Website/Website";
 
 // User Profile
-import UserProfile from "./Pages/UserAccount/UserProfile";
+// import UserProfile from "./Pages/UserAccount/UserProfile";
 import StudentDashboard from "./Student Dashboard/StudentDashboard"
 
 // Import the new AdminRoutes
@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/*" element={<AdminRoutes />} /> {/* ✅ Admin Routes Handled Separately */}
 
         {/* User Profile */}
-        <Route path="/profile-setting" element={<UserProfile />} />
+        {/* <Route path="/profile-setting" element={<UserProfile />} /> */}
 
         <Route path="/student-dashboard" element={<StudentDashboard />} />
       </Routes>

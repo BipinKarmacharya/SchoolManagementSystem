@@ -43,7 +43,7 @@ function Login() {
       // Redirect to different dashboards based on role
       if (role === "School Admin") {
         navigate("/admin-dashboard");
-      } else if (role === "Student") {
+      } else if (role === "student") {
         navigate("/student-dashboard");
       } else if (role === "Teacher") {
         navigate("/teacher-dashboard");
@@ -75,10 +75,10 @@ function Login() {
             <div className="selectUserButton">
               <div className="login-user">
                 <button
-                  className={`std ${role === "Student" ? "active-role" : ""}`}
+                  className={`std ${role === "student" ? "active-role" : ""}`}
                   onClick={() => {
-                    setRole("Student");
-                    console.log("Selected Role:", "Student");
+                    setRole("student");
+                    console.log("Selected Role:", "student");
                   }}
                 >
                   <PiStudentBold className="login-user-icon" />

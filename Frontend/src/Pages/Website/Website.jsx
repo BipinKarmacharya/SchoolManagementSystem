@@ -36,7 +36,7 @@ const Website = () => {
       <div className="websiteHeader">
         <ParticlesComponent id="particles" />
         <nav>
-          <div className="website-logo">EduManage</div>
+          <div className="website-logo">VidyaVyavastha</div>
           <ul>
             <li>
               <a href="#features">Features</a>
@@ -62,14 +62,14 @@ const Website = () => {
         </nav>
         <div className="hero">
           <h1 className="animate__animated animate__fadeIn">
-            Revolutionize School Management with EduManage
+            Revolutionize School Management with VidyaVyavasta
           </h1>
           <p className="animate__animated animate__fadeIn animate__delay-1s">
             Streamline administration, attendance, grading, and communication in
             one powerful platform.
           </p>
           <div className="cta-buttons animate__animated animate__fadeIn animate__delay-2s">
-            <Link to="/admin-dashboard">
+            <Link to="/login">
               <button className="login-btn">Login</button>
             </Link>
 
@@ -128,7 +128,7 @@ const Website = () => {
           <div className="card">
             <img src="/Images/user1.jpg" alt="User 1" />
             <p>
-              "EduManage has made our school management so much easier. Highly
+              "VidyaVyavasta has made our school management so much easier. Highly
               recommended!"
             </p>
             <h4>John Doe, School Principal</h4>
@@ -148,9 +148,9 @@ const Website = () => {
 
       <section id="cta" className="cta">
         <h2>Ready to Transform Your School Management?</h2>
-        <p>Join hundreds of schools already using EduManage.</p>
+        <p>Join hundreds of schools already using VidyaVyavasta.</p>
         <div className="cta-buttons">
-          <Link to="/std-dash">
+          <Link to="/login">
             <button className="login-btn">Login</button>
           </Link>
           <Link to="/register-school">
@@ -164,7 +164,7 @@ const Website = () => {
           <div className="about">
             <h3>About Us</h3>
             <p>
-              EduManage is a modern school management system designed to
+              VidyaVyavasta is a modern school management system designed to
               simplify administration.
             </p>
           </div>
@@ -184,7 +184,7 @@ const Website = () => {
           </div>
           <div className="contact-info">
             <h3>Contact Info</h3>
-            <p>Email: support@edumanage.com</p>
+            <p>Email: support@VidyaVyavasta.com</p>
             <p>Phone: +123 456 7890</p>
           </div>
         </div>

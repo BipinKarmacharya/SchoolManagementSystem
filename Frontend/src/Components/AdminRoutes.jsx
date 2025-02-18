@@ -50,7 +50,7 @@ function AdminRoutes() {
         <Route path="character-certificate" element={<Character />} />
         <Route path="new-notice" element={<NewNotice />} />
         <Route path="prev-notice" element={<PreviousNotice />} />
-        <Route path="students/:id/view" element={<ViewUserDetails />} />
+        <Route path="students/:student_id/" element={<ViewUserDetails />} />
       </Route>
     </Routes>
   );

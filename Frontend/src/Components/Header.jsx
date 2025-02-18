@@ -25,15 +25,8 @@ const Header = ({ toggleSidebar }) => {
     // Fetch user details from the backend
     const fetchUserDetails = async () => {
       try {
-        const token = localStorage.getItem("token"); // Get token from localStorage
-        const schoolId = localStorage.getItem("school_id"); // Get school_id from localStorage
-
-        const response = await axios.get(`http://127.0.0.1:8000/api/schools/${schoolId}/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const schoolDetails = response.data;
+        const response = await axios.get("http://127.0.0.1:8000/api/user-details/");
+        const userDetails = response.data;
         setSchoolDetails({
           schoolName: schoolDetails.name,
           address: schoolDetails.address,

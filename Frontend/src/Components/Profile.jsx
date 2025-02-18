@@ -15,9 +15,17 @@ const Profile = ({ student }) => {
       </div>
       <hr />
       <div className="editIcons">
-        <Link to={`/students/${student.id}/viewDetails`} title="View Details"><FaEye /></Link>
-        <Link to={`/students/${student.id}/edit`} title="Edit Profile"><LiaUserEditSolid /></Link>
-        <Link to={`/students/${student.id}/delete`} title="Delete Profile"><TbTrashX /></Link>
+        <Link to={`/students/${student.id}`} title="View Details">
+          <FaEye />
+        </Link>
+        
+        <Link to={`/students/${student.student_id}/edit`} title="Edit Profile">
+          <LiaUserEditSolid />
+        </Link>
+        
+        <Link to={`/students/${student.student_id}/delete`} title="Delete Profile">
+          <TbTrashX />
+        </Link>
       </div>
     </div>
   );

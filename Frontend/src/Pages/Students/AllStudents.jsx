@@ -77,7 +77,7 @@ const AllStudents = () => {
             </div>
             <div className="allStudentsData">
               {studentsByClass[enroll_class].map((student) => (
-                <Profile key={student.id} student={student} />
+                <Profile key={student.student_id} student={student} />
               ))}
             </div>
           </div>
