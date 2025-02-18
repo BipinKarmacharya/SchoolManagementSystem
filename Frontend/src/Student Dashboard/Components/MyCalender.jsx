@@ -49,7 +49,7 @@ const MyCalendar = () => {
   };
 
   return (
-    <div className="calendar-container">
+    <div className="std-calendar-container">
       <Calendar
         localizer={localizer}
         events={events}
@@ -65,7 +65,7 @@ const MyCalendar = () => {
           position: "relative",
         }}
       />
-      <div className="events-box">
+      <div className="std-events-box">
         <h3>Upcoming Events</h3>
         <ul>
           {events.map((event, index) => (

@@ -25,7 +25,7 @@ const App = () => {
         {/* User Profile */}
         <Route path="/profile-setting" element={<UserProfile />} />
 
-        <Route path="/std-dash" element={<StudentDashboard />} />
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
       </Routes>
     </Router>
   );

@@ -3,7 +3,7 @@ import "/src/assets/CSS/Pages/Dashboard.css";
 import { SlArrowDown } from "react-icons/sl";
 import MyCalendar from "../Components/MyCalender";
 import { FaPen } from "react-icons/fa";
-// import '../assets/CSS/Pages/Dashboard.css';
+import '../assets/CSS/Pages/StudentDashboard.css';
 // import '../assets/CSS/Components/MyCalendar.css';
 import '../assets/CSS/Components/Profile.css';
 
@@ -59,20 +59,20 @@ const Dashboard = () => {
     }
   }
   return (
-    <div className="dashboard">
+    <div className="StdDashboard">
       <h3>Welcome Back😊</h3>
     
-      <div className="panelText">
+      <div className="stdPanelText">
         <span>Welcome to the student panel</span>
         <p>This is where you can manage all.</p>
 
-        <div className="panelImage">
+        <div className="stdPanelImage">
           <img src="./assets/images/background.png" alt="background" />
         </div>
       </div>
 
-      <div className="con">
-        <div className="details">
+      <div className="stdContainer">
+        <div className="stdDetails">
           <span>Details</span>
           <div className="icon" onClick={toggleDropdown}>
             <SlArrowDown className={`arrow ${isDropdownVisible ? "rotate" : ""}`} />
@@ -145,7 +145,7 @@ const Dashboard = () => {
         <label htmlFor="fileInput" className="custom-file-button">
           <FaPen />
         </label>
-        <div className="profileimg">
+        <div className="stdProfileImg">
         {imageSrc && <img src={imageSrc} alt="Profile Preview" className="image-preview" />}
         </div>
 
@@ -153,13 +153,13 @@ const Dashboard = () => {
         <div className="gpa">
           <span>GPA: 4.00</span>
         </div>
-        <div className="gridItem todayCount" id="todayCount">
+        <div className="stdGridItem stdTodayCount" id="todayCount">
           <h5>
             Attendance: <span className="showPercent">0%</span>
           </h5>
-          <div className="presentBox"></div>
+          <div className="stdPresentBox"></div>
           <h5>
-            Course Completion: <span className="showPercent">100%</span>
+            Course Completion: <span className="stdShowPercent">100%</span>
           </h5>
           <div className="presentBox"></div>
         </div>
