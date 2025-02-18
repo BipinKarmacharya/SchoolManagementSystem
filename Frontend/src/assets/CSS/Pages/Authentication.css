@@ -13,9 +13,7 @@
   font-size: 40px;
   z-index: 1000;
 }
-.LoginHomeIcon {
-  color: #ff5900;
-}
+.LoginHomeIcon ,
 .HomeIcon {
   color: #0033ff;
 }
@@ -119,7 +117,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffe5d9;
+  background-color: #dee5ff;
 }
 
 /* Container Styles */
@@ -161,6 +159,7 @@
 /* Role Selection Header */
 .logOption h3 { 
   height: 8vh;
+  font-size: 25px;
   text-align: center;
   color: #077999;  
 }
@@ -181,11 +180,18 @@
 }
 .selectUserButton button:hover {
   color: white;
-  background-color: rgb(7, 121, 153);
+  background-color: rgb(47, 89, 240);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-
+.login-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-user-icon {
+  font-size: 30px;
+}
 /* Form */
 #login-form {
   margin: 0;
@@ -307,4 +313,25 @@
 .register-link {
   margin-top: 20px;
   font-size: 14px;
+}
+
+
+/* Default button style */
+.std {
+  background-color: #f5f5f5;
+  color: black;
+  border: 2px solid transparent;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+}
+
+/* Style for the selected role */
+.active-role {
+  background-color: #4CAF50 !important;  /* Green color */
+  color: white !important;
+  border: 2px solid #388E3C !important;
+  transform: scale(1.1);
 }

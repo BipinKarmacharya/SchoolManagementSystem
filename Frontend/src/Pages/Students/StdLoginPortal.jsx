@@ -31,7 +31,7 @@ const StudentPortal = () => {
     name: `${student.first_name} ${student.middle_name} ${student.last_name}`,
     phone: student.phone,
     email: student.email,
-    password: student.first_name, // Example: you may replace this with a proper password field
+    password: "pass"+student.first_name, // Example: you may replace this with a proper password field
   }));
 
   const sendEmailToStudent = async (student) => {

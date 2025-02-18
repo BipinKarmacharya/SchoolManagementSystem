@@ -10,11 +10,13 @@ import AllSubjects from "../Pages/Subjects/AllSubjects"
 import AddSubjects from "../Pages/Subjects/AddSubjects"
 import AllStudents from "../Pages/Students/AllStudents";
 import AddStudents from "../Pages/Students/AddStudents";
+import StudentsIDCard from "../Pages/Students/StudentIDCard";
 import StdLoginPortal from "../Pages/Students/StdLoginPortal"
 import StudentsList from "../Pages/Certificates/StudentsList";
 import ViewUserDetails from "../Pages/Students/ViewDetails";
 import AllEmployee from "../Pages/Employees/AllEmployee";
 import AddEmployee from "../Pages/Employees/AddEmployee";
+import EmployeeIDCard from "../Pages/Employees/EmpIDCard";
 import EmpLoginPortal from "../Pages/Employees/EmpLoginPortal";
 import EmployeeAttendance from "../Pages/Attendance/EmployeeAttendance";
 import StudentAttendance from "../Pages/Attendance/StudentAttendance";
@@ -35,10 +37,12 @@ function AdminRoutes() {
         <Route path="add-subjects" element={<AddSubjects />} />
         <Route path="all-students" element={<AllStudents />} />
         <Route path="add-students" element={<AddStudents />} />
+        <Route path="students-id" element={<StudentsIDCard />} />
         <Route path="std-login-portal" element={<StdLoginPortal />} />
         <Route path="students-list" element={<StudentsList />} />
         <Route path="all-employee" element={<AllEmployee />} />
         <Route path="add-employee" element={<AddEmployee />} />
+        <Route path="employee-id" element={<EmployeeIDCard />} />
         <Route path="emp-login-portal" element={<EmpLoginPortal />} />
         <Route path="employee-attendance" element={<EmployeeAttendance />} />
         <Route path="search" element={<Search />} />

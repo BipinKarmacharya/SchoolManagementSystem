@@ -52,11 +52,11 @@ const Website = () => {
             </li>
           </ul>
           <div className="auth-buttons">
-          <Link to="/login">
-            <button className="login-btn">Login</button>
+            <Link to="/login">
+              <button className="login-btn">Login</button>
             </Link>
             <Link to="/register-school">
-            <button className="register-btn">Register your School</button>
+              <button className="register-btn">Register your School</button>
             </Link>
           </div>
         </nav>
@@ -150,11 +150,11 @@ const Website = () => {
         <h2>Ready to Transform Your School Management?</h2>
         <p>Join hundreds of schools already using EduManage.</p>
         <div className="cta-buttons">
-        <Link to="/login">
-          <button className="login-btn">Login</button>
+          <Link to="/std-dash">
+            <button className="login-btn">Login</button>
           </Link>
           <Link to="/register-school">
-          <button className="register-btn">Register your School</button>
+            <button className="register-btn">Register your School</button>
           </Link>
         </div>
       </section>
@@ -191,8 +191,7 @@ const Website = () => {
       </div>
 
       {showButton && (
-          <FaCircleArrowUp onClick={scrollToTop} className="back-to-top"/>
-        
+        <FaCircleArrowUp onClick={scrollToTop} className="back-to-top" />
       )}
     </div>
   );
