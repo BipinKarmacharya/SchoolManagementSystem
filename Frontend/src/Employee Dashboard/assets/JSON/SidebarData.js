@@ -1,5 +1,6 @@
 import { LuLayoutDashboard, LuClipboardPen } from "react-icons/lu";
 
+import { TfiRulerPencil } from "react-icons/tfi";
 import { RiUserFollowLine } from "react-icons/ri";
 
 import { PiExam } from "react-icons/pi";
@@ -12,49 +13,58 @@ export const SidebarData = [
         menuTitle : "Dashboard",
         menuIcon : LuLayoutDashboard,
         subMenu : [],
-        menuLink : ["/student-dashboard"],
-    },   
+        menuLink : ["/"],
+    }, 
+ 
     {
         id : 2,
-        menuTitle : "Attendance",
-        menuIcon : RiUserFollowLine,
-        subMenu : [ "View Attendance"],
-        menuLink : ["/student-dashboard"],
+        menuTitle : "Classes",
+        menuIcon : TfiRulerPencil,
+        subMenu : ["All Classes"],
+        menuLink : [],
     },
+   
     {
         id : 3,
-        menuTitle : "Assignment",
-        menuIcon : LuClipboardPen,
-        subMenu : ["Submit Assignment"],
-        menuLink : ["/student-dashboard"],
+        menuTitle : "Attendance",
+        menuIcon : RiUserFollowLine,
+        subMenu : [ "Take attendence"],
+        menuLink : [],
     },
     {
         id : 4,
-        menuTitle : "Exam",
+        menuTitle : "Assignment",
         menuIcon : LuClipboardPen,
-        subMenu : ["view Routine"],
-        menuLink : ["/student-dashboard"],
+        subMenu : ["Check Assignment"],
+        menuLink : ["/"],
     },
     {
         id : 5,
-        menuTitle : "Results",
-        menuIcon : PiExam,
-        subMenu : ["view result"],
-        menuLink : ["/student-dashboard"],
+        menuTitle : "Exam",
+        menuIcon : LuClipboardPen,
+        subMenu : ["POst routine","Add exam","Add question"],
+        menuLink : [],
     },
     {
         id : 6,
-        menuTitle : "Timetable",
-        menuIcon : SlCalender,
-        subMenu : ["For class"],
-        menuLink : ["/student-dashboard"],
+        menuTitle : "Results",
+        menuIcon : PiExam,
+        subMenu : ["Add result"],
+        menuLink : [],
     },
     {
         id : 7,
+        menuTitle : "Timetable",
+        menuIcon : SlCalender,
+        subMenu : ["Add timetable"],
+        menuLink : [],
+    },
+    {
+        id : 8,
         menuTitle : "Notice",
         menuIcon : FaPaperPlane,
-        subMenu : [],
-        menuLink : ["/student-dashboard"],
+        subMenu : ["Add notice"],
+        menuLink : [],
     },
    
     // {

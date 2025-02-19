@@ -6,9 +6,11 @@ import Register from "./Pages/Authentication/RegisterSchool";
 import Login from "./Pages/Authentication/Login";
 import Website from "./Pages/Website/Website";
 
-// User Profile
-// import UserProfile from "./Pages/UserAccount/UserProfile";
+// Student Dashboard
 import StudentDashboard from "./Student Dashboard/StudentDashboard"
+
+// Employee Dashboard
+import EmployeeDashboard from "./Employee Dashboard/EmployeeDashboard"
 
 // Import the new AdminRoutes
 import AdminRoutes from "./Components/AdminRoutes"; 
@@ -26,6 +28,8 @@ const App = () => {
         {/* <Route path="/profile-setting" element={<UserProfile />} /> */}
 
         <Route path="/student-dashboard" element={<StudentDashboard />} />
+
+        <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
       </Routes>
     </Router>
   );

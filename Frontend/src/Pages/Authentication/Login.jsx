@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "/src/assets/CSS/Pages/Authentication.css";
 
 // Icons
@@ -40,21 +42,26 @@ function Login() {
       localStorage.setItem("role", data.role);
       localStorage.setItem("school_id", data.school_id);
 
+      toast.success("Login successful!");
+
       // Redirect to different dashboards based on role
-      if (role === "School Admin") {
-        navigate("/admin-dashboard");
-      } else if (role === "student") {
-        navigate("/student-dashboard");
-      } else if (role === "Teacher") {
-        navigate("/teacher-dashboard");
-      }
+      setTimeout(() => {
+        if (role === "School Admin") {
+          navigate("/admin-dashboard");
+        } else if (role === "student") {
+          navigate("/student-dashboard");
+        } else if (role === "Teacher") {
+          navigate("/teacher-dashboard");
+        }
+      }, 1000); // Redirect after 2 seconds
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 
   return (
     <div className="login">
+      <ToastContainer />
       <Link to="/">
         <FaHome className="LoginHomeIcon" />
       </Link>
