@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react";
 
 import Header from "./Components/Header";
 import { Sidebar } from "./Components/Sidebar";
-import Dashboard from "./Pages/Home";
+import Dashboard from "./Pages/employeeHome";
 
 
 import PageTitle from "../Components/PageTitle";
 
-const Student = () => {
+const Employee = () => {
   const [pageTitle, setPageTitle] = useState("Dashboard");
   const [currentPage, setCurrentPage] = useState("dashboard"); // State to track the current page
 
@@ -57,4 +57,4 @@ const Student = () => {
   );
 };
 
-export default Student;
+export default Employee;

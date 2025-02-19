@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "/src/assets/CSS/Pages/Dashboard.css";
+// import {SdashImg} from "../assets/images/sdash.png";
 import { SlArrowDown } from "react-icons/sl";
 import MyCalendar from "../Components/MyCalender";
 import { FaPen } from "react-icons/fa";
 import '../assets/CSS/Pages/StudentDashboard.css';
 // import '../assets/CSS/Components/MyCalendar.css';
-import '../assets/CSS/Components/Profile.css';
+import '../assets/CSS/Components/ProfileStd.css';
 
 import { students } from '/src/assets/JSON/StudentsData.js';
 
@@ -60,14 +61,14 @@ const Dashboard = () => {
   }
   return (
     <div className="StdDashboard">
-      <h3>Welcome Back😊</h3>
+      <h3>Welcome Back😊, {studentData.first_name}</h3>
     
       <div className="stdPanelText">
         <span>Welcome to the student panel</span>
         <p>This is where you can manage all.</p>
 
         <div className="stdPanelImage">
-          <img src="./assets/images/background.png" alt="background" />
+          <img src="/images/sdash.png" alt="background" />
         </div>
       </div>
 
@@ -142,26 +143,26 @@ const Dashboard = () => {
           onChange={handleImage}
           style={{ display: "none" }}
         />
-        <label htmlFor="fileInput" className="custom-file-button">
+        <label htmlFor="fileInput" className="custom-file-buttonstd">
           <FaPen />
         </label>
         <div className="stdProfileImg">
-        {imageSrc && <img src={imageSrc} alt="Profile Preview" className="image-preview" />}
+        {imageSrc && <img src={imageSrc} alt="Profile Preview" className="stdimage-preview" />}
         </div>
 
-        <span className="name">{studentData.first_name} {studentData.last_name}</span>
-        <div className="gpa">
+        <span className="stdname">{studentData.first_name} {studentData.last_name}</span>
+        <div className="stdgpa">
           <span>GPA: 4.00</span>
         </div>
-        <div className="stdGridItem stdTodayCount" id="todayCount">
+        <div className="stdTodayCount" id="todayCount">
           <h5>
-            Attendance: <span className="showPercent">0%</span>
+            Attendance: <span className="stdShowPercent">0%</span>
           </h5>
           <div className="stdPresentBox"></div>
           <h5>
             Course Completion: <span className="stdShowPercent">100%</span>
           </h5>
-          <div className="presentBox"></div>
+          <div className="stdPresentBox"></div>
         </div>
 
         <div className="calendar">
