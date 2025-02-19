@@ -73,7 +73,7 @@ const InstituteProfile = () => {
 
   return (
     <div className="institute-profile">
-      <ToastContainer />
+      <ToastContainer className="addClassToastify"/>
       <div className="formHeader">
         <h2>Update Institute Profile</h2>
         <p>Fields Marked * are required.</p>
@@ -133,7 +133,7 @@ const InstituteProfile = () => {
                 type="text"
                 name="target_line"
                 id="target_line"
-                placeholder="Principal Name"
+                placeholder="Target Line"
                 value={schoolData.target_line}
                 onChange={handleChange}
                 required

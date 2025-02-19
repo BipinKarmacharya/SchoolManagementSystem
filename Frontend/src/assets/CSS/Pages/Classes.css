@@ -65,7 +65,12 @@
 } 
 
 
-
+/* Toastify */
+.addClassToastify {
+    position: absolute;
+    top: 8vh;
+    right: 10px;
+}
 
 /* @media (width < 900px) {
     form {

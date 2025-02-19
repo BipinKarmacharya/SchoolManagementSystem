@@ -10,6 +10,10 @@ router.register(r'employees', EmployeeViewSet, basename='employees')
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    
+    path('api/employee/register/', EmployeeCreateView.as_view(), name='employee-register'),
+    path('api/employee/<int:pk>/', EmployeeDetailUpdateView.as_view(), name='employee-detail-update'),
 ]
+
 
 

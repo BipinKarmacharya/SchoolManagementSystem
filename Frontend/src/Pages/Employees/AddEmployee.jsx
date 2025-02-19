@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "/src/assets/CSS/Pages/Students.css";
 
 const AddEmployee = () => {
@@ -46,7 +48,7 @@ const AddEmployee = () => {
         email: employeeData.email,
         password: "pass" + employeeData.first_name, // Replace with actual password input field
         username: Math.random().toString().slice(-6),
-        role: "Teacher",
+        role: "Teacher", // Ensure this matches one of the valid choices
       },
       employee_id: employeeData.employee_id,
       first_name: employeeData.first_name,
@@ -71,7 +73,7 @@ const AddEmployee = () => {
     try {
       // Send employee registration request
       const employeeResponse = await axios.post(
-        "http://127.0.0.1:8000/api/employeeregister/",
+        "http://127.0.0.1:8000/api/employee/register/",
         payload,
         {
           headers: {
@@ -81,15 +83,38 @@ const AddEmployee = () => {
       );
 
       console.log("Employee data submitted successfully:", employeeResponse.data);
-      alert("Employee added successfully!");
+      toast.success("Employee added successfully!");
+
+      // Clear the form
+      setEmployeeData({
+        employee_id: "",
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        address: "",
+        phone: "",
+        n_id: "",
+        email: "",
+        profile_image: null,
+        blood_group: "",
+        document1: null,
+        document2: null,
+        document3: null,
+        date_of_enrollment: "",
+        department: "",
+        designation: "",
+        salary: "",
+        school: 1, // Assuming school ID is 1 for this example
+      });
     } catch (error) {
       console.error("There was an error submitting the form:", error.response?.data || error.message);
-      alert("Failed to add employee. Please try again.");
+      toast.error("Failed to add employee. Please try again.");
     }
   };
 
   return (
     <div className="add-students">
+      <ToastContainer className="addClassToastify"/>
       <div className="formHeader">
         <h2>Employee Onboarding Form</h2>
         <p>Fields Marked * are required.</p>
@@ -137,8 +162,6 @@ const AddEmployee = () => {
                 required
               />
             </fieldset>
-
-           
 
             <fieldset>
               <legend>Address*</legend>
@@ -257,8 +280,6 @@ const AddEmployee = () => {
             <h5>2. Other Information</h5>
           </div>
           <div className="fieldsetDiv">
-            
-
             <fieldset>
               <legend>Citizenship*</legend>
               <input
@@ -325,7 +346,6 @@ const AddEmployee = () => {
                 <option value="AB-">AB-</option>
               </select>
             </fieldset>
-
           </div>
         </div>
 

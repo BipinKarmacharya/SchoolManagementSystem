@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "/src/assets/CSS/Pages/Classes.css";
 import { TbEdit, TbTrashX } from "react-icons/tb";
 import { FaUserGraduate, FaBook } from "react-icons/fa";
@@ -52,7 +53,7 @@ const AllClasses = () => {
       <div className="class addNew" id="addNewClass">
         <div>
           <i className="bx bx-plus addNewIcon"></i>
-          <p>Add New</p>
+          <Link to="/admin-dashboard/add-classes">Add New</Link>
         </div>
       </div>
     </div>

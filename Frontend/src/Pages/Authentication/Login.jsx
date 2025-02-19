@@ -94,10 +94,10 @@ function Login() {
               </div>
               <div className="login-user">
                 <button
-                  className={`std ${role === "Teacher" ? "active-role" : ""}`}
+                  className={`std ${role === "" ? "active-role" : ""}`}
                   onClick={() => {
-                    setRole("Teacher");
-                    console.log("Selected Role:", "Teacher");
+                    setRole("");
+                    console.log("Selected Role:", "");
                   }}
                 >
                   <LiaChalkboardTeacherSolid className="login-user-icon" />

@@ -34,9 +34,11 @@ from .models import Student
 from rest_framework import serializers
 from .models import Student
 from auth_sys.serializers import CustomUserSerializer
+from classes.models import SchoolClass  # Import the SchoolClass model
 
 class StudentSerializer(serializers.ModelSerializer):
     # The nested serializer is required by default (no 'required=False')
+    enroll_class = serializers.PrimaryKeyRelatedField(queryset=SchoolClass.objects.all())  # Ensure only valid classes are used
     user = CustomUserSerializer()
 
     class Meta:

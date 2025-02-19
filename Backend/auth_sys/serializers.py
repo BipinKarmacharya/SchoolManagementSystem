@@ -60,7 +60,7 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
             username=validated_data['student_id'],
             email=validated_data['email'],
             password=validated_data['password'],
-            role='Student'
+            role='student'
         )
         # Create the Student instance and link the user.
         student = Student.objects.create(
@@ -81,22 +81,24 @@ class EmployeeRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employee
-        fields = ['employee_id', 'name',  'email', 'password']
+        fields = ['employee_id', 'name',  'email', 'password','school_id']
 
     def create(self, validated_data):
         # Create a CustomUser for the employee.
+        school = validated_data.pop('school_id')
+
         # Using employee_id as username.
         user = CustomUser.objects.create_user(
             username=validated_data['employee_id'],
             email=validated_data['email'],
             password=validated_data['password'],
-            role='Employee'
+            role='teacher'
         )
         # Create the Employee instance and link the user.
         employee = Employee.objects.create(
             user=user,
-            employee_id=validated_data['employee_id'],
-        
+            employee_id=validated_data['employee_id'],   
+            school=school 
         )
         return employee
 

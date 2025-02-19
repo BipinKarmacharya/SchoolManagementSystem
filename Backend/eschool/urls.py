@@ -22,7 +22,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
    # path('',include("auth_sys.urls"))
-  
    path('',include("student.urls")),
    path('',include("schooldata.urls")),
    path('',include("parent.urls")),
@@ -30,7 +29,7 @@ urlpatterns = [
    path('',include("classes.urls")),
    path('',include("subject.urls")),
    path('api/auth/', include('auth_sys.urls'))
-
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

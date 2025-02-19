@@ -174,3 +174,45 @@ def send_student_email(request):
         return Response({"message": "Email sent successfully."}, status=200)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+    
+
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.core.mail import send_mail
+from django.conf import settings
+
+@api_view(['POST'])
+def send_employee_email(request):
+    """
+    Expects JSON payload:
+    {
+        "employee_id": "12345",
+        "email": "employee@example.com",
+        "password": "employeepassword"
+    }
+    """
+    employee_id = request.data.get('employee_id')
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    if not all([employee_id, email, password]):
+        return Response({"error": "Missing required fields."}, status=400)
+
+    subject = "Your School Management System Login Details"
+    message = (
+        f"Dear Teacher,\n\n"
+        f"Here are your login details for the School Management System:\n"
+        f"Teacher ID: {employee_id}\n"
+        f"Email: {email}\n"
+        f"Password: {password}\n\n"
+        f"Regards,\nSchool Management Team"
+    )
+    from_email = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+
+    try:
+        send_mail(subject, message, from_email, recipient_list)
+        return Response({"message": "Email sent successfully."}, status=200)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)

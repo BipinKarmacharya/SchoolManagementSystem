@@ -50,17 +50,15 @@ INSTALLED_APPS = [
     # 'attendance',
     'rest_framework_simplejwt',
     'django_filters',
-
-    
-    
 ]
-# REST_FRAMEWORK = {
-    
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     ),
-# }
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # ✅ Correct usage for public access
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],  # ✅ Ensures no authentication is required
+}
 
 # AUTHENTICATION_BACKENDS = [
 #     'django.contrib.auth.backends.ModelBackend',  ]
