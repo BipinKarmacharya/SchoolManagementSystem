@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import "/src/assets/CSS/Pages/Authentication.css";
 
@@ -12,7 +10,6 @@ function RegisterSchool() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -30,18 +27,14 @@ function RegisterSchool() {
     });
 
     if (response.ok) {
-      toast.success("School registered successfully!");
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000); // Redirect after 2 seconds
+      alert("School registered successfully!");
     } else {
-      toast.error("Registration failed. Try again.");
+      alert("Registration failed. Try again.");
     }
   };
 
   return (
     <div className="register-school">
-      <ToastContainer />
       <Link to="/"><FaHome className="HomeIcon"/></Link>
       <div className="register-container">
         <div className="registration-form-container">
@@ -131,3 +124,5 @@ function RegisterSchool() {
 }
 
 export default RegisterSchool;
+
+

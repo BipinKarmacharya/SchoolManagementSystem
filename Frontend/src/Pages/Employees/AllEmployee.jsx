@@ -22,7 +22,7 @@ const AllEmployee = () => {
     // Fetch employee data from the backend
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/employees/");
+        const response = await axios.get("http://127.0.0.1:8000/api/employee/");
         setEmployees(response.data);
       } catch (error) {
         console.error("Error fetching employee data:", error);
@@ -77,7 +77,7 @@ const AllEmployee = () => {
             </div>
             <div className="allEmployeesData">
               {employeesByDepartment[department].map((employee) => (
-                <Profile key={employee.id} student={employee} />
+                <Profile key={employee.id} person={employee} />
               ))}
             </div>
           </div>

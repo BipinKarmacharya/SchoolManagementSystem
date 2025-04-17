@@ -1,20 +1,27 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import "/src/assets/css/Pages/Attendance.css";
-import { employees } from "/src/assets/JSON/EmployeesData"; // Import JSON employee data
 
 const EmployeeAttendance = () => {
-  // Initialize attendance state
+  // Initialize state for employees and attendance
+  const [employees, setEmployees] = useState([]);
   const [attendance, setAttendance] = useState([]);
 
+  // Fetch employee data from the backend
   useEffect(() => {
-    setAttendance(
-      employees.map((employee) => ({
-        id: employee.id,
-        isChecked1: true, // ✅ Default "Present" checked
-        isChecked2: false,
-        isChecked3: false,
-      }))
-    );
+    axios.get("http://127.0.0.1:8000/api/employees")
+      .then((response) => {
+        setEmployees(response.data);
+        setAttendance(
+          response.data.map((employee) => ({
+            id: employee.id,
+            isChecked1: true, // ✅ Default "Present" checked
+            isChecked2: false,
+            isChecked3: false,
+          }))
+        );
+      })
+      .catch((error) => console.error("Error fetching employees:", error));
   }, []);
 
   function handleCheck(employeeId, checkboxNumber) {
@@ -37,7 +44,7 @@ const EmployeeAttendance = () => {
       <div className="Attendance">
         <div className="attendance-header">
           <h2>Employee Attendance</h2>
-          <input type="date" name="date" id="selectDate"/>
+          <input type="date" name="date" id="selectDate" />
         </div>
         <div className="attendance-table-container">
           <table className="attendance-table">
@@ -51,8 +58,7 @@ const EmployeeAttendance = () => {
             </thead>
             <tbody>
               {employees.map((employee) => {
-                const attendanceRecord =
-                  attendance.find((a) => a.id === employee.id) || {};
+                const attendanceRecord = attendance.find((a) => a.id === employee.id) || {};
                 return (
                   <tr key={employee.id}>
                     <td>{employee.employee_id}</td>

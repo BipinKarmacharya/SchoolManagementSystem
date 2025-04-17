@@ -9,27 +9,23 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-from datetime import timedelta
+
+import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#i-odac&p&hp*e*oqq2#o_9*)kw^17hszqmgmsy==oz5_=7@nq'
+SECRET_KEY = 'django-insecure-#i-odac&p&hp*e*oqq2#o_9*)kw^17hszqmgmsy==oz5_=7@nq'  # ⚠️ Move to env in production
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,10 +33,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   
+
+    # Your custom apps
     'auth_sys',
-    'corsheaders',
-    'rest_framework',
     'schooldata',
     'student',
     'parent',
@@ -48,26 +43,16 @@ INSTALLED_APPS = [
     'classes',
     'subject',
     # 'attendance',
+
+    # Third-party apps
+    'corsheaders',
+    'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
 ]
 
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',  # ✅ Correct usage for public access
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [],  # ✅ Ensures no authentication is required
-}
-
-# AUTHENTICATION_BACKENDS = [
-#     'django.contrib.auth.backends.ModelBackend',  ]
-   
-
-
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
-    
+    "corsheaders.middleware.CorsMiddleware",  # Keep this at the top
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -75,12 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
-   
 ]
-#REST_FRAMEWORK={'DEFAULT_PERMISSION_CLASSES':['rest_framework.permission.AllowAny']}
-#CORS_ORIGIN_ALLOW_ALL=True
-CORS_ALLOW_ALL_ORIGINS = True  # Allows all origins
 
 ROOT_URLCONF = 'eschool.urls'
 
@@ -102,94 +82,259 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'eschool.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'eschooldatabase',
+        'NAME': 'SMS',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'MySQL@2000',  # ⚠️ Move to env in production
         'HOST': 'localhost',
-        'PORT': '3306',  # Default MySQL port
+        'PORT': '3306',
     }
 }
-# settings.py
-# settings.py
+
+# Custom User Model
+AUTH_USER_MODEL = 'auth_sys.CustomUser'
+
+# JWT Authentication
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Change to IsAuthenticated later
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ]
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+# Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'shresthamadhav76@gmail.com'
-EMAIL_HOST_PASSWORD = 'hprw bvzy dlxn mpow'  # Preferably an app-specific password
+EMAIL_HOST_PASSWORD = 'hprw bvzy dlxn mpow'  # ⚠️ Use app password and move to env
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# CORS Config
+CORS_ALLOW_ALL_ORIGINS = True  # ✅ Development only; restrict in production
 
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+# Static and Media
 STATIC_URL = '/static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-import os
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# Enable REST Framework
+
+# Default primary key field type
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from datetime import timedelta
+# from pathlib import Path
+
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# # Quick-start development settings - unsuitable for production
+# # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = 'django-insecure-#i-odac&p&hp*e*oqq2#o_9*)kw^17hszqmgmsy==oz5_=7@nq'
+
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
+
+# ALLOWED_HOSTS = []
+
+
+# # Application definition
+
+# INSTALLED_APPS = [
+#     'django.contrib.admin',
+#     'django.contrib.auth',
+#     'django.contrib.contenttypes',
+#     'django.contrib.sessions',
+#     'django.contrib.messages',
+#     'django.contrib.staticfiles',
+   
+#     'auth_sys',
+#     'corsheaders',
+#     'rest_framework',
+#     'schooldata',
+#     'student',
+#     'parent',
+#     'employee',
+#     'classes',
+#     'subject',
+#     # 'attendance',
+#     'rest_framework_simplejwt',
+#     'django_filters',
+# ]
+
 # REST_FRAMEWORK = {
-#     'DEFAULT_RENDERER_CLASSES': [
-#         'rest_framework.renderers.JSONRenderer',
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
 #     ],
-#     'DEFAULT_PARSER_CLASSES': [
-#         'rest_framework.parsers.JSONParser',
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.AllowAny',  # <-- For development; switch later
+#     ],
+#     'DEFAULT_FILTER_BACKENDS': [
+#         'django_filters.rest_framework.DjangoFilterBackend'
 #     ]
 # }
-AUTH_USER_MODEL = 'auth_sys.CustomUser'
+
+# from datetime import timedelta
+
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+#     'AUTH_HEADER_TYPES': ('Bearer',),
+# }
 
 
+# MIDDLEWARE = [
+#     "corsheaders.middleware.CorsMiddleware",
+#     'django.middleware.security.SecurityMiddleware',
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',   
+# ]
+# #REST_FRAMEWORK={'DEFAULT_PERMISSION_CLASSES':['rest_framework.permission.AllowAny']}
+# #CORS_ORIGIN_ALLOW_ALL=True
+# CORS_ALLOW_ALL_ORIGINS = True  # Allows all origins
+
+# ROOT_URLCONF = 'eschool.urls'
+
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [],
+#         'APP_DIRS': True,
+#         'OPTIONS': {
+#             'context_processors': [
+#                 'django.template.context_processors.debug',
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ],
+#         },
+#     },
+# ]
+
+# WSGI_APPLICATION = 'eschool.wsgi.application'
 
 
+# # Database
+# # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# # DATABASES = {
+# #    'default': {
+# #        'ENGINE': 'django.db.backends.sqlite3',
+# #        'NAME': BASE_DIR / 'db.sqlite3',
+# #    }
+# # }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'SMS',
+#         'USER': 'root',
+#         'PASSWORD': 'MySQL@2000',
+#         'HOST': 'localhost',
+#         'PORT': '3306',  # Default MySQL port
+#     }
+# }
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'shresthamadhav76@gmail.com'
+# EMAIL_HOST_PASSWORD = 'hprw bvzy dlxn mpow'  # Preferably an app-specific password
+
+# # Password validation
+# # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
+
+
+# # Internationalization
+# # https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+# LANGUAGE_CODE = 'en-us'
+
+# TIME_ZONE = 'UTC'
+
+# USE_I18N = True
+
+# USE_TZ = True
+
+
+# # Static files (CSS, JavaScript, Images)
+# # https://docs.djangoproject.com/en/5.1/howto/static-files/
+
+# STATIC_URL = '/static/'
+
+# # Default primary key field type
+# # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# import os
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# AUTH_USER_MODEL = 'auth_sys.CustomUser'
 
 
 

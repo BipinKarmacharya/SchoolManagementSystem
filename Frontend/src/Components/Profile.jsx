@@ -3,27 +3,28 @@ import { LiaUserEditSolid } from "react-icons/lia";
 import { TbTrashX } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
-const Profile = ({ student }) => {
+import "/src/assets/CSS/Components/Profile.css";
+const Profile = ({ person }) => {
   return (
-    <div className="studentDetails">
-      <div className="studentPhoto">
-        <img src={student.profile_image} alt={student.first_name} className="profileImg" />
+    <div className="personDetails">
+      <div className="personPhoto">
+        <img src={person.profile_image} alt={person.first_name} className="profileImg" />
       </div>
-      <div className="studentIdentity">
-        <p className="StdIdNumber">{student.student_id}</p>
-        <p>{student.first_name} {student.middle_name} {student.last_name}</p>
+      <div className="personIdentity">
+        <p className="StdIdNumber">{person.person_id}</p>
+        <p>{person.first_name} {person.middle_name} {person.last_name}</p>
       </div>
       <hr />
       <div className="editIcons">
-        <Link to={`/students/${student.id}`} title="View Details">
+        <Link to={`/persons/${person.id}`} title="View Details">
           <FaEye />
         </Link>
         
-        <Link to={`/students/${student.student_id}/edit`} title="Edit Profile">
+        <Link to={`/persons/${person.person_id}/edit`} title="Edit Profile">
           <LiaUserEditSolid />
         </Link>
         
-        <Link to={`/students/${student.student_id}/delete`} title="Delete Profile">
+        <Link to={`/persons/${person.person_id}/delete`} title="Delete Profile">
           <TbTrashX />
         </Link>
       </div>

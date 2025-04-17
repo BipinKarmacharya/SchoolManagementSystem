@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddStudents = () => {
   const [studentData, setStudentData] = useState({
@@ -37,7 +39,7 @@ const AddStudents = () => {
     // Fetch available classes when the component loads
     const fetchClasses = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/classes/");
+        const response = await axios.get("http://127.0.0.1:8000/api/class/");
         setClasses(response.data);
       } catch (error) {
         console.error("Error fetching classes:", error);
@@ -100,7 +102,7 @@ const AddStudents = () => {
     try {
       // Send student registration request
       const studentResponse = await axios.post(
-        "http://127.0.0.1:8000/api/studentregister/",
+        "http://127.0.0.1:8000/api/student/",
         payload,
         {
           headers: {
@@ -108,7 +110,7 @@ const AddStudents = () => {
           },
         }
       );
-
+      toast.success("Student added successfully!");
       const studentId = studentResponse.data.id;
 
       // Prepare parent data
@@ -119,30 +121,23 @@ const AddStudents = () => {
 
       // Send parent registration request
       const parentResponse = await axios.post(
-        "http://127.0.0.1:8000/api/parents/",
+        "http://127.0.0.1:8000/api/parent/",
         parentPayload
       );
 
-      console.log(
-        "Student and Parent data submitted successfully:",
-        studentResponse.data,
-        parentResponse.data
-      );
     } catch (error) {
-      console.error(
-        "There was an error submitting the form:",
-        error.response?.data || error.message
-      );
+      toast.error("Failed to add student. Please try again.");
     }
   };
 
   return (
     <div className="add-students">
+      <ToastContainer className="addClassToastify"/>
       <div className="formHeader">
         <h2>Admission Form</h2>
         <p>Fields Marked * are required.</p>
       </div>
-      <form onSubmit={handleSubmit} id="addStudentForm">
+      <form onSubmit={handleSubmit} id="addStudentForm" >
         <div className="studentInfo">
           <div className="infoHeader">
             <h5>1. Student Information</h5>

@@ -1,24 +1,15 @@
-# from rest_framework import generics, permissions
-# from .models import SchoolClass
-# from .serializers import SchoolClassSerializer
-
-# class SchoolClassListCreateView(generics.ListCreateAPIView):
-#     serializer_class = SchoolClassSerializer
-#     permission_classes = [permissions.IsAuthenticated]  # Only logged-in users can access
-
-#     def get_queryset(self):
-#         return SchoolClass.objects.filter(school=self.request.user.school)
-
-#     def perform_create(self, serializer):
-#         serializer.save(school=self.request.user.school)  # Assign the class to the admin's school
-
-
-
-from rest_framework import generics, permissions
-from .models import SchoolClass
+from rest_framework import viewsets, permissions
+from django.shortcuts import get_object_or_404
+from .models import School, SchoolClass
 from .serializers import SchoolClassSerializer
 
-class SchoolClassListCreateView(generics.ListCreateAPIView):
+class SchoolClassViewSet(viewsets.ModelViewSet):
     queryset = SchoolClass.objects.all()
     serializer_class = SchoolClassSerializer
-    permission_classes = [permissions.AllowAny]  # ✅ No authentication required
+    permission_classes = [permissions.AllowAny]  # Replace later with proper permissions
+
+    def perform_create(self, serializer):
+        # For now, hardcoding the school
+        school_code = "LEC"
+        school = get_object_or_404(School, school_code=school_code)
+        serializer.save(school=school)

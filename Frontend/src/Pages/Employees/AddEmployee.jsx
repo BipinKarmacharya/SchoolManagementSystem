@@ -68,12 +68,12 @@ const AddEmployee = () => {
       religion: employeeData.religion,
     };
 
-    console.log("User object:", payload.user);
+    // console.log("User object:", payload.user);
 
     try {
       // Send employee registration request
       const employeeResponse = await axios.post(
-        "http://127.0.0.1:8000/api/employee/register/",
+        "http://127.0.0.1:8000/api/employee/",
         payload,
         {
           headers: {
@@ -82,7 +82,7 @@ const AddEmployee = () => {
         }
       );
 
-      console.log("Employee data submitted successfully:", employeeResponse.data);
+      // console.log("Employee data submitted successfully:", employeeResponse.data);
       toast.success("Employee added successfully!");
 
       // Clear the form
@@ -107,7 +107,7 @@ const AddEmployee = () => {
         school: 1, // Assuming school ID is 1 for this example
       });
     } catch (error) {
-      console.error("There was an error submitting the form:", error.response?.data || error.message);
+      // console.error("There was an error submitting the form:", error.response?.data || error.message);
       toast.error("Failed to add employee. Please try again.");
     }
   };
@@ -119,7 +119,7 @@ const AddEmployee = () => {
         <h2>Employee Onboarding Form</h2>
         <p>Fields Marked * are required.</p>
       </div>
-      <form id="addEmployeeForm" onSubmit={handleSubmit}>
+      <form id="addEmployeeForm" onSubmit={handleSubmit} method="POST">
         <div className="studentInfo">
           <div className="infoHeader">
             <h5>1. Employee Information</h5>
@@ -159,7 +159,7 @@ const AddEmployee = () => {
                 placeholder="Last Name"
                 value={employeeData.last_name}
                 onChange={handleChange}
-                required
+                // required
               />
             </fieldset>
 
@@ -172,7 +172,7 @@ const AddEmployee = () => {
                 placeholder="Address"
                 value={employeeData.address}
                 onChange={handleChange}
-                required
+                // required
               />
             </fieldset>
 
@@ -185,7 +185,7 @@ const AddEmployee = () => {
                 placeholder="Phone"
                 value={employeeData.phone}
                 onChange={handleChange}
-                required
+                // required
               />
             </fieldset>
 
@@ -198,7 +198,7 @@ const AddEmployee = () => {
                 placeholder="Email Address"
                 value={employeeData.email}
                 onChange={handleChange}
-                required
+                // required
               />
             </fieldset>
 
@@ -237,7 +237,7 @@ const AddEmployee = () => {
                 id="selectDesignation"
                 value={employeeData.designation}
                 onChange={handleChange}
-                required
+                // required
               >
                 <option value="" disabled>
                   Select Designation
@@ -256,7 +256,7 @@ const AddEmployee = () => {
                 id="addDate"
                 value={employeeData.date_of_enrollment}
                 onChange={handleChange}
-                required
+                // required
               />
             </fieldset>
 
@@ -269,7 +269,7 @@ const AddEmployee = () => {
                 placeholder="Salary"
                 value={employeeData.salary}
                 onChange={handleChange}
-                required
+                // required
               />
             </fieldset>
           </div>
@@ -287,7 +287,7 @@ const AddEmployee = () => {
                 name="document1"
                 id="citizenship"
                 onChange={handleFileChange}
-                required
+                // required
               />
             </fieldset>
 
@@ -300,7 +300,7 @@ const AddEmployee = () => {
                 placeholder="National ID number"
                 value={employeeData.n_id}
                 onChange={handleChange}
-                required
+                // required
               />
             </fieldset>
 

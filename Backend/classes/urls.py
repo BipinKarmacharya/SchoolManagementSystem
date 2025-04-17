@@ -1,6 +1,8 @@
-from django.urls import path
-from .views import SchoolClassListCreateView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import SchoolClassViewSet
 
-urlpatterns = [
-    path('api/classes/', SchoolClassListCreateView.as_view(), name='class-list-create'),
-]
+router = DefaultRouter()
+router.register(r'', SchoolClassViewSet, basename='school-class')
+
+urlpatterns = router.urls

@@ -1,16 +1,21 @@
 from rest_framework import serializers
 from .models import Subject
 from classes.models import SchoolClass
+from employee.models import Employee
 
 class SubjectSerializer(serializers.ModelSerializer):
+    code = serializers.CharField(read_only=True)
+    subject_teacher = serializers.PrimaryKeyRelatedField(queryset=Employee.objects.all(), required=False)
+    subject_teacher_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Subject
-        fields = "__all__"
-        extra_kwargs = {'code': {'required': False}}  # ✅ Make `code` optional
+        fields = [
+            "id", "name", "school_class", "full_marks",
+            "pass_marks", "subject_teacher", "subject_teacher_name", "code"
+        ]
 
-class SchoolClassWithSubjectsSerializer(serializers.ModelSerializer):
-    subjects = SubjectSerializer(many=True, read_only=True)  # Fetch related subjects
-
-    class Meta:
-        model = SchoolClass
-        fields = ["id", "name", "tuition_fee", "class_teacher", "subjects"]
+    def get_subject_teacher_name(self, obj):
+        if obj.subject_teacher:
+            return f"{obj.subject_teacher.first_name} {obj.subject_teacher.last_name}"
+        return "Not Assigned"

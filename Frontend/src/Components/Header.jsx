@@ -21,24 +21,24 @@ const Header = ({ toggleSidebar }) => {
     setIsCardVisible(!isCardVisible);
   };
 
-  // useEffect(() => {
-  //   // Fetch user details from the backend
-  //   const fetchUserDetails = async () => {
-  //     try {
-  //       const response = await axios.get("http://127.0.0.1:8000/api/user-details/");
-  //       const userDetails = response.data;
-  //       setSchoolDetails({
-  //         schoolName: userDetails.school.name,
-  //         address: userDetails.school.address,
-  //         targetLine: userDetails.school.target_line,
-  //       });
-  //     } catch (error) {
-  //       console.error("Error fetching user details:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    // Fetch user details from the backend
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/user-details/");
+        const userDetails = response.data;
+        setSchoolDetails({
+          schoolName: userDetails.school.name,
+          address: userDetails.school.address,
+          targetLine: userDetails.school.target_line,
+        });
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
 
-  //   fetchUserDetails();
-  // }, []);
+    fetchUserDetails();
+  }, []);
 
   const handleLogout = () => {
     // Clear authentication tokens from localStorage
@@ -60,7 +60,7 @@ const Header = ({ toggleSidebar }) => {
         <HiMenuAlt1 id="menuIcon" onClick={toggleSidebar} />
         <div className="schoolDetails">
           <span className="schoolName">{schoolDetails.schoolName}</span>
-          <span className="address">{schoolDetails.address}</span>
+          <span className="schoolAddress">{schoolDetails.address}</span>
           <span className="targetLine">{schoolDetails.targetLine}</span>
         </div>
         <div className="navImg">

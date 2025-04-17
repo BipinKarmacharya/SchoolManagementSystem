@@ -1,33 +1,44 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 import "/src/assets/css/Pages/Attendance.css";
-import { students } from "/src/assets/JSON/StudentsData"; // Import JSON student data
 
 const StudentAttendance = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const selectedClass = queryParams.get("class");
+  const selectedClass = queryParams.get("enroll_class");
 
-  // Filter students based on selected class
-  const filteredStudents = students.filter(
-    (student) => student.class.toString() === selectedClass
-  );
 
-  // Initialize attendance state
-  const [attendance, setAttendance] = useState([]);
+  const [students, setStudents] = useState([]); // State to store students
+  const [attendance, setAttendance] = useState([]); // State to store attendance
 
+  // Fetch students based on the selected class
   useEffect(() => {
-    setAttendance(
-      filteredStudents.map((student) => ({
-        id: student.id,
-        isChecked1: true, // ✅ Default "Present" checked
-        isChecked2: false,
-        isChecked3: false,
-      }))
-    );
+    const fetchStudents = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/students/?enroll_class=${selectedClass}`
+        );
+        setStudents(response.data);
+        setAttendance(
+          response.data.map((student) => ({
+            id: student.id,
+            isChecked1: true, // Default "Present" checked
+            isChecked2: false,
+            isChecked3: false,
+          }))
+        );
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
+
+    if (selectedClass) {
+      fetchStudents();
+    }
   }, [selectedClass]);
 
-  function handleCheck(studentId, checkboxNumber) {
+  const handleCheck = (studentId, checkboxNumber) => {
     setAttendance((prevAttendance) =>
       prevAttendance.map((student) =>
         student.id === studentId
@@ -40,7 +51,7 @@ const StudentAttendance = () => {
           : student
       )
     );
-  }
+  };
 
   return (
     <>
@@ -58,15 +69,14 @@ const StudentAttendance = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredStudents.map((student) => {
+              {students.map((student) => {
                 const attendanceRecord =
                   attendance.find((a) => a.id === student.id) || {};
                 return (
                   <tr key={student.id}>
                     <td>{student.student_id}</td>
                     <td>
-                      {student.first_name} {student.middle_name}{" "}
-                      {student.last_name}
+                      {student.first_name} {student.middle_name} {student.last_name}
                     </td>
                     <td className="status">
                       <input

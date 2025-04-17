@@ -8,8 +8,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 
 
-
-
 from rest_framework import serializers
 from .models import Employee
 from auth_sys.serializers import CustomUserSerializer

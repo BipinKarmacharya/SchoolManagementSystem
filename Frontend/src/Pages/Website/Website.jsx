@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { FaCircleArrowUp } from "react-icons/fa6";
 import "/src/assets/CSS/Pages/Website.css";
-
-// particle-config.js
 import ParticlesComponent from "/src/Components/ParticlesComponent.jsx";
 
 const Website = () => {
   const [showButton, setShowButton] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("accessToken")
+  );
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +26,25 @@ const Website = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleLogin = async (credentials) => {
+    try {
+      const response = await axios.post("http://localhost:8000/auth/login/", credentials);
+      localStorage.setItem("accessToken", response.data.access);
+      localStorage.setItem("refreshToken", response.data.refresh);
+      setIsAuthenticated(true);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    setIsAuthenticated(false);
+    navigate("/");
+  };
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -52,12 +74,20 @@ const Website = () => {
             </li>
           </ul>
           <div className="auth-buttons">
-            <Link to="/login">
-              <button className="login-btn">Login</button>
-            </Link>
-            <Link to="/register-school">
-              <button className="register-btn">Register your School</button>
-            </Link>
+            {isAuthenticated ? (
+              <button onClick={handleLogout} className="logout-btn">
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link to="/login">
+                  <button className="login-btn">Login</button>
+                </Link>
+                <Link to="/register-school">
+                  <button className="register-btn">Register your School</button>
+                </Link>
+              </>
+            )}
           </div>
         </nav>
         <div className="hero">

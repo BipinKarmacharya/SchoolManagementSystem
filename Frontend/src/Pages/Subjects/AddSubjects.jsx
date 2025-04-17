@@ -2,21 +2,22 @@ import { useState, useEffect } from "react";
 
 const AddSubjects = () => {
   const [classes, setClasses] = useState([]); // Store class list
+  const [teachers, setTeachers] = useState([]); // Store teacher list
   const [selectedClass, setSelectedClass] = useState(""); // Selected class ID
   const [subjectName, setSubjectName] = useState("");
   const [fullMarks, setFullMarks] = useState("");
   const [passMarks, setPassMarks] = useState("");
-  const [subjectTeacher, setSubjectTeacher] = useState("");
+  const [selectedTeacher, setSelectedTeacher] = useState("");
   const [message, setMessage] = useState("");
 
-  // Fetch available classes when the component loads
+  // Fetch available classes
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/classes/");
+        const response = await fetch("http://127.0.0.1:8000/api/class/");
         if (response.ok) {
           const data = await response.json();
-          setClasses(data); // Store classes
+          setClasses(data);
         } else {
           console.error("Failed to fetch classes");
         }
@@ -25,14 +26,29 @@ const AddSubjects = () => {
       }
     };
 
+    const fetchTeachers = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/employee/");
+        if (response.ok) {
+          const data = await response.json();
+          setTeachers(data);
+        } else {
+          console.error("Failed to fetch teachers");
+        }
+      } catch (error) {
+        console.error("Error fetching teachers:", error);
+      }
+    };
+
     fetchClasses();
+    fetchTeachers();
   }, []);
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://127.0.0.1:8000/api/subjects/", {
+    const response = await fetch("http://127.0.0.1:8000/api/subject/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -40,7 +56,7 @@ const AddSubjects = () => {
         name: subjectName,
         full_marks: parseInt(fullMarks), // Convert to integer
         pass_marks: parseInt(passMarks), // Convert to integer
-        subject_teacher: subjectTeacher,
+        subject_teacher: selectedTeacher, // Send teacher ID
       }),
     });
 
@@ -49,7 +65,7 @@ const AddSubjects = () => {
       setSubjectName("");
       setFullMarks("");
       setPassMarks("");
-      setSubjectTeacher("");
+      setSelectedTeacher("");
       setSelectedClass("");
     } else {
       setMessage("Failed to add subject.");
@@ -115,14 +131,19 @@ const AddSubjects = () => {
         </fieldset>
 
         <fieldset>
-          <legend>Subject Teacher*</legend>
-          <input
-            type="text"
-            value={subjectTeacher}
-            onChange={(e) => setSubjectTeacher(e.target.value)}
-            placeholder="Class Teacher Name"
+          <legend>Select Subject Teacher*</legend>
+          <select
+            value={selectedTeacher}
+            onChange={(e) => setSelectedTeacher(e.target.value)}
             required
-          />
+          >
+            <option value="">Select Teacher</option>
+            {teachers.map((teacher) => (
+              <option key={teacher.id} value={teacher.id}>
+                {teacher.first_name} {teacher.last_name} ({teacher.email})
+              </option>
+            ))}
+          </select>
         </fieldset>
 
         <button type="submit">Create</button>

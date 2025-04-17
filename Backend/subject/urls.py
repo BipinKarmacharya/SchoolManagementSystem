@@ -3,8 +3,8 @@ from rest_framework.routers import DefaultRouter
 from .views import SubjectViewSet
 
 router = DefaultRouter()
-router.register(r'subjects', SubjectViewSet)
+router.register(r'', SubjectViewSet)
 
-urlpatterns = [
-    path('api/', include(router.urls)),
+urlpatterns = router.urls+[
+    path('', include(router.urls)),
 ]

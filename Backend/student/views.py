@@ -1,62 +1,29 @@
-from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from .models import Student
 from .serializer import StudentSerializer
 from django_filters.rest_framework import DjangoFilterBackend
+from schooldata.models import School  # import your School model correctly
 
-
+# Student ViewSet for full CRUD and filtering
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    permission_classes = [permissions.AllowAny]  # Change to IsAuthenticated later
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['first_name', 'last_name', 'email','student_id','phone']
+    filterset_fields = ['first_name', 'last_name', 'email', 'student_id']
 
 
-from rest_framework import generics, permissions
-from .models import Student
-# from .serializer import StudentupdateSerializer
-from .permissions import IsAdminUser
-
-class StudentUpdateView(generics.RetrieveUpdateAPIView):
-    """
-    API endpoint to update student details.
-    Only authenticated admins can update.
-    """
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-    permission_classes = []
-
-    def get_object(self):
-        student_id = self.kwargs["pk"]  # Fetch student by ID from URL
-        return Student.objects.get(id=student_id)
-
-
-
-# student/views.py
-from rest_framework import generics
-from .models import Student
-from .serializer import StudentSerializer
-
-class StudentCreateView(generics.CreateAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-
-class StudentDetailUpdateView(generics.RetrieveUpdateAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-
-
-
-from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
-from .models import Student
-from .serializer import StudentSerializer
-
-class StudentListView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = StudentSerializer
-
+    def perform_create(self, serializer):
+        try:
+            # Hardcoded for testing — fetch school with code "LEC"
+            school = School.objects.get(school_code='LEC')
+            serializer.save(school=school)
+        except School.DoesNotExist:
+            raise serializer.ValidationError({"school": "School with code 'LEC' does not exist."})
+    
     def get_queryset(self):
-        user = self.request.user
-        school = user.school  # Assuming the user has a related school
-        return Student.objects.filter(school=school)
+        try:
+            school = School.objects.get(school_code='LEC')
+            return Student.objects.filter(school=school)
+        except School.DoesNotExist:
+            return Student.objects.none()

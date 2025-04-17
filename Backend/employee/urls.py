@@ -1,19 +1,26 @@
-from django.urls import path, include
+from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .views import EmployeeViewSet
-from .views import EmployeeCreateView, EmployeeDetailUpdateView
-
-
+from .views import EmployeeViewSet, SendEmailView
 
 router = DefaultRouter()
-router.register(r'employees', EmployeeViewSet, basename='employees')
+router.register(r'', EmployeeViewSet, basename='employee')
 
-urlpatterns = [
-    path('api/', include(router.urls)),
-    
-    path('api/employee/register/', EmployeeCreateView.as_view(), name='employee-register'),
-    path('api/employee/<int:pk>/', EmployeeDetailUpdateView.as_view(), name='employee-detail-update'),
+urlpatterns = router.urls + [
+    path('send-email/', SendEmailView.as_view(), name='send-email'),
 ]
 
 
 
+
+
+# from django.urls import path, include
+# from rest_framework.routers import DefaultRouter
+# from .views import EmployeeViewSet, EmployeeCreateView, EmployeeDetailUpdateView
+
+# router = DefaultRouter()
+# router.register(r'', EmployeeViewSet, basename='employees')
+
+# urlpatterns = router.urls +[
+#     path('register/', EmployeeCreateView.as_view(), name='employee-register'),
+#     path('<int:pk>/', EmployeeDetailUpdateView.as_view(), name='employee-detail-update'),
+# ]
