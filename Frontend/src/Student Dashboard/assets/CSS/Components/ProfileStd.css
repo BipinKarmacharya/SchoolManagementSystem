@@ -1,0 +1,89 @@
+
+.stdContainer  
+{
+    height: 80%;
+    width: 30%;
+    position: absolute;
+    margin-left: 60%;
+    margin-top: 1rem;
+    border-radius: 20px;
+    background: rgb(232,240,243);
+    background: linear-gradient(0deg, rgba(232,240,243,1) 0%, rgba(41,124,230,1) 47%);
+}
+.stdProfileImg
+{
+    border-radius: 80px;
+    background: #4e82cf85;
+    box-shadow:  1px 1px 3px #bebebe,
+                 -1px -1px 3px #ffffff;
+    width: 10rem;
+    height: 10rem;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-left: 32%;
+    position: absolute;
+ 
+}
+.stdprofileimg input{
+    margin-top: -11rem;
+    opacity: 100%;
+    width: 30px;
+    margin-left: 8rem;
+    position: absolute;
+}
+.custom-file-buttonstd {
+    color: rgb(92, 90, 90);
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    background-color: white;
+    margin-top: 9rem;
+   margin-left: 30%;
+    position: absolute;
+   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+  
+.stdimage-preview {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 90px; 
+  
+  }
+.stdname
+{
+    margin-top: 12rem;
+    position: absolute;
+   margin-left: 35%;
+   color: white;
+
+}
+.stdgpa 
+{
+    width: 30%;
+    height: 8%;
+    background-color: #19355f;
+    color:white;
+    margin-left: 35%;
+    margin-top: 15rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+}
+.stdDetails 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 80%;
+    color: white;
+}

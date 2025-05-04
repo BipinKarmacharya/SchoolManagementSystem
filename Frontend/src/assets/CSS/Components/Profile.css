@@ -1,0 +1,40 @@
+.personDetails {
+    height: 250px;
+    box-shadow: var(--box-shadow-1);
+    border-radius: var(--border-radius-3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.personDetails hr{
+    width: 70%;
+}
+.personPhoto {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    text-align: center;
+}
+.personIdentity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+}
+.editIcons {
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Profile Image */
+.profileImg {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+  }

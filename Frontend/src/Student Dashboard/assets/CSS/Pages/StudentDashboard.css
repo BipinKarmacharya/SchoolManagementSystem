@@ -1,0 +1,262 @@
+.StdDashboard {
+  height: 89vh;
+  cursor: pointer;
+}
+
+.stdGridItem {
+  /* height: 150px; */
+  grid-column-start: span 2;
+  background: #2196f3d6;
+  border-radius: 12px;
+  color: white;
+  padding: 0 40px 0 20px;
+  box-shadow: var(--box-shadow-1);
+}
+.stdGridItem:hover {
+  box-shadow: 3px 3px 10px #bebdbd, -3px 3px 20px rgb(148, 146, 146);
+  transition: linear 0.2s;
+  cursor: pointer;
+}
+#totalCount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+}
+
+.stdTodayCount {
+  grid-column-start: span 3;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--clr-primary-5);
+  color: var(--text-color);
+  padding: 0 20px 20px 20px;
+  position: absolute;
+  width: 80%;
+  border-radius: 10px;
+  margin-left: 5%;
+  margin-top: 20rem;
+  
+}
+.stdPresentBox {
+  margin-top: 30px;
+    height: 6px;
+    background-color: var(--clr-grey-5);
+    border-radius: var(--border-radius-2);
+}
+.stdShowPercent {
+  position: absolute;
+  right: 20px;
+  height: 10px;
+  color: black;
+
+}
+
+
+.stdPanelText {
+  position: absolute;
+  width: 45%;
+  height: 20%;
+  background-color: #bebdbd;
+  border-radius: 20px;
+  margin-left: 9%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.stdPanelImage {
+  height: 8rem;
+  width: 200px;
+}
+.stdPanelText span {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: white;
+
+}
+#stdPanel p {
+  font-family: var(--ff-secondary);
+  font-size: 18px;
+  text-transform: capitalize;
+  padding-top: 5px;
+}
+
+#stdPanel img {
+  width: 100%;
+  margin-top: -30px;
+}
+.stdDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 80%;
+}
+.stdContainer .icon {
+  color: wheat;
+}
+
+.dropdownContent {
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 70%;
+  height: 60%;
+  border-radius: 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 15px;
+  z-index: 1;
+  margin-top: 3rem;
+  margin-left: -9rem;
+  opacity: 0;
+
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+}
+
+.dropdownContent.visible {
+  opacity: 1;
+  visibility: visible;
+}
+.dropdownContent button {
+  margin-top: 40px;
+  margin-left: -30px;
+}
+.dropdownContent p {
+  margin: 0;
+  padding: 4px 0;
+  color: black;
+}
+
+.arrow {
+  transition: transform 0.3s ease; /* Smooth rotation */
+}
+
+.arrow.rotate {
+  transform: rotate(180deg); /* Rotate arrow upwards */
+}
+.dropdownContent input {
+  background: transparent;
+}
+.dropdownContent .edit {
+  margin-left: 68%;
+  position: absolute;
+  color: black;
+}
+.dropdownContent span input {
+  display: flex;
+}
+
+.rbc-header {
+  border-bottom: none;
+  padding: 10px;
+  font-weight: bold;
+  color: #555;
+  color: black;
+  border-radius: 10px;
+}
+.rbc-month-header span {
+  color: black;
+}
+.rbc-toolbar .rbc-toolbar-label {
+  color: black;
+}
+.std-calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin-left: 100%; */
+  margin-top: 55rem;
+  /* position: absolute; */
+}
+.std-events-box {
+  position: absolute;
+  top: 26rem;
+  height: 30%;
+  width: 42rem;
+  background-color: rgba(23, 112, 213, 0.345);
+  padding: 22px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(19, 19, 19, 0.1);
+}
+.rbc-time-content {
+  color: black;
+}
+
+.rbc-agenda-empty {
+  color: black;
+}
+.rbc-timeslot-group {
+  color: black;
+}
+.rbc-time-slot span {
+  color: black;
+}
+.rbc-header span {
+  color: black;
+}
+
+.rbc-calendar {
+  color: black;
+}
+.rbc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.custom-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 50%;
+}
+
+.custom-toolbar button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.custom-toolbar button:hover {
+  background-color: #0056b3;
+}
+
+.custom-toolbar .label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.events-box h3 {
+  margin-bottom: 10px;
+  color: black;
+}
+
+.events-box ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.events-box li {
+  margin-bottom: 10px;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.events-box button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.events-box button:hover {
+  background-color: #cc0000;
+}

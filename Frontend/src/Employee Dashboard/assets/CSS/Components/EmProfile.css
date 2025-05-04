@@ -1,0 +1,86 @@
+.Emcon {
+  height: 45%;
+  width: 48%;
+  position: absolute;
+  margin-top: 1rem;
+  border-radius: 20px;
+  background: rgb(232, 240, 243);
+  background: linear-gradient(
+    0deg,
+    rgba(232, 240, 243, 1) 0%,
+    rgba(41, 124, 230, 1) 47%
+  );
+}
+.Emprofileimg {
+  border-radius: 80px;
+  background: #4e82cf85;
+  box-shadow: 1px 1px 3px #bebebe, -1px -1px 3px #ffffff;
+  width: 10rem;
+  height: 10rem;
+  overflow: hidden;
+  top: 10%;
+  margin-left: 8%;
+  position: absolute;
+}
+.Emprofileimg input {
+  margin-top: -11rem;
+  opacity: 100%;
+  width: 30px;
+  margin-left: 4%;
+  position: absolute;
+}
+.custom-file-buttonEm {
+  color: rgb(92, 90, 90);
+  width: 24px;
+  height: 24px;
+  border-radius: 50px;
+  background-color: white;
+  margin-top: 9rem;
+  margin-left: 28%;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.Emimage-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 90px;
+}
+.Em details span {
+  margin-top: 10%;
+}
+.Emname {
+  top: 20%;
+  position: absolute;
+  margin-left: 40%;
+}
+.employee_id {
+  top: 30%;
+  position: absolute;
+  left: 40%;
+}
+.address {
+  top: 40%;
+  position: absolute;
+  margin-left: 40%;
+}
+.Post {
+  width: 40%;
+  height: 20%;
+  background-color: #0f56c0b3;
+  color: black;
+  left: 30%;
+  top: 70%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  position: absolute;
+}

@@ -1,0 +1,117 @@
+/* Sidebar Toggling */
+.sidebar {
+  position: fixed;
+  left: -300px; /* Initially hidden */
+  top: 11vh; /* Adjusted to stay below the header */
+  width: 250px;
+  height: calc(100vh - 11vh); /* Adjust height to fit below the header */
+  background-color: var(--base-clr);
+  color: white;
+  box-shadow: var(--box-shadow-2);
+  transition: left 0.3s ease-in-out;
+  padding: 0 20px;
+  overflow-y: auto; /* Ensure scrolling if content overflows */
+  z-index: 1000; /* Ensure it's above content */
+}
+
+/* When sidebar is open */
+.sidebar.open {
+  left: 0; /* Moves in from the left */
+}
+.sidebar:not(.open) {
+  transform: translateX(-100%);
+}
+
+/* Main content shift when sidebar opens */
+.content {
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.content.shifted {
+  margin-left: 270px; /* Adjust content when sidebar opens */
+}
+
+.menu-item,
+.menu-item-title span {
+  margin: 10px;
+  color: var(--text-color);
+}
+.menu-item-title span {
+  width: 150px;
+}
+.menu-item-title {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  display: relative;
+}
+.toggleIcon {
+  position: absolute;
+  right: 30px;
+}
+.submenu-container {
+    overflow: hidden; /* Prevents overflow issues */
+  }
+.sub-menu {
+  margin-left: 25px;
+  padding-left: 10px;
+  background: #f8f9fa;
+  border-left: 3px solid #007bff;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+.sub-item {
+  margin-top: 5px;
+}
+.sub-item a {
+  display: block;
+  padding: 8px;
+  color: #333;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.sub-item a:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 950px) {
+  .sidebar {
+    background-color: rgb(242, 242, 250);
+    left: -300px; /* Keep it hidden initially */
+    width: 250px;
+    position: fixed;
+    height: 100vh; /* Full height */
+    top: 11vh; /* Covers entire screen */
+    z-index: 1100; /* Ensure it is above other elements */
+  }
+
+  .sidebar.open {
+    left: 0; /* Overlay the content */
+  }
+
+  /* Content should NOT shift on small screens */
+  .content.shifted {
+    margin-left: 0;
+  }
+}
+
+/* Background overlay when sidebar is open */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 950; /* Just below the sidebar */
+}
+
+/* Show overlay when sidebar is open */
+.sidebar.open ~ .sidebar-overlay {
+  display: block;
+}

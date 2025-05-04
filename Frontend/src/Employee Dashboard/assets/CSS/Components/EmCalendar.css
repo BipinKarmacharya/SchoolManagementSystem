@@ -1,0 +1,45 @@
+/* MyCalendar.css */
+.Em-calendar-container {
+position: absolute;
+margin-left: 50%;
+ margin-top: 10px;
+}
+
+
+
+
+
+.rbc-time-content
+ {
+  color: black;
+ }
+ 
+ .rbc-agenda-empty
+  {
+    color: black;
+  }
+  .rbc-timeslot-group
+  {
+    color: black;
+  }
+  .rbc-time-slot span
+  {
+    color: black;
+  }
+  .rbc-header span
+  {
+    color: black;
+  }
+  
+ .rbc-calendar
+ {
+  color: black;
+ }  
+ .rbc-toolbar-label
+ {
+  font-weight: bold;
+ }
+ .rbc-toolbar:nth-child(3)
+  {
+   margin-left: 10%;
+  }

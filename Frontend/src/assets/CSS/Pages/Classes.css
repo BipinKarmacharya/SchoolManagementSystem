@@ -1,0 +1,129 @@
+/* All Classes */
+.allClasses {
+    margin: 5vh auto;
+    display: grid;
+    grid-template-columns: repeat(4,minmax(30vh, 40vw));
+    gap: 2rem;
+}
+.class {
+    padding: 20px;
+    border-radius: var(--border-radius-2);
+    cursor: pointer;
+    box-shadow: var(--box-shadow-1);
+}
+.classDetails {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.classTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.classIcons {
+    font-size: 18px;
+}
+.classIcons #delete {
+    color: #ff0000;
+    margin-left: 0.8rem;
+}
+.totalSubjects,
+.totalStudents,
+.classTeacher {
+    display: flex;
+    height: 20px;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.text-Class-details {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+.subjectIcon,
+.stdIcon {
+    font-size: 20px;
+}
+
+.classDetails h1 {
+    height: 10px;
+}
+.addNew {
+    min-height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Add Classes */
+
+#addClasses {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 100px ;
+} 
+
+
+/* Toastify */
+.addClassToastify {
+    position: absolute;
+    top: 8vh;
+    right: 10px;
+}
+
+/* @media (width < 900px) {
+    form {
+         width: 90vw;
+    }
+}  */
+
+
+/* Modal Styling */
+.edit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+}
+.modal-content form {
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.modal-content form label {
+    text-align: left;
+    margin: 10px;
+}
+.modal-content form input,
+.modal-content form select {
+    box-shadow: var(--box-shadow-1);
+}
+.modal-content form select {
+    width: 100%;
+    padding: 0 0 0 10px;
+}
+.modal-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}

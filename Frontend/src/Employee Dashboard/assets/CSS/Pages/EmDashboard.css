@@ -1,0 +1,236 @@
+.Emdashboard {
+  height: 89vh;
+  cursor: pointer;
+}
+
+.EmgridItem {
+  height: 150px;
+  grid-column-start: span 2;
+  background: #2196f3d6;
+  border-radius: 12px;
+  color: white;
+  padding: 0 40px 0 20px;
+  box-shadow: var(--box-shadow-1);
+}
+.EmgridItem:hover {
+  box-shadow: 3px 3px 10px #bebdbd, -3px 3px 20px rgb(148, 146, 146);
+  transition: linear 0.2s;
+  cursor: pointer;
+}
+.EmtotalCount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+}
+.gridIcon {
+  font-size: 40px;
+}
+.EmtodayCount {
+  grid-column-start: span 3;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--clr-primary-5);
+  color: var(--text-color);
+  padding: 0 20px 20px 20px;
+  position: absolute;
+  width: 45%;
+  margin-left: 5px;
+  margin-top: 25em;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.EmtodayCount:hover{
+  box-shadow: 3px 3px 10px #bebdbd, -3px 3px 20px rgb(148, 146, 146);
+  transition: linear 0.2s;
+  cursor: pointer;
+}
+.EmpresentBox {
+  margin-top: 30px;
+  height: 6px;
+  background-color: var(--clr-grey-5);
+  border-radius: var(--border-radius-2);
+}
+.EmshowPercent {
+  position: absolute;
+  right: 20px;
+  height: 10px;
+  color: black;
+
+}
+
+.EmpanelText {
+  position: absolute;
+  width: 40%;
+  height: 20%;
+  background-color: #bebdbd;
+  border-radius: 20px;
+  margin-left: 12%;
+}
+ .EmpanelImage {
+  height: 8rem;
+  width: 200px;
+}
+ /* #panel span {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+} */
+ #Empanel p {
+  font-family: var(--ff-secondary);
+  font-size: 18px;
+  text-transform: capitalize;
+  padding-top: 5px;
+}
+
+ #Empanel img {
+  width: 100%;
+  margin-top: -30px;
+}
+/* .Calendar {
+  margin-left: 5%;
+} */
+.Emdetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 80%;
+}
+.Emcon .icon {
+  color: wheat;
+}
+
+.rbc-calendar {
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.rbc-header {
+  border-bottom: none;
+  padding: 10px;
+  font-weight: bold;
+  color: #555;
+  color: black;
+  border-radius: 10px;
+}
+.rbc-month-header span {
+  color: black;
+}
+.rbc-toolbar .rbc-toolbar-label {
+  color: black;
+}
+.Em-events-box {
+  position: absolute;
+  top: 33rem;
+  width: 500px;
+  background-color: rgba(17, 166, 230, 0.388);
+  padding: 22px;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(19, 19, 19, 0.1);
+}
+.rbc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.custom-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 50%;
+}
+
+.custom-toolbar button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.custom-toolbar button:hover {
+  background-color: #0056b3;
+}
+
+.custom-toolbar .label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Em-events-box {
+  position: absolute;
+  top: 26rem;
+  width: 500px;
+  background-color: rgba(17, 166, 230, 0.388);
+  padding: 22px;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(19, 19, 19, 0.1);
+}
+
+.Em-events-box h3 {
+  margin-bottom: 10px;
+  color: black;
+ 
+}
+
+.Em-events-box ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.Em-vents-box li {
+  margin-bottom: 10px;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Em-events-box button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Em-events-box button:hover {
+  background-color: #cc0000;
+}
+/* .notice {
+  position: absolute;
+
+  width: 44rem;
+  height: 10rem;
+  margin-top: 10rem;
+  left: 3%;
+  background-color: #f0f0f0;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(19, 19, 19, 0.1);
+  align-items: center;
+}
+
+.notice ul {
+  margin-top: -4rem;
+  list-style-type: none;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
